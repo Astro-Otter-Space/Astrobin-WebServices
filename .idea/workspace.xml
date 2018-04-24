@@ -14,16 +14,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="60">
-                <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+              <first_editor relative-caret-position="366">
+                <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
               </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="commposer.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/commposer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -71,6 +80,7 @@
         <option value="$PROJECT_DIR$/Services/GetImage.php" />
         <option value="$PROJECT_DIR$/Services/GetLocation.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/commposer.json" />
       </list>
     </option>
   </component>
@@ -151,12 +161,12 @@
       <option name="presentableId" value="Default" />
       <updated>1524318007453</updated>
       <workItem from="1524318009913" duration="806000" />
-      <workItem from="1524597481062" duration="853000" />
+      <workItem from="1524597481062" duration="1806000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1659000" />
+    <option name="totallyTimeSpent" value="2612000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1922" height="1054" extended-state="6" />
@@ -307,6 +317,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="366">
+            <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Services/getTodayImage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -317,15 +339,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="60">
-            <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          </first_editor>
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
+    <entry file="file://$PROJECT_DIR$/commposer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
