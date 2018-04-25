@@ -50,6 +50,8 @@ class getTodayImage extends AbstractWebService implements WsInterface
 //                dump($sndRawCall);
 //            }
         }
+
+        return $today;
     }
 
 

@@ -25,11 +25,15 @@ class GetLocation extends AbstractWebService implements WsInterface
     const END_POINT = 'location/';
 
 
+    /**
+     * @param $location
+     * @param $limit
+     * @throws WsResponseException
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     */
     public function getLocation($location, $limit)
     {
-
         $params = ['limit' => $limit];
-
         return $this->callWs($params);
     }
 
