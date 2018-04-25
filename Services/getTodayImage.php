@@ -9,16 +9,16 @@
 namespace HamhamFonfon\Astrobin\Services;
 
 use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\AstrobinInterface;
 use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
-use HamhamFonfon\Astrobin\Response\AstrobinImage;
-use HamhamFonfon\Astrobin\Response\AstrobinToday;
+use HamhamFonfon\Astrobin\Response\Image;
+use HamhamFonfon\Astrobin\Response\Today;
+use HamhamFonfon\Astrobin\WsInterface;
 
 /**
  * Class getTodayImage
  * @package AppBundle\Astrobin\Services
  */
-class getTodayImage extends AbstractWebService implements AstrobinInterface
+class getTodayImage extends AbstractWebService implements WsInterface
 {
 
     const END_POINT = 'imageoftheday/';
@@ -27,15 +27,14 @@ class getTodayImage extends AbstractWebService implements AstrobinInterface
 
 
     /**
-     * @throws AstrobinResponseExceptions
-     * @throws \AppBundle\Astrobin\Exceptions\astrobinException
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsResponseException
      * @throws \ReflectionException
      */
     public function getTodayImage()
     {
         $rawResp = $this->callWs(['limit' => 1]);
 
-        $astrobinToday = new AstrobinToday();
+        $astrobinToday = new Today();
         $astrobinToday->fromObj($rawResp[0]);
         $today = new \DateTime('now');
         if ($today->format(self::FORMAT_DATE_ASTROBIN) == $astrobinToday->date) {
@@ -57,7 +56,7 @@ class getTodayImage extends AbstractWebService implements AstrobinInterface
 
     /**
      * @param array $params
-     * @return AstrobinImage
+     * @return Image
      * @throws \AppBundle\Astrobin\Exceptions\astrobinException
      */
     public function callWs($params = [])

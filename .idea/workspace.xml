@@ -23,50 +23,53 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="WsInterface.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WsInterface.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GetImage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+            <state relative-caret-position="60">
+              <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getTodayImage.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Services/getTodayImage.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
-                <element signature="e#50#95#0#PHP" expanded="true" />
+                <element signature="e#133#178#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AstrobinLocation.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Response/AstrobinLocation.php">
+      <file leaf-file-name="GetLocation.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Services/GetLocation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+            <state relative-caret-position="180">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+              <folding>
+                <element signature="e#133#178#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AstrobinToday.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Response/AstrobinToday.php">
+      <file leaf-file-name="AbstractWebService.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AbstractWebService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AstrobinImage.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Response/AstrobinImage.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractResponse.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Response/AbstractResponse.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+            <state relative-caret-position="151">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -80,21 +83,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/AstrobinApiBundle/composer.json" />
-        <option value="$PROJECT_DIR$/AstrobinInterface.php" />
         <option value="$PROJECT_DIR$/Exceptions/AstrobinException.php" />
         <option value="$PROJECT_DIR$/commposer.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/AstrobinWebService.php" />
-        <option value="$PROJECT_DIR$/Services/GetLocation.php" />
-        <option value="$PROJECT_DIR$/Services/getTodayImage.php" />
-        <option value="$PROJECT_DIR$/AbstractWebService.php" />
         <option value="$PROJECT_DIR$/Exceptions/AstrobinResponseExceptions.php" />
-        <option value="$PROJECT_DIR$/Services/GetImage.php" />
         <option value="$PROJECT_DIR$/Response/AbstractAstrobinResponse.php" />
         <option value="$PROJECT_DIR$/Response/AstrobinCollection.php" />
         <option value="$PROJECT_DIR$/Response/AstrobinImage.php" />
         <option value="$PROJECT_DIR$/Response/AstrobinLocation.php" />
         <option value="$PROJECT_DIR$/Response/AstrobinToday.php" />
+        <option value="$PROJECT_DIR$/AstrobinInterface.php" />
+        <option value="$PROJECT_DIR$/Services/GetImage.php" />
+        <option value="$PROJECT_DIR$/Services/getTodayImage.php" />
+        <option value="$PROJECT_DIR$/Services/GetLocation.php" />
+        <option value="$PROJECT_DIR$/AbstractWebService.php" />
       </list>
     </option>
   </component>
@@ -181,12 +184,12 @@
       <updated>1524318007453</updated>
       <workItem from="1524318009913" duration="806000" />
       <workItem from="1524597481062" duration="2921000" />
-      <workItem from="1524674619766" duration="1061000" />
+      <workItem from="1524674619766" duration="1565000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4788000" />
+    <option name="totallyTimeSpent" value="5292000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1922" height="1054" extended-state="6" />
@@ -248,6 +251,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#133#178#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -263,7 +269,7 @@
     <entry file="file://$PROJECT_DIR$/src/AstrobinApiBundle/LICENSE" />
     <entry file="file://$PROJECT_DIR$/src/AstrobinApiBundle/composer.json" />
     <entry file="file://$PROJECT_DIR$/composer.json" />
-    <entry file="file://$PROJECT_DIR$/Exceptions/AstrobinException.php">
+    <entry file="file://$PROJECT_DIR$/Exceptions/WsException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
@@ -289,48 +295,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetLocation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Services/getTodayImage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AstrobinInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Exceptions/AstrobinResponseException.php">
+    <entry file="file://$PROJECT_DIR$/Exceptions/WsResponseException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AbstractWebService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1809">
-          <caret line="147" column="60" selection-start-line="147" selection-start-column="60" selection-end-line="147" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
-          <folding>
-            <element signature="e#50#95#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -355,6 +323,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Response/AstrobinToday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Response/AstrobinLocation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -362,10 +337,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/AstrobinToday.php">
+    <entry file="file://$PROJECT_DIR$/WsInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+        <state relative-caret-position="135">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/getTodayImage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#133#178#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/GetLocation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#133#178#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AbstractWebService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>

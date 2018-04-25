@@ -9,16 +9,17 @@
 namespace HamhamFonfon\Astrobin\Services;
 
 use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\AstrobinInterface;
+use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
 use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
-use HamhamFonfon\Astrobin\Response\AstrobinLocation;
+use HamhamFonfon\Astrobin\Response\Location;
+use HamhamFonfon\Astrobin\WsInterface;
 
 
 /**
  * Class GetLocation
  * @package AppBundle\Astrobin\Services
  */
-class GetLocation extends AbstractWebService implements AstrobinInterface
+class GetLocation extends AbstractWebService implements WsInterface
 {
 
     const END_POINT = 'location/';
@@ -32,15 +33,17 @@ class GetLocation extends AbstractWebService implements AstrobinInterface
         return $this->callWs($params);
     }
 
+
     /**
      * @param array $params
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
+     * @throws WsResponseException
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      */
     public function callWs($params = [])
     {
         $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
         if (!isset($rawResp->objects) || 0 == $rawResp->meta->total_count) {
-            throw new AstrobinResponseExceptions("Response from Astrobin is empty");
+            throw new WsResponseException("Response from Astrobin is empty");
         }
         return $this->responseWs($rawResp->objects);
     }
@@ -53,7 +56,7 @@ class GetLocation extends AbstractWebService implements AstrobinInterface
         $astrobinResponse = [];
 
         dump($object);
-        $astrotest = new AstrobinLocation();
+        $astrotest = new Location();
     }
 
 

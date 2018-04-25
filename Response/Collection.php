@@ -9,10 +9,10 @@
 namespace HamhamFonfon\Astrobin\Response;
 
 /**
- * Class AstrobinCollection
+ * Class Collection
  * @package HamhamFonfon\Astrobin\Response
  */
-class AstrobinCollection
+class Collection
 {
 
     public $images;
@@ -24,7 +24,7 @@ class AstrobinCollection
     {
         $listImages = [];
         foreach ($images as $image) {
-            $astrobinImage = new AstrobinImage();
+            $astrobinImage = new Image();
             $astrobinImage->fromObj($image);
             $listImages[] = $astrobinImage;
         }

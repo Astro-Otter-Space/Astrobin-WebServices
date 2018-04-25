@@ -13,7 +13,7 @@ use Throwable;
  * Class astroBinException
  * @package AppBundle\Astrobin\Exceptions
  */
-class AstrobinException extends \Exception
+class WsException extends \Exception
 {
 
     /**

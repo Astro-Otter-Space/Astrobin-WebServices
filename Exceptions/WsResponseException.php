@@ -9,7 +9,7 @@
 namespace HamhamFonfon\Astrobin\Exceptions;
 
 
-class AstrobinResponseException extends AstrobinException
+class WsResponseException extends WsException
 {
 
 }

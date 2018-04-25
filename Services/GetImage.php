@@ -3,16 +3,16 @@
 namespace HamhamFonfon\Astrobin\Services;
 
 use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\AstrobinInterface;
-use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
-use HamhamFonfon\Astrobin\Response\AstrobinCollection;
-use HamhamFonfon\Astrobin\Response\AstrobinImage;
+use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
+use HamhamFonfon\Astrobin\Response\Collection;
+use HamhamFonfon\Astrobin\Response\Image;
+use HamhamFonfon\Astrobin\WsInterface;
 
 /**
  * Class getObject
  * @package HamhamFonfon\Astrobin\Services
  */
-class GetImage extends AbstractWebService implements AstrobinInterface
+class GetImage extends AbstractWebService implements WsInterface
 {
 
     const END_POINT = 'image/';
@@ -20,8 +20,8 @@ class GetImage extends AbstractWebService implements AstrobinInterface
 
     /**
      * @param $id
-     * @return AstrobinCollection|AstrobinImage|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
+     * @return Collection|Image|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImageById($id)
@@ -32,11 +32,11 @@ class GetImage extends AbstractWebService implements AstrobinInterface
 
 
     /**
-     * Return a collection of AstrobinImage()
+     * Return a collection of Image()
      * @param $subjectId
      * @param $limit
-     * @return AstrobinCollection|AstrobinImage|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
+     * @return Collection|Image|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesBySubject($subjectId, $limit)
@@ -53,8 +53,8 @@ class GetImage extends AbstractWebService implements AstrobinInterface
     /**
      * @param $description
      * @param $limit
-     * @return AstrobinCollection|AstrobinImage|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
+     * @return Collection|Image|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByDescription($description, $limit)
@@ -69,11 +69,11 @@ class GetImage extends AbstractWebService implements AstrobinInterface
 
 
     /**
-     * Return an AstrobinCollection per user name
+     * Return an Collection per user name
      * @param $userName
      * @param $limit
-     * @return AstrobinCollection|AstrobinImage|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
+     * @return Collection|Image|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByUser($userName, $limit)
@@ -90,15 +90,15 @@ class GetImage extends AbstractWebService implements AstrobinInterface
     /**
      * Call WS "image" with parameters
      * @param array $params
-     * @return AstrobinCollection|AstrobinImage|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
+     * @return Collection|Image|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function callWs($params = [])
     {
-        $rawResp = $this->call(self::END_POINT, AstrobinWebService::METHOD_GET, $params);
+        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, $params);
         if (!isset($rawResp->objects) || 0 == $rawResp->meta->total_count) {
-            throw new AstrobinResponseExceptions("Response from Astrobin is empty");
+            throw new WsResponseException("Response from Astrobin is empty");
         }
         return $this->responseWs($rawResp->objects);
     }
@@ -106,9 +106,9 @@ class GetImage extends AbstractWebService implements AstrobinInterface
 
     /**
      * Build response from WebService Astrobin
-     *
      * @param array $objects
-     * @return AstrobinCollection|AstrobinImage|null
+     * @return Collection|Image|null
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
     public function responseWs($objects = [])
@@ -117,13 +117,13 @@ class GetImage extends AbstractWebService implements AstrobinInterface
         if (is_array($objects) && 0 < count($objects)) {
 
             if (1 < count($objects)) {
-                /** @var AstrobinCollection $astrobinCollection */
-                $astrobinResponse = new AstrobinCollection();
+                /** @var Collection $astrobinCollection */
+                $astrobinResponse = new Collection();
                 $astrobinResponse->setImages($objects);
 
             } else {
-                /** @var AstrobinImage $astrobinResponse */
-                $astrobinResponse = new AstrobinImage();
+                /** @var Image $astrobinResponse */
+                $astrobinResponse = new Image();
                 $astrobinResponse->fromObj($objects[0]);
             }
         }

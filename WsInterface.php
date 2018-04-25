@@ -12,7 +12,7 @@ namespace HamhamFonfon\Astrobin;
  * Interface astrobinInterface
  * @package AppBundle\Astrobin
  */
-interface AstrobinInterface
+interface WsInterface
 {
     public function callWs();
     public function responseWs();

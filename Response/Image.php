@@ -9,10 +9,10 @@
 namespace HamhamFonfon\Astrobin\Response;
 
 /**
- * Class AstrobinImage
+ * Class Image
  * @package HamhamFonfon\Astrobin\Response
  */
-class AstrobinImage extends AbstractResponse
+class Image extends AbstractResponse
 {
     public $title;
     public $subjects;

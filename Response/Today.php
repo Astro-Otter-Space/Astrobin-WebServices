@@ -9,10 +9,10 @@
 namespace HamhamFonfon\Astrobin\Response;
 
 /**
- * Class AstrobinToday
+ * Class Today
  * @package HamhamFonfon\Astrobin\Response
  */
-class AstrobinToday extends AbstractResponse
+class Today extends AbstractResponse
 {
     public $date;
     public $image;

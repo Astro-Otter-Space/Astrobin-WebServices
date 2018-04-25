@@ -7,7 +7,7 @@
  */
 
 namespace HamhamFonfon\Astrobin;
-use HamhamFonfon\Astrobin\Exceptions\AstrobinException;
+use HamhamFonfon\Astrobin\Exceptions\WsException;
 
 /**
  * Class AstrobinWebService
@@ -46,52 +46,54 @@ abstract class AbstractWebService
      * @param $method
      * @param $data
      * @return mixed|null
-     * @throws astrobinException
+     * @throws WsException
      */
     protected function call($endPoint, $method, $data)
     {
         $obj = null;
         $curl = $this->initCurl($endPoint, $method, $data);
 
+        $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
         if(!$resp = curl_exec($curl)) {
             if (empty($resp)) {
-                throw new AstrobinException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
+                throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
             }
             // show problem, genere exception
-            throw new AstrobinException(
+            throw new WsException(
                 sprintf("[Astrobin Response] HTTP Error (curl_exec) #%u: %s", curl_errno($curl), curl_error($curl))
             );
         }
 
         // TODO make something with HTTP code...
-        $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
         curl_close($curl);
 
         if (!$resp || empty($resp)) {
-            throw new AstrobinException("[Astrobin Response] Empty Json");
+            throw new WsException("[Astrobin Response] Empty Json");
         }
 
         if (is_string($resp)) {
             if (false === strpos($resp, '{', 0)) {
                 // check if html
                 if (false !== strpos($resp, '<html', 0)) {
-                    throw new AstrobinException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
+                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
                 }
-                throw new AstrobinException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
+                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
             }
             $obj = json_decode($resp);
             if (JSON_ERROR_NONE != json_last_error()) {
-                throw new AstrobinException(
+                throw new WsException(
                     sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
                 );
             }
             if (array_key_exists('error', $obj)) {
-                throw new AstrobinException(
+                throw new WsException(
                     sprintf("[Astrobin ERROR] Response : %s", $obj->error)
                 );
             }
         } else {
-            throw new AstrobinException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
+            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
         }
         return $obj;
     }

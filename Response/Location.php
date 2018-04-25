@@ -9,10 +9,10 @@
 namespace HamhamFonfon\Astrobin\Response;
 
 /**
- * Class AstrobinLocation
+ * Class Location
  * @package HamhamFonfon\Astrobin\Response
  */
-class AstrobinLocation
+class Location
 {
     public $name;
     public $city;

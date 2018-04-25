@@ -7,7 +7,7 @@
  */
 
 namespace HamhamFonfon\Astrobin\Response;
-use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseException;
+use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
 
 /**
  * Class AbstractAstrobinResponse
@@ -19,7 +19,7 @@ abstract class AbstractResponse
     /**
      * Convert stdClass from WS to an array
      * @param \stdClass $obj
-     * @throws AstrobinResponseException
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
     public function fromObj(\stdClass $obj)
@@ -31,7 +31,7 @@ abstract class AbstractResponse
     /**
      * Build properties of class based on WS response
      * @param array $objArr
-     * @throws AstrobinResponseException
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
     private function fromArray(array $objArr)
@@ -41,7 +41,7 @@ abstract class AbstractResponse
 
         foreach ($reflector->getProperties() as $property) {
             if (!array_key_exists($property->getName(), $objArr)) {
-                throw new AstrobinResponseException(
+                throw new WsResponseException(
                     sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), get_class($this))
                 );
             }
