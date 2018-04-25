@@ -1,6 +1,8 @@
 Astrobin API for PHP
 ====================
 
+version 0.2.0
+
 ## Requirements
 * PHP 5.6 min or superior
 * API Key and API Secret from Astrobin
