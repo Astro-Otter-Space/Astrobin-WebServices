@@ -18,10 +18,7 @@ class AstrobinCollection
     public $images;
 
     /**
-     * TODO : find equivalent of Doctrine ArrayCollection
      * @param $images
-     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions
-     * @throws \ReflectionException
      */
     public function setImages($images)
     {

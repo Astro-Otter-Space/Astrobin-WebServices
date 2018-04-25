@@ -8,8 +8,8 @@
 
 namespace HamhamFonfon\Astrobin\Services;
 
+use HamhamFonfon\Astrobin\AbstractWebService;
 use HamhamFonfon\Astrobin\AstrobinInterface;
-use HamhamFonfon\Astrobin\AstrobinWebService;
 use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
 use HamhamFonfon\Astrobin\Response\AstrobinImage;
 use HamhamFonfon\Astrobin\Response\AstrobinToday;
@@ -18,7 +18,7 @@ use HamhamFonfon\Astrobin\Response\AstrobinToday;
  * Class getTodayImage
  * @package AppBundle\Astrobin\Services
  */
-class getTodayImage extends AstrobinWebService implements AstrobinInterface
+class getTodayImage extends AbstractWebService implements AstrobinInterface
 {
 
     const END_POINT = 'imageoftheday/';

@@ -8,8 +8,11 @@
 
 namespace HamhamFonfon\Astrobin\Response;
 
-
-class AstrobinToday extends AbstractAstrobinResponse
+/**
+ * Class AstrobinToday
+ * @package HamhamFonfon\Astrobin\Response
+ */
+class AstrobinToday extends AbstractResponse
 {
     public $date;
     public $image;

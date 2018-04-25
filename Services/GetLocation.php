@@ -8,8 +8,8 @@
 
 namespace HamhamFonfon\Astrobin\Services;
 
+use HamhamFonfon\Astrobin\AbstractWebService;
 use HamhamFonfon\Astrobin\AstrobinInterface;
-use HamhamFonfon\Astrobin\AstrobinWebService;
 use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
 use HamhamFonfon\Astrobin\Response\AstrobinLocation;
 
@@ -18,7 +18,7 @@ use HamhamFonfon\Astrobin\Response\AstrobinLocation;
  * Class GetLocation
  * @package AppBundle\Astrobin\Services
  */
-class GetLocation extends AstrobinWebService implements AstrobinInterface
+class GetLocation extends AbstractWebService implements AstrobinInterface
 {
 
     const END_POINT = 'location/';

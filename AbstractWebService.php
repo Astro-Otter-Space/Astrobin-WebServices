@@ -13,7 +13,7 @@ use HamhamFonfon\Astrobin\Exceptions\AstrobinException;
  * Class AstrobinWebService
  * @package AppBundle\Astrobin
  */
-abstract class AstrobinWebService
+abstract class AbstractWebService
 {
     const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
     const MAX_REDIRS = 10;
@@ -52,13 +52,14 @@ abstract class AstrobinWebService
     {
         $obj = null;
         $curl = $this->initCurl($endPoint, $method, $data);
+
         if(!$resp = curl_exec($curl)) {
             if (empty($resp)) {
-                throw new AstrobinException("Empty Json response from Astrobin");
+                throw new AstrobinException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
             }
             // show problem, genere exception
             throw new AstrobinException(
-                sprintf("HTTP Error (curl_exec) #%u: %s", curl_errno($curl), curl_error($curl))
+                sprintf("[Astrobin Response] HTTP Error (curl_exec) #%u: %s", curl_errno($curl), curl_error($curl))
             );
         }
 
@@ -67,30 +68,30 @@ abstract class AstrobinWebService
         curl_close($curl);
 
         if (!$resp || empty($resp)) {
-            throw new AstrobinException("Empty Json response from Astrobin");
+            throw new AstrobinException("[Astrobin Response] Empty Json");
         }
 
         if (is_string($resp)) {
             if (false === strpos($resp, '{', 0)) {
                 // check if html
                 if (false !== strpos($resp, '<html', 0)) {
-                    throw new AstrobinException(sprintf("Response from Astrobin is in HTML format :\n %s", $resp));
+                    throw new AstrobinException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
                 }
-                throw new AstrobinException(sprintf("Response from Astrobin is not a JSON valid format :\n %s", $resp));
+                throw new AstrobinException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
             }
             $obj = json_decode($resp);
             if (JSON_ERROR_NONE != json_last_error()) {
                 throw new AstrobinException(
-                    sprintf("Error JSON from Astrobin :\n%s", json_last_error())
+                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
                 );
             }
             if (array_key_exists('error', $obj)) {
                 throw new AstrobinException(
-                    sprintf("Error from Astrobin response : %s", $obj->error)
+                    sprintf("[Astrobin ERROR] Response : %s", $obj->error)
                 );
             }
         } else {
-            throw new AstrobinException("Response from Astrobin is not a string, got ". gettype($resp) . " instead.");
+            throw new AstrobinException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
         }
         return $obj;
     }
@@ -118,9 +119,9 @@ abstract class AstrobinWebService
 
             $url .= '?' . $paramData;
         } else {
-            if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
-                $url .= '/';
-            }
+//            if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
+//                $url .= '/';
+//            }
             $url .= $data . '?';
         }
 
@@ -144,7 +145,7 @@ abstract class AstrobinWebService
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => self::MAX_REDIRS,
-            CURLOPT_HEADER => false,
+            CURLOPT_HEADER => "Accdept:application/json", //false,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_SSL_VERIFYPEER => false

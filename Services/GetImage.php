@@ -2,8 +2,8 @@
 
 namespace HamhamFonfon\Astrobin\Services;
 
+use HamhamFonfon\Astrobin\AbstractWebService;
 use HamhamFonfon\Astrobin\AstrobinInterface;
-use HamhamFonfon\Astrobin\AstrobinWebService;
 use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
 use HamhamFonfon\Astrobin\Response\AstrobinCollection;
 use HamhamFonfon\Astrobin\Response\AstrobinImage;
@@ -12,7 +12,7 @@ use HamhamFonfon\Astrobin\Response\AstrobinImage;
  * Class getObject
  * @package HamhamFonfon\Astrobin\Services
  */
-class GetImage extends AstrobinWebService implements AstrobinInterface
+class GetImage extends AbstractWebService implements AstrobinInterface
 {
 
     const END_POINT = 'image/';
@@ -20,9 +20,8 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
 
     /**
      * @param $id
-     * @return AstrobinImage
-     * @throws AstrobinResponseExceptions
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
+     * @return AstrobinCollection|AstrobinImage|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
      * @throws \ReflectionException
      */
     public function getImageById($id)
@@ -34,12 +33,10 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
 
     /**
      * Return a collection of AstrobinImage()
-     *
      * @param $subjectId
      * @param $limit
-     * @return AstrobinImage|null
-     * @throws AstrobinResponseExceptions
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
+     * @return AstrobinCollection|AstrobinImage|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
      * @throws \ReflectionException
      */
     public function getImagesBySubject($subjectId, $limit)
@@ -56,9 +53,8 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
     /**
      * @param $description
      * @param $limit
-     * @return AstrobinImage|AstrobinCollection|null
-     * @throws AstrobinResponseExceptions
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
+     * @return AstrobinCollection|AstrobinImage|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
      * @throws \ReflectionException
      */
     public function getImagesByDescription($description, $limit)
@@ -76,9 +72,8 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
      * Return an AstrobinCollection per user name
      * @param $userName
      * @param $limit
-     * @return AstrobinImage|AstrobinCollection|null
-     * @throws AstrobinResponseExceptions
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
+     * @return AstrobinCollection|AstrobinImage|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
      * @throws \ReflectionException
      */
     public function getImagesByUser($userName, $limit)
@@ -94,11 +89,9 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
 
     /**
      * Call WS "image" with parameters
-     *
      * @param array $params
-     * @return AstrobinImage
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinException
-     * @throws \AppBundle\Astrobin\Exceptions\AstrobinResponseExceptions
+     * @return AstrobinCollection|AstrobinImage|null
+     * @throws \HamhamFonfon\Astrobin\Exceptions\AstrobinException
      * @throws \ReflectionException
      */
     public function callWs($params = [])
@@ -114,9 +107,8 @@ class GetImage extends AstrobinWebService implements AstrobinInterface
     /**
      * Build response from WebService Astrobin
      *
-     * @param $objects
+     * @param array $objects
      * @return AstrobinCollection|AstrobinImage|null
-     * @throws AstrobinResponseExceptions
      * @throws \ReflectionException
      */
     public function responseWs($objects = [])

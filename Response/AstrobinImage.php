@@ -12,7 +12,7 @@ namespace HamhamFonfon\Astrobin\Response;
  * Class AstrobinImage
  * @package HamhamFonfon\Astrobin\Response
  */
-class AstrobinImage extends AbstractAstrobinResponse
+class AstrobinImage extends AbstractResponse
 {
     public $title;
     public $subjects;

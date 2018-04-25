@@ -8,7 +8,10 @@
 
 namespace HamhamFonfon\Astrobin\Response;
 
-
+/**
+ * Class AstrobinLocation
+ * @package HamhamFonfon\Astrobin\Response
+ */
 class AstrobinLocation
 {
     public $name;
