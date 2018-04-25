@@ -21,6 +21,21 @@ You can install this API in 3 different ways.
 
 * If you want to add to your own composer.json project :
 
+```
+    [...]
+    "require" : {
+        [...]
+        "Hamhamfonfon/Astrobin" : "dev-master"
+    },
+    "repositories" : [{
+        "type" : "vcs",
+        "url" : "https://github.com/HamHamFonFon/Astrobin-API-PHP.git"
+    }],
+    [...]
+```
+
+Then
+`composer update Hamhamfonfon/Astrobiǹ
 
 * If you want to add to your Symfony project, with composer:
 
