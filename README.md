@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP)
+
 Astrobin API for PHP
 ====================
-
+git
 Version 0.3.0
 Caution : this is a package in developpement, not a final version.
 
