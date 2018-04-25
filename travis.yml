@@ -4,7 +4,7 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
-script:
-  - php ./vendor/bin/phpunit
+#script:
+#  - php ./vendor/bin/phpunit
 after_success:
   - bash <(curl -s https://codecov.io/bash)

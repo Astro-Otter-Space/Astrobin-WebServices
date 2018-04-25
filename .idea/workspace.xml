@@ -11,14 +11,24 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <executablePath>composer</executablePath>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+            <state relative-caret-position="30">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="travis.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -32,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetImageTest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GetImageTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/WsServices/GetImageTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+            <state relative-caret-position="225">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
         </entry>
@@ -111,9 +121,10 @@
         <option value="$PROJECT_DIR$/Services/GetImage.php" />
         <option value="$PROJECT_DIR$/Services/GetLocation.php" />
         <option value="$PROJECT_DIR$/Services/GetTodayImage.php" />
-        <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Tests/WsServices/GetImageTest.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/travis.yml" />
       </list>
     </option>
   </component>
@@ -210,8 +221,7 @@
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/node/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -231,7 +241,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="GetImageTest.testGetImageById" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+    <configuration name="GetImageTest.testGetImageById" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" singleton="true" temporary="true">
       <TestRunner class="GetImageTest" file="$PROJECT_DIR$/Tests/WsServices/GetImageTest.php" method="testGetImageById" scope="Method" />
     </configuration>
     <recent_temporary>
@@ -253,12 +263,12 @@
       <workItem from="1524318009913" duration="806000" />
       <workItem from="1524597481062" duration="2921000" />
       <workItem from="1524674619766" duration="4473000" />
-      <workItem from="1524684681848" duration="1883000" />
+      <workItem from="1524684681848" duration="2495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10083000" />
+    <option name="totallyTimeSpent" value="10695000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -274,11 +284,11 @@
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32967034" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32967034" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005325" side_tool="true" weight="0.32967034" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32967034" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32967034" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49946752" visible="true" weight="0.32967034" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25772098" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -504,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -520,8 +523,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/WsServices/GetImageTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+        <state relative-caret-position="225">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
         </state>
       </provider>
     </entry>
