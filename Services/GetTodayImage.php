@@ -10,7 +10,6 @@ namespace HamhamFonfon\Astrobin\Services;
 
 use HamhamFonfon\Astrobin\AbstractWebService;
 use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
-use HamhamFonfon\Astrobin\Response\Image;
 use HamhamFonfon\Astrobin\Response\Today;
 use HamhamFonfon\Astrobin\WsInterface;
 
@@ -18,7 +17,7 @@ use HamhamFonfon\Astrobin\WsInterface;
  * Class getTodayImage
  * @package AppBundle\Astrobin\Services
  */
-class getTodayImage extends AbstractWebService implements WsInterface
+class GetTodayImage extends AbstractWebService implements WsInterface
 {
 
     const END_POINT = 'imageoftheday/';

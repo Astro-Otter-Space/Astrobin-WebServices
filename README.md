@@ -1,7 +1,7 @@
 Astrobin API for PHP
 ====================
 
-Version 0.2.0
+Version 0.2.4
 Caution : this is a package in developpement, not a final version.
 
 ## Requirements
