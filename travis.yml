@@ -4,6 +4,7 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
+#before_script: composer install
 #script:
 #  - php ./vendor/bin/phpunit
 after_success:
