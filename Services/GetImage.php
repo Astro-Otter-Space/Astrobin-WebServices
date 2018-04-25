@@ -1,16 +1,16 @@
 <?php
 
-namespace HamhamFonfon\Astrobin\Services;
+namespace Astrobin\Services;
 
-use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
-use HamhamFonfon\Astrobin\Response\Collection;
-use HamhamFonfon\Astrobin\Response\Image;
-use HamhamFonfon\Astrobin\WsInterface;
+use Astrobin\AbstractWebService;
+use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Collection;
+use Astrobin\Response\Image;
+use Astrobin\WsInterface;
 
 /**
- * Class getObject
- * @package HamhamFonfon\Astrobin\Services
+ * Class GetImage
+ * @package Astrobin\Services
  */
 class GetImage extends AbstractWebService implements WsInterface
 {
@@ -21,7 +21,6 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * @param $id
      * @return Collection|Image|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImageById($id)
@@ -33,10 +32,10 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Return a collection of Image()
+     *
      * @param $subjectId
      * @param $limit
      * @return Collection|Image|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesBySubject($subjectId, $limit)
@@ -54,7 +53,6 @@ class GetImage extends AbstractWebService implements WsInterface
      * @param $description
      * @param $limit
      * @return Collection|Image|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByDescription($description, $limit)
@@ -73,7 +71,6 @@ class GetImage extends AbstractWebService implements WsInterface
      * @param $userName
      * @param $limit
      * @return Collection|Image|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByUser($userName, $limit)
@@ -91,7 +88,8 @@ class GetImage extends AbstractWebService implements WsInterface
      * Call WS "image" with parameters
      * @param array $params
      * @return Collection|Image|null
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function callWs($params = [])

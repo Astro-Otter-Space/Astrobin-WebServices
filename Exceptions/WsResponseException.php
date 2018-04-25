@@ -1,14 +1,11 @@
 <?php
+
+namespace Astrobin\Exceptions;
+
 /**
- * Created by PhpStorm.
- * User: stephane
- * Date: 22/04/18
- * Time: 13:42
+ * Class WsResponseException
+ * @package Astrobin\Exceptions
  */
-
-namespace HamhamFonfon\Astrobin\Exceptions;
-
-
 class WsResponseException extends WsException
 {
 

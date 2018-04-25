@@ -1,23 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 22/04/18
- * Time: 18:26
- */
 
 namespace HamhamFonfon\Astrobin\Services;
 
-use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
-use HamhamFonfon\Astrobin\Exceptions\AstrobinResponseExceptions;
-use HamhamFonfon\Astrobin\Response\Location;
-use HamhamFonfon\Astrobin\WsInterface;
-
+use Astrobin\AbstractWebService;
+use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Location;
+use Astrobin\WsInterface;
 
 /**
  * Class GetLocation
- * @package AppBundle\Astrobin\Services
+ * @package HamhamFonfon\Astrobin\Services
  */
 class GetLocation extends AbstractWebService implements WsInterface
 {
@@ -29,7 +21,7 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @param $location
      * @param $limit
      * @throws WsResponseException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsException
      */
     public function getLocation($location, $limit)
     {
@@ -41,7 +33,7 @@ class GetLocation extends AbstractWebService implements WsInterface
     /**
      * @param array $params
      * @throws WsResponseException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsException
      */
     public function callWs($params = [])
     {
@@ -53,7 +45,7 @@ class GetLocation extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param $object
+     * @param array $object
      */
     public function responseWs($object = [])
     {

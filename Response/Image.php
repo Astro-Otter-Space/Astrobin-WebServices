@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 19/04/18
- * Time: 23:27
- */
 
-namespace HamhamFonfon\Astrobin\Response;
+namespace Astrobin\Response;
 
 /**
  * Class Image
- * @package HamhamFonfon\Astrobin\Response
+ * @package Astrobin\Response
  */
 class Image extends AbstractResponse
 {

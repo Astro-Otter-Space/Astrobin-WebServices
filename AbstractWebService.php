@@ -6,8 +6,8 @@
  * Time: 18:34
  */
 
-namespace HamhamFonfon\Astrobin;
-use HamhamFonfon\Astrobin\Exceptions\WsException;
+namespace Astrobin;
+use Astrobin\Exceptions\WsException;
 
 /**
  * Class AstrobinWebService
@@ -29,7 +29,7 @@ abstract class AbstractWebService
 
 
     /**
-     * AstrobinWebService constructor.
+     * AbstractWebService constructor.
      * @param $apiKey
      * @param $apiSecret
      */
@@ -54,7 +54,7 @@ abstract class AbstractWebService
         $curl = $this->initCurl($endPoint, $method, $data);
 
         $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
+        dump($respHttpCode);
         if(!$resp = curl_exec($curl)) {
             if (empty($resp)) {
                 throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));

@@ -6,12 +6,12 @@
  * Time: 13:29
  */
 
-namespace HamhamFonfon\Astrobin\Response;
-use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
+namespace Astrobin\Response;
+use Astrobin\Exceptions\WsResponseException;
 
 /**
- * Class AbstractAstrobinResponse
- * @package AppBundle\Astrobin\Response
+ * Class AbstractResponse
+ * @package Astrobin\Response
  */
 abstract class AbstractResponse
 {

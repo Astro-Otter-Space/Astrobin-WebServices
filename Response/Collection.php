@@ -1,12 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 22/04/18
- * Time: 14:10
- */
 
-namespace HamhamFonfon\Astrobin\Response;
+
+namespace Astrobin\Response;
 
 /**
  * Class Collection
@@ -19,6 +14,8 @@ class Collection
 
     /**
      * @param $images
+     * @throws \Astrobin\Exceptions\WsResponseException
+     * @throws \ReflectionException
      */
     public function setImages($images)
     {

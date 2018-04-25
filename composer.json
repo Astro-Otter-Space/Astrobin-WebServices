@@ -1,6 +1,6 @@
 {
   "name" : "Hamhamfonfon/Astrobin",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description" : "Astrobin API for PHP projects",
   "type" : "library",
   "authors" : [{
@@ -29,5 +29,8 @@
     "branch-alias" : {
       "dev-master" : "master"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5"
   }
 }

@@ -6,12 +6,12 @@
  * Time: 23:16
  */
 
-namespace HamhamFonfon\Astrobin\Services;
+namespace Astrobin\Services;
 
-use HamhamFonfon\Astrobin\AbstractWebService;
-use HamhamFonfon\Astrobin\Exceptions\WsResponseException;
-use HamhamFonfon\Astrobin\Response\Today;
-use HamhamFonfon\Astrobin\WsInterface;
+use Astrobin\AbstractWebService;
+use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Today;
+use Astrobin\WsInterface;
 
 /**
  * Class getTodayImage
@@ -25,9 +25,11 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     const FORMAT_DATE_ASTROBIN = "Y-m-d";
 
 
+
     /**
+     * @return \DateTime
      * @throws WsResponseException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getTodayImage()
@@ -56,9 +58,9 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * @param array $params
-     * @return mixed
+     * @return array
      * @throws WsResponseException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsException
      */
     public function callWs($params = [])
     {

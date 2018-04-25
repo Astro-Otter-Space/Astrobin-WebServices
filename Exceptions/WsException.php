@@ -1,23 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 19/04/18
- * Time: 23:41
- */
 
-namespace HamhamFonfon\Astrobin\Exceptions;
+namespace Astrobin\Exceptions;
 use Throwable;
 
+
 /**
- * Class astroBinException
- * @package AppBundle\Astrobin\Exceptions
+ * Class WsException
+ * @package Astrobin\Exceptions
  */
 class WsException extends \Exception
 {
 
     /**
-     * astroBinException constructor.
+     * WsException constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
