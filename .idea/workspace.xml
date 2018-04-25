@@ -15,10 +15,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GetImage.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
+      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="360">
+              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractWebService.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AbstractWebService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetImage.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Services/GetImage.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
               <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
               <folding>
                 <element signature="e#50#95#0#PHP" expanded="true" />
@@ -28,7 +46,7 @@
         </entry>
       </file>
       <file leaf-file-name="GetLocation.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Services/GetLocation.php">
+        <entry file="file://$PROJECT_DIR$/src/Services/GetLocation.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-381">
               <caret line="1" selection-start-line="1" selection-end-line="1" />
@@ -40,7 +58,7 @@
         </entry>
       </file>
       <file leaf-file-name="GetTodayImage.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Services/GetTodayImage.php">
+        <entry file="file://$PROJECT_DIR$/src/Services/GetTodayImage.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-381">
               <caret line="27" selection-start-line="27" selection-end-line="27" />
@@ -86,10 +104,11 @@
         <option value="$PROJECT_DIR$/Services/GetTodayImage.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Tests/WsServices/GetImageTest.php" />
-        <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/travis.yml" />
         <option value="$PROJECT_DIR$/Services/GetImage.php" />
         <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/src/AbstractWebService.php" />
       </list>
     </option>
   </component>
@@ -151,17 +170,7 @@
             <path>
               <item name="AstrobinApiPhp" type="b2602c69:ProjectViewProjectNode" />
               <item name="AstrobinApiPhp" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Exceptions" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="AstrobinApiPhp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AstrobinApiPhp" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Response" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="AstrobinApiPhp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AstrobinApiPhp" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Services" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="AstrobinApiPhp" type="b2602c69:ProjectViewProjectNode" />
@@ -189,6 +198,9 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -228,12 +240,12 @@
       <workItem from="1524318009913" duration="806000" />
       <workItem from="1524597481062" duration="2921000" />
       <workItem from="1524674619766" duration="4473000" />
-      <workItem from="1524684681848" duration="3552000" />
+      <workItem from="1524684681848" duration="4155000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11752000" />
+    <option name="totallyTimeSpent" value="12355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -253,8 +265,8 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32967034" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49946752" visible="true" weight="0.32967034" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25772098" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49946752" visible="true" weight="0.32967034" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25772098" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32967034" />
@@ -309,14 +321,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AbstractWebService.php">
+    <entry file="file://$PROJECT_DIR$/src/AbstractWebService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="28" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
+    <entry file="file://$PROJECT_DIR$/src/Services/GetImage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1725">
           <caret line="119" column="58" selection-start-line="119" selection-start-column="58" selection-end-line="119" selection-end-column="58" />
@@ -345,14 +357,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/Location.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/Location.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetTodayImage.php">
+    <entry file="file://$PROJECT_DIR$/src/Services/GetTodayImage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
@@ -386,63 +398,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WsInterface.php">
+    <entry file="file://$PROJECT_DIR$/src/WsInterface.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Exceptions/WsResponseException.php">
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/WsResponseException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Exceptions/WsException.php">
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/WsException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/AbstractResponse.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/AbstractResponse.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AbstractWebService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-966">
-          <caret line="49" column="7" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Response/Image.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/Image.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/Location.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/Location.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/Collection.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Response/Today.php">
+    <entry file="file://$PROJECT_DIR$/src/Response/Today.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
@@ -456,7 +461,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetLocation.php">
+    <entry file="file://$PROJECT_DIR$/src/Services/GetLocation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-381">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
@@ -466,7 +471,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetTodayImage.php">
+    <entry file="file://$PROJECT_DIR$/src/Services/GetTodayImage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-381">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
@@ -490,20 +495,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
+    <entry file="file://$PROJECT_DIR$/src/Services/GetImage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Services/GetImage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="180">
           <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding>
             <element signature="e#50#95#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AbstractWebService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
         </state>
       </provider>
     </entry>
