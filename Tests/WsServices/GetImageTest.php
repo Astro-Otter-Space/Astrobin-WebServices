@@ -34,9 +34,9 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://www.astrobin.com/' . $imageId . '/0/rawthumb/gallery/', $response->url_gallery);
     }
 
+
     /**
      * @throws ReflectionException
-     * @throws Astrobin\Exceptions\WsException
      */
     public function testGetImageBySubject()
     {
