@@ -21,6 +21,8 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * @param $id
      * @return Collection|Image|null
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImageById($id)
@@ -29,13 +31,14 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
 
-
     /**
      * Return a collection of Image()
      *
      * @param $subjectId
      * @param $limit
      * @return Collection|Image|null
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesBySubject($subjectId, $limit)
@@ -53,6 +56,8 @@ class GetImage extends AbstractWebService implements WsInterface
      * @param $description
      * @param $limit
      * @return Collection|Image|null
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByDescription($description, $limit)
@@ -71,6 +76,8 @@ class GetImage extends AbstractWebService implements WsInterface
      * @param $userName
      * @param $limit
      * @return Collection|Image|null
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getImagesByUser($userName, $limit)
