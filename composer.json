@@ -21,9 +21,7 @@
       "Hamhamfonfon\\Astrobin" : ""
     }
   },
-  "target-dir" : "Hamhamfonfon",
-  "repositories" : [{
-  }],
+  "target-dir" : "",
   "extra" : {
     "branch-alias" : {
       "dev-master" : "master"

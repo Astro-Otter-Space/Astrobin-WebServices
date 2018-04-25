@@ -147,7 +147,7 @@ abstract class AbstractWebService
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => self::MAX_REDIRS,
-            CURLOPT_HEADER => "Accdept:application/json", //false,
+            CURLOPT_HEADER => "Accept:application/json", //false,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_SSL_VERIFYPEER => false
