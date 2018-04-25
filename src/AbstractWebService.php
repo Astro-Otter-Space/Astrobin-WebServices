@@ -48,7 +48,8 @@ abstract class AbstractWebService
         $curl = $this->initCurl($endPoint, $method, $data);
 
         $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        dump($respHttpCode);
+//        dump($respHttpCode);
+
         if(!$resp = curl_exec($curl)) {
             if (empty($resp)) {
                 throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
@@ -143,12 +144,13 @@ abstract class AbstractWebService
             CURLOPT_MAXREDIRS => self::MAX_REDIRS,
             CURLOPT_HEADER => "Accept:application/json", //false,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_SSL_VERIFYPEER => false
         ];
 
         // GET
-        if ($method === self::METHOD_GET) {
+        if (self::METHOD_GET === $method) {
             array_merge($options, [
                 CURLOPT_CUSTOMREQUEST => self::METHOD_GET,
                 CURLOPT_HTTPGET => true,
