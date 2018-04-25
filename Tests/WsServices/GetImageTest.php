@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 25/04/18
- * Time: 19:44
- */
 
 use Astrobin\Services\GetImage;
 
@@ -29,26 +23,27 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * @throws ReflectionException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws Astrobin\Exceptions\WsException
      */
     public function testGetImageById()
     {
         $imageId = 335910;
         $response = $this->client->getImageById($imageId);
 
+        $this->assertInstanceOf(\Astrobin\Response\Image::class, get_class($response));
         $this->assertEquals('https://www.astrobin.com/' . $imageId . '/0/rawthumb/gallery/', $response->url_gallery);
     }
 
     /**
      * @throws ReflectionException
-     * @throws \HamhamFonfon\Astrobin\Exceptions\WsException
+     * @throws Astrobin\Exceptions\WsException
      */
     public function testGetImageBySubject()
     {
         $messier = 'm' . rand(1,110);
         $response = $this->client->getImagesBySubject($messier, 1);
 
-        $this->assertEquals(\HamhamFonfon\Astrobin\Response\Image::class, get_class($response));
+        $this->assertEquals(\Astrobin\Response\Image::class, get_class($response));
 
     }
 
