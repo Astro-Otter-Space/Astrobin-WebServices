@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 19/04/18
- * Time: 23:16
- */
 
 namespace Astrobin\Services;
 
@@ -25,49 +19,49 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     const FORMAT_DATE_ASTROBIN = "Y-m-d";
 
 
-
     /**
-     * @return \DateTime
+     * @return Today
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getTodayImage()
     {
-        $rawResp = $this->callWs(['limit' => 1]);
-
-        $astrobinToday = new Today();
-        $astrobinToday->fromObj($rawResp[0]);
+        $astrobinToday = $this->callWs(['limit' => 1]);
         $today = new \DateTime('now');
         if ($today->format(self::FORMAT_DATE_ASTROBIN) == $astrobinToday->date) {
 
-            $urlTest = AbstractWebService::ASTROBIN_URL . substr($astrobinToday->image, strrpos($astrobinToday->image, '/v1/')+strlen('/v1/'));
-//            dump($urlTest);
-//            dump(file_get_contents($urlTest));
-//            if (preg_match('/\/([\d]+)/', $astrobinToday->image, $matches)) {
-//                $imageId = $matches[1];
-//                dump(AstrobinWebService::ASTROBIN_URL . $astrobinToday->image);
-//                $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
-//                dump($sndRawCall);
-//            }
+            if (preg_match('/\/([\d]+)/', $astrobinToday->image, $matches)) {
+                $imageId = $matches[1];
+                $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
+                dump($sndRawCall);
+                $astrobinToday->addImage($sndRawCall);
+            }
         }
 
-        return $today;
+        return $astrobinToday;
     }
 
 
     /**
      * @param array $params
-     * @return array
+     * @return Today
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
+     * @throws \ReflectionException
      */
     public function callWs($params = [])
     {
         /** @var  $rawResp */
         $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
-        if (!isset($rawResp->objects) || 0 == $rawResp->meta->total_count) {
+        if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty");
+        } else {
+            if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
+                return $this->responseWs($rawResp->objects);
+            } else {
+                return $this->responseWs([$rawResp]);
+            }
         }
         return $this->responseWs($rawResp->objects);
     }
@@ -75,11 +69,18 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * @param array $objects
-     * @return array
+     * @return Today
+     * @throws WsResponseException
+     * @throws \ReflectionException
      */
     public function responseWs($objects = [])
     {
-        $astrobinResponse = [];
+        $astrobinResponse = null;
+        if (is_array($objects) && 0 < count($objects)) {
+            $astrobinResponse = new Today();
+            $astrobinResponse->fromObj($objects[0]);
+        }
+
         return $astrobinResponse;
     }
 }
