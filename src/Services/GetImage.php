@@ -102,13 +102,15 @@ class GetImage extends AbstractWebService implements WsInterface
     public function callWs($params = [])
     {
         $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, $params);
-        if (!isset($rawResp->objects) || 0 == $rawResp->meta->total_count) {
-            if( !$rawResp) {
-                throw new WsResponseException("Response from Astrobin is empty");
+        if (!is_object($rawResp)) {
+            throw new WsResponseException("Response from Astrobin is empty");
+        } else {
+            if (isset($rawResp->objects) || 0 < $rawResp->meta->total_count) {
+                return $this->responseWs($rawResp->objects);
+            } else {
+                return $this->responseWs([$rawResp]);
             }
-            return $this->responseWs($rawResp);
         }
-        return $this->responseWs($rawResp->objects);
     }
 
 
@@ -136,7 +138,7 @@ class GetImage extends AbstractWebService implements WsInterface
             }
         } else {
             $astrobinResponse = new Image();
-            $astrobinResponse->fromObj($objects);
+            $astrobinResponse->fromObj($objects[0]);
         }
 
         return $astrobinResponse;
