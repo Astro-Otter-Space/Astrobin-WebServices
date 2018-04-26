@@ -116,10 +116,11 @@ abstract class AbstractWebService
 
             $url .= '?' . $paramData;
         } else {
-//            if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
-//                $url .= '/';
-//            }
-            $url .= $data . '?';
+            if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
+                $url .= '/';
+            }
+            // Warning : the "/" before "?" is mandatory or else no response from WS...
+            $url .= $data . '/?';
         }
 
         // Add keys and format
@@ -133,8 +134,7 @@ abstract class AbstractWebService
             return sprintf("&%s=%s", $k, $v);
         }, array_keys($params), $params));
 
-        // TODO : using http_build_query() ?
-        $curl = curl_init($url);
+        $curl = curl_init();
 
         // Options CURL
         $options = [
