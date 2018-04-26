@@ -6,7 +6,7 @@ namespace Astrobin\Response;
  * Class Location
  * @package Astrobin\Response
  */
-class Location
+class Location extends AbstractResponse
 {
     public $name;
     public $city;
