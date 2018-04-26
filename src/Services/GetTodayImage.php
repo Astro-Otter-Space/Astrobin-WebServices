@@ -29,12 +29,11 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     {
         $astrobinToday = $this->callWs(['limit' => 1]);
         $today = new \DateTime('now');
-        if ($today->format(self::FORMAT_DATE_ASTROBIN) == $astrobinToday->date) {
+        if ($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date) {
 
-            if (preg_match('/\/([\d]+)/', $astrobinToday->image, $matches)) {
+            if (preg_match('/\/([\d]+)/', $astrobinToday->resource_uri, $matches)) {
                 $imageId = $matches[1];
                 $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
-                dump($sndRawCall);
                 $astrobinToday->addImage($sndRawCall);
             }
         }
@@ -63,13 +62,12 @@ class GetTodayImage extends AbstractWebService implements WsInterface
                 return $this->responseWs([$rawResp]);
             }
         }
-        return $this->responseWs($rawResp->objects);
     }
 
 
     /**
      * @param array $objects
-     * @return Today
+     * @return Today|null $astrobinResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
