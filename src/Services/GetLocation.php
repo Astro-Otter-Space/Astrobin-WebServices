@@ -1,6 +1,6 @@
 <?php
 
-namespace HamhamFonfon\Astrobin\Services;
+namespace Astrobin\Services;
 
 use Astrobin\AbstractWebService;
 use Astrobin\Exceptions\WsResponseException;
@@ -9,7 +9,7 @@ use Astrobin\WsInterface;
 
 /**
  * Class GetLocation
- * @package HamhamFonfon\Astrobin\Services
+ * @package Astrobin\Services
  */
 class GetLocation extends AbstractWebService implements WsInterface
 {

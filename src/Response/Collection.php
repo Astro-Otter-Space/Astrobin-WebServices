@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Astrobin\Response;
 
 /**
  * Class Collection
- * @package HamhamFonfon\Astrobin\Response
+ * @package Astrobin\Response
  */
 class Collection
 {
