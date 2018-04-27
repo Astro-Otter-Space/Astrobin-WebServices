@@ -88,7 +88,7 @@ The library expose 3 WebServices, each with some methods.
 ### GetImage :
 
 | Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| ------------- | ------------------------------ |----------------------------- |
 | `getImageById()`      | `$id`       | `Image` |
 | `getImagesBySubject()`   | `$subjectId`  `$limit`     | `Collection`,`Image` |
 | `getImagesByDescription()`   | `$description`  `$limit`     | `Collection`,`Image` |
@@ -97,7 +97,7 @@ The library expose 3 WebServices, each with some methods.
 ### GetTodayImage :
 
 | Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| ------------- | ------------------------------ |----------------------------- |
 | `getDayImage()`      | `$offset` ,  limit = 1      | `Today` |
 | `getTodayDayImage()`   |   | `Today` |
 
@@ -105,7 +105,7 @@ The library expose 3 WebServices, each with some methods.
 *In progress...*
 
 | Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| ------------- | ------------------------------ |----------------------------- |
 | `getLocationById()`      | `$id`       | `Location` |
 
 
