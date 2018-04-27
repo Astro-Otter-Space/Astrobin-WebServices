@@ -32,7 +32,7 @@ You can install this API in 3 different ways.
     [...]
     "require" : {
         [...]
-        "Hamhamfonfon/Astrobin" : "dev-master"
+        "hamhamfonfon/astrobin" : "dev-master"
     },
     "repositories" : [{
         "type" : "vcs",
@@ -42,7 +42,7 @@ You can install this API in 3 different ways.
 ```
 
 Then run
-> `composer update Hamhamfonfon/Astrobin`
+> `composer update hamhamfonfon/astrobin`
 
 * Soon, adding with composer from packagist.
 

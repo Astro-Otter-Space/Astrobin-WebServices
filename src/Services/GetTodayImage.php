@@ -34,9 +34,15 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         }
 
         $astrobinToday = $this->callWs($params);
-        $today = new \DateTime('now');
-        if ($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date) {
+        $callImg = true;
 
+        // For Image of the day
+        if (is_null($offset)) {
+            $today = new \DateTime('now');
+            $callImg = (($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date)) ? true : false;
+        }
+
+        if ($callImg) {
             if (preg_match('/\/([\d]+)/', $astrobinToday->resource_uri, $matches)) {
                 $imageId = $matches[1];
                 $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
