@@ -28,7 +28,7 @@ You can install this API in 3 different ways.
 
 * If you want to add to your own composer.json project :
 
-```
+```json
     [...]
     "require" : {
         [...]
@@ -77,13 +77,13 @@ In your controller :
 > Exemple : i want to retrieve 5 photos from Orion Nebula (M42)
 ```php
 $astrobinWs = $this->container->get('astrobin.webservice.getimage');
-$data = $astrobinWs->getImagesBySubject('m42'', 5);
+$data = $astrobinWs->getImagesBySubject('m42', 5);
 ```
 
 
 ## WebServices
 
-The library expose 3 WebServices, each with some methods.
+The library expose 3 WebServices, each with these methods below.
 
 ### GetImage :
 
