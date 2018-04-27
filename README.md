@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.3.5
+Version 0.3.6
 
 Caution : API currently in progress, this is not a final version.
 
@@ -93,6 +93,7 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesBySubject()`   | `$subjectId`  `$limit`     | `Collection`,`Image` |
 | `getImagesByDescription()`   | `$description`  `$limit`     | `Collection`,`Image` |
 | `getImagesByUser()`     | `$userName`  `$limit`     | `Collection`,`Image` |
+| `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01),   `$dateToStr` (2018-04-31 or null) | `Collection`,`Image` |
 
 ### GetTodayImage :
 

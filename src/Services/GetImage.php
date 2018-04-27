@@ -3,6 +3,7 @@
 namespace Astrobin\Services;
 
 use Astrobin\AbstractWebService;
+use Astrobin\Exceptions\WsException;
 use Astrobin\Exceptions\WsResponseException;
 use Astrobin\Response\Collection;
 use Astrobin\Response\Image;
@@ -90,6 +91,37 @@ class GetImage extends AbstractWebService implements WsInterface
         return $this->callWs($params);
     }
 
+
+    /**
+     * @param null $dateFromStr
+     * @param null $dateToStr
+     * @return Collection|Image|null
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \ReflectionException
+     */
+    public function getImagesByRangeDate($dateFromStr = null, $dateToStr = null)
+    {
+
+        if (is_null($dateToStr)) {
+            $dateTo = new \DateTime('now');
+        } else {
+            $dateTo = new \DateTime($dateToStr);
+        }
+
+        if (false === strtotime($dateFromStr)) {
+            throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr));
+        }
+
+        $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
+        $params = [
+            'uploaded__gte' => urlencode($dateFrom->format('Y-m-d 00:00:00')),
+            'uploaded__lt' => urlencode($dateTo->format('Y-m-d H:i:s')),
+            'limit' => AbstractWebService::LIMIT_MAX
+        ];
+
+        return $this->callWs($params);
+    }
 
     /**
      * Call WS "image" with parameters
