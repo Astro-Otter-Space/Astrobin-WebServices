@@ -122,10 +122,15 @@ The library expose 3 WebServices, each with these methods below.
 | `url_regular`      | URL of image      |
 | `user`      | Username      |
 
+![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
+
 ### Collection
 | Parameter| Description |
 | ------------- | ------------------------------ |
 | `images`      | List of images       |
+
+![](https://image.noelshack.com/fichiers/2018/17/5/1524854289-collection.png)
+
 
 ### Today
 | Parameter| Description |
@@ -133,6 +138,8 @@ The library expose 3 WebServices, each with these methods below.
 | `date`      | Date of image       |
 | `resource_uri`      | URI of image       |
 | `images`      | List of images       |
+
+![](https://image.noelshack.com/fichiers/2018/17/5/1524854409-today.png)
 
 ### Location
 *In progress*
