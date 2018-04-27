@@ -1,27 +1,29 @@
 [![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP)
 
-Astrobin API for PHP
-====================
-git
-Version 0.3.0
-Caution : this is a package in developpement, not a final version.
+# Astrobin API for PHP
+
+[TOC]
+
+Version 0.3.5
+
+Caution : API currently in progress, this is not a final version.
 
 ## Requirements
 * PHP 5.6 min or superior
-* API Key and API Secret from Astrobin
+* API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
-Introduction
-------------
+## Introduction
 
-Installation
-------------
+
+Astrobin API is a PHP library made to retrieve astrophotography from [Astrobin](http://www.astrobin.com).
+
+## Installing
 
 You can install this API in 3 different ways.
 
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
-:
 
-`git clone git@github.com:HamHamFonFon/Astrobin-API-PHP.git`
+> `git clone git@github.com:HamHamFonFon/Astrobin-API-PHP.git`
 
 
 * If you want to add to your own composer.json project :
@@ -39,14 +41,108 @@ You can install this API in 3 different ways.
     [...]
 ```
 
-Then
-`composer update Hamhamfonfon/Astrobiǹ
+Then run
+> `composer update Hamhamfonfon/Astrobin`
 
-* If you want to add to your Symfony project, with composer:
-
-`composer require ....`
- 
-Usage
-------------
+* Soon, adding with composer from packagist.
 
 
+### Usage
+-----
+
+With Symfony, you can set WebService class as services :
+
+First, set your keys in parameters.yml :
+```yml
+parameters:
+    astrobin.key: <your_api_key>
+    astrobin.secret: <your_secret_key>
+```
+
+Symfony 2:
+
+```yml
+astrobin.webservice:
+    class: Astrobin\AbstractWebService
+    abstract: true
+    arguments:
+      - "%astrobin.key%"
+      - "%astrobin.secret%"
+astrobin.webservice.getimage:
+    class: Astrobin\Services\GetImage
+    parent: astrobin.webservice
+```
+
+In your controller :
+> Exemple : i want to retrieve 5 photos from Orion Nebula (M42)
+```php
+$astrobinWs = $this->container->get('astrobin.webservice.getimage');
+$data = $astrobinWs->getImagesBySubject('m42'', 5);
+```
+
+
+## WebServices
+
+The library expose 3 WebServices, each with some methods.
+
+### GetImage :
+
+| Function name | Parameter| Response |
+| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| `getImageById()`      | `$id`       | `Image` |
+| `getImagesBySubject()`   | `$subjectId`  `$limit`     | `Collection`,`Image` |
+| `getImagesByDescription()`   | `$description`  `$limit`     | `Collection`,`Image` |
+| `getImagesByUser()`     | `$userName`  `$limit`     | `Collection`,`Image` |
+
+### GetTodayImage :
+
+| Function name | Parameter| Response |
+| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| `getDayImage()`      | `$offset` ,  limit = 1      | `Today` |
+| `getTodayDayImage()`   |   | `Today` |
+
+### GetLocation :
+*In progress...*
+
+| Function name | Parameter| Response |
+| ------------- | ------------------------------ |----------------------------- |----------------------------- |
+| `getLocationById()`      | `$id`       | `Location` |
+
+
+## Responses
+
+### Image
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `title`      | Title of image       |
+| `subjects`      | Keywords      |
+| `description`      | Description      |
+| `url_gallery`      | URL of image for gallery       |
+| `url_thumb`      | URL of image , thumb size      |
+| `url_regular`      | URL of image      |
+| `user`      | Username      |
+
+### Collection
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `images`      | List of images       |
+
+### Today
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `date`      | Date of image       |
+| `resource_uri`      | URI of image       |
+| `images`      | List of images       |
+
+### Location
+*In progress*
+
+## Running the tests
+*In progress*
+
+## Authors
+Stéphane Méaudre  - <balistik.fonfon@gmail.com>
+
+## Licence
+
+This project is licensed under the MIT License - see the LICENSE.md file for details

@@ -20,14 +20,20 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
 
     /**
+     * @param $offset
      * @return Today
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getTodayImage()
+    public function getDayImage($offset = null)
     {
-        $astrobinToday = $this->callWs(['limit' => 1]);
+        $params = ['limit' => 1];
+        if (isset($offset) && is_numeric($offset)) {
+            $params['offset'] = $offset;
+        }
+
+        $astrobinToday = $this->callWs($params);
         $today = new \DateTime('now');
         if ($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date) {
 
@@ -41,6 +47,17 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         return $astrobinToday;
     }
 
+
+    /**
+     * @return Today
+     * @throws WsResponseException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \ReflectionException
+     */
+    public function getTodayDayImage()
+    {
+        return $this->getDayImage();
+    }
 
     /**
      * @param array $params

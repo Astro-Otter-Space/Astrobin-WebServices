@@ -25,10 +25,9 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getLocation($location, $limit)
+    public function getLocationById($id)
     {
-        $params = ['limit' => $limit];
-        return $this->callWs($params);
+        return $this->callWs($id);
     }
 
 
@@ -58,7 +57,6 @@ class GetLocation extends AbstractWebService implements WsInterface
     {
         $astrobinResponse = null;
 
-        dump($object);
         $astrobinResponse = new Location();
         $astrobinResponse->fromObj($object);
 
