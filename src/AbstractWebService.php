@@ -47,7 +47,8 @@ abstract class AbstractWebService
         $obj = null;
         $curl = $this->initCurl($endPoint, $method, $data);
 
-        $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        // Astrobin dont send data like content_type, http_code : curl_getinfo is totally empty/
+//        $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if(!$resp = curl_exec($curl)) {
             if (empty($resp)) {
@@ -88,9 +89,6 @@ abstract class AbstractWebService
             throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
         }
 
-        if (200 !== $respHttpCode && 201 !== $respHttpCode) {
-            throw new WsException(sprintf("[Astrobin Response] Error HTTP : code %u", $respHttpCode));
-        }
         return $obj;
     }
 
