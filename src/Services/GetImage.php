@@ -148,12 +148,13 @@ class GetImage extends AbstractWebService implements WsInterface
                 if (0 < $rawResp->meta->total_count) {
                     return $this->responseWs($rawResp->objects);
                 }
-                throw new WsResponseException("Astrobin doen't find any objects with params : " . print_r($params));
+                throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)));
 
             } else {
                 return $this->responseWs([$rawResp]);
             }
         }
+        return null;
     }
 
 
