@@ -18,8 +18,7 @@ class GetLocation extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param $location
-     * @param $limit
+     * @param $id
      * @return Location|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
@@ -48,12 +47,12 @@ class GetLocation extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param array $object
+     * @param \stdClass $object
      * @return Location|null
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function responseWs($object = [])
+    public function responseWs($object = null)
     {
         $astrobinResponse = null;
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 22/04/18
- * Time: 13:29
- */
 
 namespace Astrobin\Response;
 use Astrobin\Exceptions\WsResponseException;
