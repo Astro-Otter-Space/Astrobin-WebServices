@@ -144,8 +144,12 @@ class GetImage extends AbstractWebService implements WsInterface
         if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty");
         } else {
-            if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
-                return $this->responseWs($rawResp->objects);
+            if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta")) {
+                if (0 < $rawResp->meta->total_count) {
+                    return $this->responseWs($rawResp->objects);
+                }
+                throw new WsResponseException("Astrobin doen't find any objects with params : " . print_r($params));
+
             } else {
                 return $this->responseWs([$rawResp]);
             }
