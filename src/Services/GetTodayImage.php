@@ -21,14 +21,15 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * @param $offset
+     * @param $limit
      * @return Today
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getDayImage($offset = null)
+    public function getDayImage($offset = null, $limit = 1)
     {
-        $params = ['limit' => 1];
+        $params = ['limit' => $limit];
         if (isset($offset) && is_numeric($offset)) {
             $params['offset'] = $offset;
         }
