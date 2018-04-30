@@ -26,6 +26,7 @@ class ListImages implements \IteratorAggregate
     public function getIterator()
     {
         return new ImageIterator($this->listImages);
+//        return new \ArrayIterator($this->listImages);
     }
 
     /**
