@@ -137,7 +137,7 @@ The library expose 4 WebServices, each with these methods below.
 | ------------- | ------------------------------ |
 | `listImages`      | List of images       |
 
-
+![](https://image.noelshack.com/fichiers/2018/18/1/1525117490-list-images.png)
 
 ### Today
 | Parameter| Description |
@@ -146,7 +146,7 @@ The library expose 4 WebServices, each with these methods below.
 | `resource_uri`      | URI of image       |
 | `listImages`      | List of images       |
 
-![](https://image.noelshack.com/fichiers/2018/17/5/1524854409-today.png)
+![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 
 ### Location
 *In progress*
