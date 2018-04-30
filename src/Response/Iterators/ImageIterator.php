@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 30/04/18
- * Time: 19:25
- */
 
-namespace Astrobin\Response;
+namespace Astrobin\Response\Iterators;
 
 
 /**
