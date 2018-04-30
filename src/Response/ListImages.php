@@ -1,17 +1,24 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: stephane
+ * Date: 30/04/18
+ * Time: 19:23
+ */
 
 namespace Astrobin\Response;
+
 use Traversable;
 
 /**
- * Class Today
+ * Class ListImages
  * @package Astrobin\Response
  */
-class Today extends AbstractResponse implements \IteratorAggregate
+class ListImages implements \IteratorAggregate
 {
-    public $date;
-    public $resource_uri;
-    public $listImages;
+
+    private $listImages = [];
+    private $count = 0;
 
     /**
      * @return ImageIterator|Traversable
@@ -21,13 +28,12 @@ class Today extends AbstractResponse implements \IteratorAggregate
         return new ImageIterator($this->listImages);
     }
 
-
     /**
      * @param Image $image
-     * @return void
      */
     public function add(Image $image)
     {
+        $this->count++;
         $this->listImages[] = $image;
     }
 }

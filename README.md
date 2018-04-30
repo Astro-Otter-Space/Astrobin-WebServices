@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.3.10
+Version 0.4.0
 
 Caution : API currently in progress, this is not a final version.
 
@@ -83,17 +83,17 @@ $data = $astrobinWs->getImagesBySubject('m42', 5);
 
 ## WebServices
 
-The library expose 3 WebServices, each with these methods below.
+The library expose 4 WebServices, each with these methods below.
 
 ### GetImage :
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
 | `getImageById()`      | `$id`       | `Image` |
-| `getImagesBySubject()`   | `$subjectId`  `$limit`     | `Collection`,`Image` |
-| `getImagesByDescription()`   | `$description`  `$limit`     | `Collection`,`Image` |
-| `getImagesByUser()`     | `$userName`  `$limit`     | `Collection`,`Image` |
-| `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01),   `$dateToStr` (2018-04-31 or null) | `Collection`,`Image` |
+| `getImagesBySubject()`   | `$subjectId`  `$limit`     | `ListImage`,`Image` |
+| `getImagesByDescription()`   | `$description`  `$limit`     | `ListImage`,`Image` |
+| `getImagesByUser()`     | `$userName`  `$limit`     | `ListImage`,`Image` |
+| `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01),   `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 
 ### GetTodayImage :
 
@@ -101,6 +101,13 @@ The library expose 3 WebServices, each with these methods below.
 | ------------- | ------------------------------ |----------------------------- |
 | `getDayImage()`      | `$offset` ,  limit = 1      | `Today` |
 | `getTodayDayImage()`   |   | `Today` |
+
+### GetCollection :
+*In progress...*
+
+| Function name | Parameter| Response |
+| ------------- | ------------------------------ |----------------------------- |
+| `getCollectionById()`      | `$id`       | `Collection` |
 
 ### GetLocation :
 *In progress...*
@@ -125,12 +132,11 @@ The library expose 3 WebServices, each with these methods below.
 
 ![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
 
-### Collection
+### ListImage
 | Parameter| Description |
 | ------------- | ------------------------------ |
-| `images`      | List of images       |
+| `listImages`      | List of images       |
 
-![](https://image.noelshack.com/fichiers/2018/17/5/1524854289-collection.png)
 
 
 ### Today
@@ -138,7 +144,7 @@ The library expose 3 WebServices, each with these methods below.
 | ------------- | ------------------------------ |
 | `date`      | Date of image       |
 | `resource_uri`      | URI of image       |
-| `images`      | List of images       |
+| `listImages`      | List of images       |
 
 ![](https://image.noelshack.com/fichiers/2018/17/5/1524854409-today.png)
 

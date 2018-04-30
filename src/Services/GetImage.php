@@ -7,6 +7,7 @@ use Astrobin\Exceptions\WsException;
 use Astrobin\Exceptions\WsResponseException;
 use Astrobin\Response\Collection;
 use Astrobin\Response\Image;
+use Astrobin\Response\ListImages;
 use Astrobin\WsInterface;
 
 /**
@@ -172,8 +173,12 @@ class GetImage extends AbstractWebService implements WsInterface
 
             if (1 < count($objects)) {
                 /** @var Collection $astrobinCollection */
-                $astrobinResponse = new Collection();
-                $astrobinResponse->setImages($objects);
+                $astrobinResponse = new ListImages();
+                foreach ($objects as $object) {
+                    $image = new Image();
+                    $image->fromObj($object);
+                    $astrobinResponse->add($image);
+                }
 
             } else {
                 /** @var Image $astrobinResponse */
