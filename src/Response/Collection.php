@@ -1,24 +1,29 @@
 <?php
 
 namespace Astrobin\Response;
-use Astrobin\AbstractWebService;
 use Traversable;
 
 /**
  * Class Collection
  * @package Astrobin\Response
  */
-class Collection extends AbstractWebService implements \IteratorAggregate
+class Collection extends AbstractResponse implements \IteratorAggregate
 {
-
+    /** @var integer */
     public $id;
+    /** @var string */
     public $name;
+    /** @var string */
     public $description;
+    /** @var string */
     public $user;
+    /** @var \DateTime */
     public $date_created;
+    /** @var \DateTime */
     public $date_updated;
+    public $images;
+    /** @var array */
     public $listImages;
-
 
     /**
      * @return ImageIterator|Traversable
@@ -57,7 +62,4 @@ class Collection extends AbstractWebService implements \IteratorAggregate
         $this->date_updated = \DateTime::createFromFormat('Y-m-d', $date_updated);
         return $this;
     }
-
-
-
 }
