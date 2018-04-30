@@ -1,31 +1,33 @@
 <?php
 
 namespace Astrobin\Response;
+use Traversable;
 
 /**
  * Class Today
  * @package Astrobin\Response
  */
-class Today extends AbstractResponse
+class Today extends AbstractResponse implements \IteratorAggregate
 {
     public $date;
     public $resource_uri;
+    public $listImages;
+
+    /**
+     * @return ImageIterator|Traversable
+     */
+    public function getIterator()
+    {
+        return new ImageIterator($this->listImages);
+    }
 
 
     /**
-     * @param $image
-     * @return $this
-     * @throws \Astrobin\Exceptions\WsResponseException
-     * @throws \ReflectionException
+     * @param Image $image
+     * @return void
      */
-    public function addImage($image)
+    public function add(Image $image)
     {
-        if (is_object($image)) {
-            $astrobinImage = new Image();
-            $astrobinImage->fromObj($image);
-
-            $this->image = $astrobinImage;
-        }
-        return $this;
+        $this->listImages[] = $image;
     }
 }

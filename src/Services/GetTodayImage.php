@@ -4,6 +4,7 @@ namespace Astrobin\Services;
 
 use Astrobin\AbstractWebService;
 use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Image;
 use Astrobin\Response\Today;
 use Astrobin\WsInterface;
 
@@ -46,7 +47,11 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         if (preg_match('/\/([\d]+)/', $astrobinToday->resource_uri, $matches)) {
             $imageId = $matches[1];
             $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
-            $astrobinToday->addImage($sndRawCall);
+
+            $image = new Image();
+            $image->fromObj($sndRawCall);
+
+            $astrobinToday->add($image);
         }
 
         return $astrobinToday;

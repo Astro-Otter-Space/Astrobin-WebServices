@@ -26,14 +26,14 @@ class ListImages implements \IteratorAggregate
     public function getIterator()
     {
         return new ImageIterator($this->listImages);
-//        return new \ArrayIterator($this->listImages);
     }
 
     /**
-     * @param $image
+     * @param Image $image
      */
-    public function add($image)
+    public function add(Image $image)
     {
-        $this->listImages[$this->count++] = $image;
+        $this->count++;
+        $this->listImages[] = $image;
     }
 }
