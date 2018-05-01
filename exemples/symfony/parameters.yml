@@ -1,0 +1,3 @@
+parameters:
+  astrobin.key: <your_astrobin_key>
+  astrobin.secret: <your_astrobin_secret>

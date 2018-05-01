@@ -1,0 +1,20 @@
+services:
+  # WebServices
+  astrobin.webservice:
+    class: Astrobin\AbstractWebService
+    abstract: true
+    arguments:
+     - "%astrobin.key%"
+     - "%astrobin.secret%"
+  astrobin.webservice.getimage:
+    class: Astrobin\Services\GetImage
+    parent: astrobin.webservice
+  astrobin.webservice.getcollection:
+    class: Astrobin\Services\GetCollection
+    parent: astrobin.webservice
+  astrobin.webservice.getlocation:
+    class: Astrobin\Services\GetLocation
+    parent: astrobin.webservice
+  astrobin.webservice.gettodayimage:
+    class: Astrobin\Services\GetTodayImage
+    parent: astrobin.webservice
