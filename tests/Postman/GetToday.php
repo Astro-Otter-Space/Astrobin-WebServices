@@ -1,31 +1,49 @@
 <?php
+include __DIR__ . './../../src/Exceptions/WsException.php';
+include __DIR__ . './../../src/Exceptions/WsResponseException.php';
+include __DIR__ . './../../src/AbstractWebService.php';
+include __DIR__ . './../../src/WsInterface.php';
+include __DIR__ . './../../src/Services/GetImage.php';
+include __DIR__ . './../../src/Response/ImageIterator.php';
+include __DIR__ . './../../src/Response/ListImages.php';
+include __DIR__ . './../../src/Response/AbstractResponse.php';
+include __DIR__ . './../../src/Response/Today.php';
+include __DIR__ . './../../src/Response/Image.php';
 
 $curl = initCurl('imageoftheday/', 'GET', ['limit' => 1]);
 if(!$resp = curl_exec($curl)) {
     echo "\nEmpty";
 }
-curl_close($curl);
-$obj = json_decode($resp);
-print_r($obj);
 
-$today = new \DateTime('now');
-print_r($today->format("Y-m-d")."\n");
+$rawResp = json_decode($resp);
 
+if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
+    $objects = $rawResp->objects;
 
-if (preg_match('/\/([\d]+)/', $obj->objects[0]->image, $matches)) {
-    $imageId = $matches[1];
+    $astrobinToday = new \Astrobin\Response\Today();
+    $astrobinToday->fromObj($objects[0]);
+
+    if (preg_match('/\/([\d]+)/', $astrobinToday->resource_uri, $matches)) {
+        $imageId = $matches[1];
+        $sndCurl = initCurl('image/', 'GET', $imageId);
+        $sndResp = curl_exec($sndCurl);
+        $sndobject = json_decode($sndResp);
+
+        $image = new \Astrobin\Response\Image();
+        $image->fromObj($sndobject);
+
+        $astrobinToday->add($image);
+    }
 }
+curl_close($curl);
 
-
-
-
-
-
+print_r($astrobinToday);
+die();
 
 function initCurl($endPoint, $method, $data)
 {
-    $apiKey = '3524e6ee81749ea19a1ed0f14c5390efb4ac578f';
-    $apiSecret = '6f0a67f7aeb93cbce4addec000fca9991876df63';
+    $apiKey = '';
+    $apiSecret = '';
 
     // Build URL with params
     $url = 'https://www.astrobin.com/api/v1/' . $endPoint;
@@ -60,7 +78,6 @@ function initCurl($endPoint, $method, $data)
 
     $curl = curl_init();
 
-    print_r("URL : $url\n");
     // Options CURL
     $options = [
         CURLOPT_URL => $url,
@@ -71,8 +88,7 @@ function initCurl($endPoint, $method, $data)
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
     ];
-
-
+    var_dump($url);
     curl_setopt_array($curl, $options);
     return $curl;
 }
