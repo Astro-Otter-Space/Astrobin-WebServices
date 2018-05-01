@@ -24,15 +24,11 @@ class AstrobinWsController extends Controller
      * @param Request $request
      * @param $id
      * @return Response
-     * @throws WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
-     * @throws \ReflectionException
      */
     public function getImageByIdAction(Request $request, $id)
     {
         $astrobinWS = $this->container->get('astrobin.webservice.getimage');
         $data = $astrobinWS->getImageById($id);
-        dump($data);
 
         $response = new Response();
         return $this->render('pages/astrobin.html.twig', ['data' => $data], $response);
