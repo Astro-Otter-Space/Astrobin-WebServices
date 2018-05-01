@@ -2,4 +2,4 @@ vendor
 vendor/*
 .idea/*
 .idea
-tests/
+tests/git push
