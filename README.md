@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.4.0
+Version 0.5.0
 
 Caution : API currently in progress, this is not a final version.
 

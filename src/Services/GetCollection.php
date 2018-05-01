@@ -34,17 +34,6 @@ class GetCollection extends AbstractWebService
 
         $astrobinCollection = $this->callWs($id);
         if (isset($astrobinCollection->images) && 0 < count($astrobinCollection->images)) {
-//            $listImagesId = preg_grep('/\/([\d]+)/', $astrobinCollection->images);
-//            if (0 < count($listImagesId)) {
-//                foreach ($listImagesId as $imageId) {
-//                    $imgRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
-//
-//                    $image = new Image();
-//                    $image->fromObj($imgRawCall);
-//
-//                    $astrobinCollection->add($image);
-//                }
-//            }
             $astrobinCollection = $this->getImagesCollection($astrobinCollection);
         }
 
@@ -62,10 +51,12 @@ class GetCollection extends AbstractWebService
     public function getListCollectionByUser($username = null)
     {
         $params = ['user' => $username];
+        /** @var ListCollection $astrobinListCollection */
         $astrobinListCollection = $this->callWs($params);
         foreach ($astrobinListCollection->getIterator() as $collection) {
             /** @var Collection $ollection */
             $ollection = $this->getImagesCollection($collection);
+            // TODO retrieve images
             $astrobinListCollection->add($collection);
         }
 
