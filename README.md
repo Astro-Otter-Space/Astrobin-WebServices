@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.5.4
+Version 0.5.5
 
 Caution : API currently in progress, this is not a final version.
 
@@ -102,10 +102,10 @@ The library expose 4 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getImageById()`      | `$id`       | `Image` |
-| `getImagesBySubject()`   | `$subjectId`  `$limit`     | `ListImage`,`Image` |
-| `getImagesByDescription()`   | `$description`  `$limit`     | `ListImage`,`Image` |
-| `getImagesByUser()`     | `$userName`  `$limit`     | `ListImage`,`Image` |
+| `getImageById()`| `$id`       | `Image` |
+| `getImagesBySubject()`| `$subjectId`  `$limit`     | `ListImage`,`Image` |
+| `getImagesByDescription()`| `$description`  `$limit`     | `ListImage`,`Image` |
+| `getImagesByUser()`| `$userName`  `$limit`     | `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01),   `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 
 ### GetTodayImage :
@@ -116,12 +116,11 @@ The library expose 4 WebServices, each with these methods below.
 | `getTodayDayImage()`   |   | `Today` |
 
 ### GetCollection :
-*In progress...*
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getCollectionById()`      | `$id`       | `Collection` |
-| `getCollectionByUser()`      | `user`       | `ListCollection` |
+| `getCollectionById()`| `$id`| `Collection` |
+| `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
 
 ### GetLocation :
 *In progress...*
@@ -168,6 +167,10 @@ The library expose 4 WebServices, each with these methods below.
 ![](https://image.noelshack.com/fichiers/2018/18/2/1525187691-collection.png)
 
 ### ListCollection
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `listCollection`      | List of collection with list of images       |
+![](https://image.noelshack.com/fichiers/2018/18/2/1525189056-listcollection.png)
 
 ### Today
 | Parameter| Description |
