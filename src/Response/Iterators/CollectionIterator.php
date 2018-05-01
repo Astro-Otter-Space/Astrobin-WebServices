@@ -1,34 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 30/04/18
- * Time: 19:25
- */
-
-namespace Astrobin\Response;
-
+namespace Astrobin\Response\Iterators;
 
 /**
- * Class ImageIterator
- * @package Astrobin\Response
+ * Class CollectionIterator
+ * @package Astrobin\Response\Iterators
  */
-class ImageIterator implements \Iterator
+class CollectionIterator implements \Iterator
 {
-
     private $var = [];
 
+
     /**
-     * ImageIterator constructor.
+     * CollectionIterator constructor.
      * @param $array
      */
     public function __construct($array)
     {
-        if(is_array($array)) {
+        if (is_array($array)) {
             $this->var = $array;
         }
     }
-
 
     /**
      * @return mixed
@@ -38,6 +29,7 @@ class ImageIterator implements \Iterator
         $var = current($this->var);
         return $var;
     }
+
 
     /**
      * @return mixed|void
@@ -49,7 +41,7 @@ class ImageIterator implements \Iterator
     }
 
     /**
-     * @return int|mixed|null|string
+     * @return mixed
      */
     public function key()
     {
@@ -68,14 +60,13 @@ class ImageIterator implements \Iterator
         return $var;
     }
 
-
     /**
      * @return mixed|void
      */
     public function rewind()
     {
-       $var = reset($this->var);
-       return $var;
+        $var = reset($this->var);
+        return $var;
     }
 
 }

@@ -162,7 +162,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * Build response from WebService Astrobin
      * @param array $objects
-     * @return Collection|Image|null
+     * @return ListImages|Image|null
      * @throws WsResponseException
      * @throws \ReflectionException
      */

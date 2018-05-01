@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 30/04/18
- * Time: 19:23
- */
 
 namespace Astrobin\Response;
 
+use Astrobin\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**
