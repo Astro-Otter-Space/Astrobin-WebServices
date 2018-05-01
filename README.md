@@ -153,6 +153,22 @@ The library expose 4 WebServices, each with these methods below.
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117490-list-images.png)
 
+### Collection
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `id`      | Identifier       |
+| `name`      | Name of collection      |
+| `description`      | Description      |
+| `user`      | User name       |
+| `date_created`      | Date of creation      |
+| `date_updated`      | Date of modification      |
+| `images`      | Path of WS Image      |
+| `listImages`      | Path of WS Image      |
+
+![](https://image.noelshack.com/fichiers/2018/18/2/1525187691-collection.png)
+
+### ListCollection
+
 ### Today
 | Parameter| Description |
 | ------------- | ------------------------------ |
