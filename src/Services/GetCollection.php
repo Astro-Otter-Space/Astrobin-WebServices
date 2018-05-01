@@ -43,6 +43,7 @@ class GetCollection extends AbstractWebService
 
     /**
      * @param null $username
+     * @param null $limit
      * @return ListCollection|null
      * @throws WsException
      * @throws WsResponseException
@@ -58,8 +59,8 @@ class GetCollection extends AbstractWebService
         $astrobinListCollection = $this->callWs($params);
         foreach ($astrobinListCollection->getIterator() as $collection) {
             /** @var Collection $ollection */
-            $this->getImagesCollection($collection);
-            $astrobinListCollection->add($collection);
+            $collectionWithImages = $this->getImagesCollection($collection);
+            $astrobinListCollection->add($collectionWithImages);
         }
 
         return $astrobinListCollection;

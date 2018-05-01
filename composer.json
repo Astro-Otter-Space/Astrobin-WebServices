@@ -1,6 +1,6 @@
 {
   "name" : "hamhamfonfon/astrobin",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description" : "Astrobin API for PHP projects",
   "type" : "library",
   "authors" : [{
