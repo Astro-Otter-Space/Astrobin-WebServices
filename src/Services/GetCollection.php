@@ -48,14 +48,17 @@ class GetCollection extends AbstractWebService
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getListCollectionByUser($username = null)
+    public function getListCollectionByUser($username = null, $limit = null)
     {
-        $params = ['user' => $username];
+        if (parent::LIMIT_MAX < $limit) {
+            $limit = parent::LIMIT_MAX;
+        }
+        $params = ['user' => $username, 'limit' => $limit];
         /** @var ListCollection $astrobinListCollection */
         $astrobinListCollection = $this->callWs($params);
         foreach ($astrobinListCollection->getIterator() as $collection) {
             /** @var Collection $ollection */
-            $ollection = $this->getImagesCollection($collection);
+            $this->getImagesCollection($collection);
             $astrobinListCollection->add($collection);
         }
 
