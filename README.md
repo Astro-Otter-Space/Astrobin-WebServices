@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.5.0
+Version 0.5.1
 
 Caution : API currently in progress, this is not a final version.
 
@@ -68,8 +68,21 @@ astrobin.webservice:
     arguments:
       - "%astrobin.key%"
       - "%astrobin.secret%"
+# Images WS
 astrobin.webservice.getimage:
     class: Astrobin\Services\GetImage
+    parent: astrobin.webservice
+# Collection WS
+astrobin.webservice.getcollection:
+    class: Astrobin\Services\GetLocation
+    parent: astrobin.webservice
+# Location WS
+astrobin.webservice.getlocation:
+    class: Astrobin\Services\GetLocation
+    parent: astrobin.webservice
+# Today location
+astrobin.webservice.gettodayimage:
+    class: Astrobin\Services\GetTodayImage
     parent: astrobin.webservice
 ```
 
@@ -108,6 +121,7 @@ The library expose 4 WebServices, each with these methods below.
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
 | `getCollectionById()`      | `$id`       | `Collection` |
+| `getCollectionByUser()`      | `user`       | `ListCollection` |
 
 ### GetLocation :
 *In progress...*

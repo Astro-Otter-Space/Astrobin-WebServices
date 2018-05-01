@@ -73,7 +73,11 @@ class GetCollection extends AbstractWebService
      */
     private function getImagesCollection(Collection $astrobinCollection)
     {
-        $listImagesId = preg_grep('/\/([\d]+)/', $astrobinCollection->images);
+        $listImagesId = array_map(function($path) {
+            if (preg_match('/\/([\d]+)/', $path, $matches)) {
+                return $matches[1];
+            }
+        }, $astrobinCollection->images);
         if (0 < count($listImagesId)) {
             foreach ($listImagesId as $imageId) {
                 $imgRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
