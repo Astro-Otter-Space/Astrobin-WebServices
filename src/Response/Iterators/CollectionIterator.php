@@ -1,8 +1,6 @@
 <?php
 namespace Astrobin\Response\Iterators;
 
-use Traversable;
-
 /**
  * Class CollectionIterator
  * @package Astrobin\Response\Iterators

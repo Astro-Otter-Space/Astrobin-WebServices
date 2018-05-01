@@ -56,7 +56,6 @@ class GetCollection extends AbstractWebService
         foreach ($astrobinListCollection->getIterator() as $collection) {
             /** @var Collection $ollection */
             $ollection = $this->getImagesCollection($collection);
-            // TODO retrieve images
             $astrobinListCollection->add($collection);
         }
 
