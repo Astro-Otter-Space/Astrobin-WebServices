@@ -7,7 +7,7 @@ php:
   - nightly
 before_script: composer install
 script:
-  - php ./vendor/bin/phpcs -p -n --standard=PSR2 src
+  - php ./vendor/bin/phpcs -p -n --standard=PSR2 src --coverage-clover=coverage.xml
 #  - php ./vendor/bin/phpunit tests\WsServices\GetImageTest
 after_success:
   - bash <(curl -s https://codecov.io/bash)
