@@ -2,7 +2,6 @@
 
 namespace Astrobin\Response\Iterators;
 
-
 /**
  * Class ImageIterator
  * @package Astrobin\Response
@@ -18,7 +17,7 @@ class ImageIterator implements \Iterator
      */
     public function __construct($array)
     {
-        if(is_array($array)) {
+        if (is_array($array)) {
             $this->var = $array;
         }
     }
@@ -58,7 +57,7 @@ class ImageIterator implements \Iterator
     public function valid()
     {
         $key = key($this->var);
-        $var = (!is_null($key) && FALSE !== $key);
+        $var = (!is_null($key) && false !== $key);
         return $var;
     }
 
@@ -68,8 +67,7 @@ class ImageIterator implements \Iterator
      */
     public function rewind()
     {
-       $var = reset($this->var);
-       return $var;
+        $var = reset($this->var);
+        return $var;
     }
-
 }
