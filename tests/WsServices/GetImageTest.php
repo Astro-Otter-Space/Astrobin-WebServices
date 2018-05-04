@@ -41,4 +41,5 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(\Astrobin\Response\Image::class, $response);
         $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class);
     }
+
 }
