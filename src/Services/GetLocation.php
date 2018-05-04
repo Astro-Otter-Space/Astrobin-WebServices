@@ -61,6 +61,4 @@ class GetLocation extends AbstractWebService implements WsInterface
 
         return$astrobinResponse;
     }
-
-
 }

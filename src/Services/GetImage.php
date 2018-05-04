@@ -117,7 +117,6 @@ class GetImage extends AbstractWebService implements WsInterface
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
         if (false === $dateFrom) {
             throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr));
-
         } elseif (false !== $dateFrom && array_sum($dateFrom->getLastErrors())) {
             throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()));
         }
@@ -150,7 +149,6 @@ class GetImage extends AbstractWebService implements WsInterface
                     return $this->responseWs($rawResp->objects);
                 }
                 throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)));
-
             } else {
                 return $this->responseWs([$rawResp]);
             }
@@ -170,7 +168,6 @@ class GetImage extends AbstractWebService implements WsInterface
     {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {
-
             if (1 < count($objects)) {
                 /** @var Collection $astrobinCollection */
                 $astrobinResponse = new ListImages();
@@ -179,7 +176,6 @@ class GetImage extends AbstractWebService implements WsInterface
                     $image->fromObj($object);
                     $astrobinResponse->add($image);
                 }
-
             } else {
                 /** @var Image $astrobinResponse */
                 $astrobinResponse = new Image();

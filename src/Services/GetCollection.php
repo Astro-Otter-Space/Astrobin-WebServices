@@ -77,7 +77,7 @@ class GetCollection extends AbstractWebService
      */
     private function getImagesCollection(Collection $astrobinCollection)
     {
-        $listImagesId = array_map(function($path) {
+        $listImagesId = array_map(function ($path) {
             if (preg_match('/\/([\d]+)/', $path, $matches)) {
                 return $matches[1];
             }
