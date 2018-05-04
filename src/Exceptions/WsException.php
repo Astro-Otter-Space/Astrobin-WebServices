@@ -1,8 +1,8 @@
 <?php
 
 namespace Astrobin\Exceptions;
-use Throwable;
 
+use Throwable;
 
 /**
  * Class WsException
