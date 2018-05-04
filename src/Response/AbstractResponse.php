@@ -1,6 +1,7 @@
 <?php
 
 namespace Astrobin\Response;
+
 use Astrobin\Exceptions\WsResponseException;
 
 /**
@@ -48,6 +49,4 @@ abstract class AbstractResponse
             $property->setValue($this, $objArr[$property->getName()]);
         }
     }
-
-
 }

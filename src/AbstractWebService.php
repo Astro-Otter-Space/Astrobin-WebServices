@@ -1,6 +1,7 @@
 <?php
 
 namespace Astrobin;
+
 use Astrobin\Exceptions\WsException;
 
 /**
@@ -50,7 +51,7 @@ abstract class AbstractWebService
         // Astrobin dont send data like content_type, http_code : curl_getinfo is totally empty/
 //        $respHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        if(!$resp = curl_exec($curl)) {
+        if (!$resp = curl_exec($curl)) {
             if (empty($resp)) {
                 throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
             }
@@ -105,7 +106,7 @@ abstract class AbstractWebService
         // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;
         if (is_array($data) && 0 < count($data)) {
-            $paramData = implode('&', array_map(function($k, $v) {
+            $paramData = implode('&', array_map(function ($k, $v) {
                 $formatValue = "%s";
                 if (is_numeric($v)) {
                     $formatValue = "%d";
@@ -129,7 +130,7 @@ abstract class AbstractWebService
             'format' => 'json'
         ];
 
-        $url .= implode('', array_map(function($k, $v) {
+        $url .= implode('', array_map(function ($k, $v) {
             return sprintf("&%s=%s", $k, $v);
         }, array_keys($params), $params));
 
@@ -156,6 +157,7 @@ abstract class AbstractWebService
             ]);
         }
         curl_setopt_array($curl, $options);
+
         return $curl;
     }
 }

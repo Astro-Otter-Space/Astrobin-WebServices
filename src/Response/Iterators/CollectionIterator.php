@@ -56,7 +56,7 @@ class CollectionIterator implements \Iterator
     public function valid()
     {
         $key = key($this->var);
-        $var = (!is_null($key) && FALSE !== $key);
+        $var = (!is_null($key) && false !== $key);
         return $var;
     }
 
@@ -68,5 +68,4 @@ class CollectionIterator implements \Iterator
         $var = reset($this->var);
         return $var;
     }
-
 }
