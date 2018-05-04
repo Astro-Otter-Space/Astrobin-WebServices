@@ -17,7 +17,8 @@
     "issues": "https://github.com/HamHamFonFon/Astrobin-API-PHP/issues"
   },
   "require" : {
-    "php": ">5.6.0"
+    "php": ">5.6.0",
+    "squizlabs/php_codesniffer": "^3.2"
   },
   "autoload" : {
     "psr-4" : {
