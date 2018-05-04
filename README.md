@@ -4,7 +4,7 @@
 
 [TOC]
 
-Version 0.5.5
+Version 0.6.0
 
 Caution : API currently in progress, this is not a final version.
 
@@ -185,7 +185,9 @@ The library expose 4 WebServices, each with these methods below.
 *In progress*
 
 ## Running the tests
-*In progress*
+```
+php ./vendor/bin/phpcs -p -n --standard=PSR2 src
+```
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
