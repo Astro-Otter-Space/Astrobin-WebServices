@@ -27,9 +27,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test by ID OK
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws WsResponseException
      */
     public function testGetImageById()
     {
@@ -44,14 +41,11 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test with null Id
      * @expectedException  \Astrobin\Exceptions\WsResponseException
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithNullId()
     {
         $response = $this->client->getImageById(null);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
         $this->expectExceptionMessage("[Astrobin response] '' is not a correct value, integer expected");
     }
 
@@ -60,15 +54,12 @@ class GetImageTest extends PHPUnit_Framework_TestCase
      * Test bith Bad Id
      *
      * @expectedException \Astrobin\Exceptions\WsResponseException
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithBadId()
     {
         $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImageById($fakeId);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
         $this->expectExceptionMessage("[Astrobin response] \'$fakeId\' is not a correct value, integer expected");
     }
 
@@ -76,10 +67,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test by subjects
      * @expectedException \Astrobin\Exceptions\WsResponseException
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubject()
     {
@@ -118,32 +105,22 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Astrobin\Exceptions\WsException
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubjectNotFound()
     {
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
+        $this->expectException(\Astrobin\Exceptions\WsException::class);
     }
 
 
     public function testGetImagesByDescription()
     {
-
-
-
     }
 
 
     /**
      * Test by username
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageByUser()
     {
@@ -161,23 +138,18 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test with fake user
      * @expectedException \Astrobin\Exceptions\WsResponseException
-     *
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesByBadUser()
     {
         $fakeUser = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImagesByUser($fakeUser, 5);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
     }
 
 
 
     /**
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
+     * Test with a range date : now to now-1month
      */
     public function testGetImagesByRangeDate()
     {
