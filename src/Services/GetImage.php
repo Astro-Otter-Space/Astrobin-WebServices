@@ -22,7 +22,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * @param $id
-     * @return Collection|Image|null
+     * @return Image|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
@@ -60,7 +60,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * @param $description
      * @param $limit
-     * @return Collection|Image|null
+     * @return ListImages|Image|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException

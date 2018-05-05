@@ -102,20 +102,28 @@ class GetImageTest extends PHPUnit_Framework_TestCase
                 // Test images
                 foreach ($response->getIterator() as $respImage) {
                     $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
-                    $this->assertContains($respImage->title, $subject, __METHOD__ . " : response title contained $respImage->title, expected : $subject, OK");
+                    $this->assertContains(strtolower($subject), strtolower($respImage->title), __METHOD__ . " : response title is '$respImage->title', expected $subject inside, OK");
                 }
 
             } else if (is_a($response, \Astrobin\Response\Image::class)) {
                 $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
-                $this->assertContains($response->title, $subject, __METHOD__ . " : response title contained $response->title, expected : $subject, OK");
+                $this->assertContains(strtolower($subject), strtolower($response->title),__METHOD__ . " : response title contained '$response->title'', expected $subject inside, OK");
             }
         }
     }
 
-    
+
+    /**
+     * @expectedException \Astrobin\Exceptions\WsResponseException
+     *
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
+     */
     public function testGetImagesBySubjectNotFound()
     {
-
+        $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
+        $response = $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
     }
 
     public function testGetImagesByDescription()
@@ -161,10 +169,23 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
+     */
     public function testGetImagesByRangeDate()
     {
+        $dateTo = new DateTime('now');
+        $dateFrom = clone $dateTo;
+        $dateFrom->sub(new DateInterval('P1M'));
 
+        $response = $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('y-m-d'));
+        $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
+        foreach ($response->getIterator() as $imgResp) {
+            $this->assertLessThanOrEqual($dateFrom->getTimestamp(), $imgResp->c);
+            $this->assertGreaterThanOrEqual($dateTo->getTimestamp());
+        }
     }
 
     public function testGetImagesByRangeDateFalse()
