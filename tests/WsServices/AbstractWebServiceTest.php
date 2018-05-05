@@ -8,7 +8,7 @@
 
 use Astrobin\AbstractWebService;
 
-class AbstractWebServiceTest extends PHPUnit_Framework_TestCase
+class AbstractWebServiceTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $badClient;
