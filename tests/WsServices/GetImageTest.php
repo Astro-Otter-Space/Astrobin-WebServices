@@ -76,13 +76,14 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test by subjects
-     *
+     * @expectedException \Astrobin\Exceptions\WsResponseException
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubject()
     {
+        // Create an array of 15 messier objects from M1 to M110
         $length = rand(1, 15);
         $random_number_array = range(1, 110);
         shuffle($random_number_array );
@@ -91,6 +92,8 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $subjects = array_map(function($value) {
             return implode('', ['m', $value]);
         }, $random_number_array);
+
+        // TODO : excluide Messier objects where no Images (ex M40, M24)
 
         foreach ($subjects as $subject) {
             $limit = rand(1, 5);
@@ -102,12 +105,12 @@ class GetImageTest extends PHPUnit_Framework_TestCase
                 // Test images
                 foreach ($response->getIterator() as $respImage) {
                     $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
-                    $this->assertContains(strtolower($respImage->title), strtolower($subject), __METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
+                    $this->assertContains(substr(strtolower($subject), 1), strtolower($respImage->title),__METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
                 }
 
             } else if (is_a($response, \Astrobin\Response\Image::class)) {
                 $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
-                $this->assertContains(strtolower($response->title), strtolower($subject),__METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
+                $this->assertContains(strtolower($subject), strtolower($response->title), __METHOD__ . " : check if $subject is contained in '$response->title' OK");
             }
         }
     }
@@ -125,6 +128,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
     }
+
 
     public function testGetImagesByDescription()
     {
@@ -183,8 +187,8 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $response = $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('y-m-d'));
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
         foreach ($response->getIterator() as $imgResp) {
-            $this->assertLessThanOrEqual($dateFrom->getTimestamp(), $imgResp->c);
-            $this->assertGreaterThanOrEqual($dateTo->getTimestamp());
+            $this->assertLessThanOrEqual($dateFrom->getTimestamp(), $imgResp->uploaded);
+            $this->assertGreaterThanOrEqual($dateTo->getTimestamp(), $imgResp->uploaded);
         }
     }
 

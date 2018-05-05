@@ -18,14 +18,13 @@ class Image extends AbstractResponse
     public $url_hd;
     public $user;
 
+
     /**
-     * @param $uploaded
-     * @return $this
+     * @return void
      */
-    public function setUploaded($uploaded)
+    public function getUploaded()
     {
-        $uploaded = \DateTime::createFromFormat(DATE_ATOM, $uploaded);
+        $uploaded = \DateTime::createFromFormat(DATE_ATOM, $this->uploaded);
         $this->uploaded = $uploaded->format('Y-m-d H:i:s');
-        return $this;
     }
 }
