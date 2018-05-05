@@ -12,7 +12,7 @@ abstract class AbstractWebService
 {
     const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
     const MAX_REDIRS = 10;
-    const LIMIT_MAX = 24;
+    const LIMIT_MAX = 20;
 
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';

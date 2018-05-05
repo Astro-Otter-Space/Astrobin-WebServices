@@ -59,10 +59,14 @@ class GetImageTest extends PHPUnit_Framework_TestCase
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
      */
-    public function testGetImageWithoutId()
+    public function testGetImageWithBadId()
     {
         $response = $this->client->getImageById(null);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
 
-        $this->assertNull($response);
+        $fakeId = md5(new DateTime('now'));
+        $response = $this->$this->client->getImageById($fakeId);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
     }
+
 }

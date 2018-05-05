@@ -29,6 +29,9 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImageById($id)
     {
+        if (is_null($id) || !is_numeric($id)) {
+            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, integer expected", $id));
+        }
         return $this->callWs($id);
     }
 
