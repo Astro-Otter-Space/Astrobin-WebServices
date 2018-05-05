@@ -102,12 +102,12 @@ class GetImageTest extends PHPUnit_Framework_TestCase
                 // Test images
                 foreach ($response->getIterator() as $respImage) {
                     $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
-                    $this->assertContains(strtolower($subject), strtolower($respImage->title), __METHOD__ . " : response title is '$respImage->title', expected $subject inside, OK");
+                    $this->assertContains(strtolower($respImage->title), strtolower($subject), __METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
                 }
 
             } else if (is_a($response, \Astrobin\Response\Image::class)) {
                 $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
-                $this->assertContains(strtolower($subject), strtolower($response->title),__METHOD__ . " : response title contained '$response->title'', expected $subject inside, OK");
+                $this->assertContains(strtolower($response->title), strtolower($subject),__METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
             }
         }
     }
