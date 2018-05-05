@@ -45,6 +45,10 @@ abstract class AbstractWebService
      */
     protected function call($endPoint, $method, $data)
     {
+        if (is_null($this->apiKey) || is_null($this->apiSecret)) {
+            throw new WsException(sprintf("Astrobin Webservice : API key or API secret is null"));
+        }
+
         $obj = null;
         $curl = $this->initCurl($endPoint, $method, $data);
 

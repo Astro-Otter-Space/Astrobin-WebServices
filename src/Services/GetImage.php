@@ -80,7 +80,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * Return an Collection per user name
      * @param $userName
      * @param $limit
-     * @return Collection|Image|null
+     * @return ListImages|Image|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
@@ -99,7 +99,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * @param null $dateFromStr
      * @param null $dateToStr
-     * @return Collection|Image|null
+     * @return ListImages|Image|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
@@ -136,7 +136,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * Call WS "image" with parameters
      * @param array $params
-     * @return Collection|Image|null
+     * @return ListImages|Image|null
      * @throws WsResponseException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException

@@ -23,23 +23,9 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $this->client = new GetImage(self::FAKE_KEY, self::FAKE_SECRET);
     }
 
-//    /**
-//     * Test Call API without Token
-//     *
-//     * @throws ReflectionException
-//     * @throws \Astrobin\Exceptions\WsException
-//     * @throws \Astrobin\Exceptions\WsResponseException
-//     */
-//    public function testGetImageByIdWithoutToken()
-//    {
-//        $id = rand(1, 1000);
-//        $response = $client->getImageById($id);
-//
-//        $this->assertInstanceOf(\Astrobin\Exceptions\WsException::class, $response,  '');
-//    }
-
 
     /**
+     * Test by ID OK
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -49,44 +35,96 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $id = 341955;
         $response = $this->client->getImageById($id);
 
-        $this->assertInstanceOf(\Astrobin\Response\Image::class, $response);
-        $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class);
+        $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');
+        $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class, __METHOD__ . ': attribute title OK');
     }
 
 
     /**
-     *
+     * Test with null Id
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithNullId()
     {
-        try {
-            $this->client->getImageById(null);
-        } catch (Exception $e) {
-            $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $e);
-//            $this->expectException('\Astrobin\Exceptions\WsResponseException');
-        }
+        $response = $this->client->getImageById(null);
+        $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $response, __METHOD__ . ' : WsResponseException returned, OK');
     }
 
+
+
     /**
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithBadId()
     {
-        try {
-            $fakeId = md5(new DateTime('now'));
-            $this->client->getImageById($fakeId);
-        } catch (Exception $e) {
-            $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $e);
+        $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
+        $response = $this->client->getImageById($fakeId);
+        $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $response, __METHOD__ . ' : WsResponseException returned OK');
+    }
+
+
+    public function testGetImagesBySubject()
+    {
+
+    }
+
+    public function testGetImagesBySubjectNotFound()
+    {
+
+    }
+
+    public function testGetImagesByDescription()
+    {
+
+    }
+
+
+    /**
+     * Test by username
+     *
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
+     */
+    public function testGetImageByUser()
+    {
+        $listUser = ['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'];
+        $user = $listUser[array_rand($listUser, 1)];
+        $response = $this->client->getImagesByUser($user, 5);
+
+        $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response, __METHOD__ . ' : ListImages returned OK');
+        foreach ($response->getIterator() as $resp) {
+            $this->assertEquals($user, $resp->user, __METHOD__ . ' : ' . $user . ' selected is equale to ' . $resp->user);
         }
     }
 
 
-    public function testGetImageByUser()
+    /**
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
+     */
+    public function testGetImagesByBadUser()
     {
-        $user = array_rand(['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'], 1);
-        $response = $this->client->getImagesByUser($user, 5);
+        $fakeUser = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
+        $response = $this->client->getImagesByUser($fakeUser, 5);
 
-        $this->assertInstanceOf(\Astrobin\Response\Image::class, $response);
-        $this->assertEquals($user, $response->user);
+        $this->assertNull($response, __METHOD__ . ' : response by Bad User OK');
+    }
+
+
+
+    public function testGetImagesByRangeDate()
+    {
+
+    }
+
+    public function testGetImagesByRangeDateFalse()
+    {
 
     }
 }
