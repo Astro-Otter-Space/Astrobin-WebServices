@@ -14,5 +14,6 @@ class Image extends AbstractResponse
     public $url_gallery;
     public $url_thumb;
     public $url_regular;
+    public $url_hd;
     public $user;
 }
