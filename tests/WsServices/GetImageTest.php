@@ -1,11 +1,11 @@
 <?php
 
 use Astrobin\Services\GetImage;
-
+use PHPUnit\Framework\TestCase;
 /**
  * Class GetImageTest
  */
-class GetImageTest extends PHPUnit_Framework_TestCase
+class GetImageTest extends TestCase
 {
 
     /** @var GetImage */

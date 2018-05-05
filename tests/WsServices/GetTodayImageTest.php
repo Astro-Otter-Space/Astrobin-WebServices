@@ -8,7 +8,7 @@
 
 use Astrobin\Services\GetTodayImage;
 
-class GetTodayImageTest extends PHPUnit_Framework_TestCase
+class GetTodayImageTest extends \PHPUnit\Framework\TestCase
 {
 
     /** @var GetImage */
@@ -21,7 +21,7 @@ class GetTodayImageTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = new GetImage(self::FAKE_KEY, self::FAKE_SECRET);
+        $this->client = new GetTodayImage(self::FAKE_KEY, self::FAKE_SECRET);
     }
 
     public function testGetDayImage()
