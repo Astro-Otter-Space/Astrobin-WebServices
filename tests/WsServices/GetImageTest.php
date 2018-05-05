@@ -66,7 +66,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test by subjects
-     * @expectedException \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubject()
     {
@@ -104,13 +103,13 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException \Astrobin\Exceptions\WsException
+     * @expectedException \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubjectNotFound()
     {
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
-        $this->expectException(\Astrobin\Exceptions\WsException::class);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
     }
 
 
