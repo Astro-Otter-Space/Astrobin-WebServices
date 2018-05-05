@@ -43,6 +43,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test with null Id
      * @expectedException  \Astrobin\Exceptions\WsResponseException
+     * @expectedExceptionMessage
      *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
@@ -51,13 +52,16 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     public function testGetImageWithNullId()
     {
         $response = $this->client->getImageById(null);
+        $this->expectExceptionMessage("[Astrobin response] '' is not a correct value, integer expected");
     }
 
 
 
     /**
      * Test bith Bad Id
+     *
      * @expectedException \Astrobin\Exceptions\WsResponseException
+     *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -66,14 +70,49 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     {
         $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImageById($fakeId);
+        $this->expectExceptionMessage("[Astrobin response] \'$fakeId\' is not a correct value, integer expected");
     }
 
 
+    /**
+     * Test by subjects
+     *
+     * @throws ReflectionException
+     * @throws \Astrobin\Exceptions\WsException
+     * @throws \Astrobin\Exceptions\WsResponseException
+     */
     public function testGetImagesBySubject()
     {
+        $length = rand(1, 15);
+        $random_number_array = range(1, 110);
+        shuffle($random_number_array );
+        $random_number_array = array_slice($random_number_array ,0,$length);
 
+        $subjects = array_map(function($value) {
+            return implode('', ['m', $value]);
+        }, $random_number_array);
+
+        foreach ($subjects as $subject) {
+            $limit = rand(1, 5);
+            $response = $this->client->getImagesBySubject($subject, $limit);
+
+            $instance = ($limit > 1) ? \Astrobin\Response\ListImages::class : \Astrobin\Response\Image::class;
+            $this->assertInstanceOf($instance, $response, __METHOD__  . " : response $instance OK");
+            if (is_a($response, \Astrobin\Response\ListImages::class)) {
+                // Test images
+                foreach ($response->getIterator() as $respImage) {
+                    $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
+                    $this->assertContains($respImage->title, $subject, __METHOD__ . " : response title contained $respImage->title, expected : $subject, OK");
+                }
+
+            } else if (is_a($response, \Astrobin\Response\Image::class)) {
+                $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
+                $this->assertContains($response->title, $subject, __METHOD__ . " : response title contained $response->title, expected : $subject, OK");
+            }
+        }
     }
 
+    
     public function testGetImagesBySubjectNotFound()
     {
 
@@ -81,6 +120,8 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     public function testGetImagesByDescription()
     {
+
+
 
     }
 
