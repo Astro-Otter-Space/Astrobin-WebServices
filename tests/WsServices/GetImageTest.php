@@ -1,4 +1,5 @@
 <?php
+
 use Astrobin\Services\GetImage;
 
 /**
@@ -28,7 +29,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
      * Test by ID OK
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
+     * @throws WsResponseException
      */
     public function testGetImageById()
     {
@@ -43,7 +44,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test with null Id
      * @expectedException  \Astrobin\Exceptions\WsResponseException
-     * @expectedExceptionMessage
      *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
@@ -54,7 +54,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $response = $this->client->getImageById(null);
         $this->expectExceptionMessage("[Astrobin response] '' is not a correct value, integer expected");
     }
-
 
 
     /**
@@ -77,6 +76,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     /**
      * Test by subjects
      * @expectedException \Astrobin\Exceptions\WsResponseException
+     *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -117,7 +117,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException \Astrobin\Exceptions\WsResponseException
+     * @expectedException \Astrobin\Exceptions\WsException
      *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
@@ -173,6 +173,7 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     }
 
 
+
     /**
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
@@ -186,12 +187,13 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
         $response = $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('y-m-d'));
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
+        /** @var \Astrobin\Response\Image $imgResp */
         foreach ($response->getIterator() as $imgResp) {
 
-            $timestamp = DateTime::createFromFormat(, $imgResp->uploaded);
+            $timestamp = $imgResp->getUploaded()->getTimestamp();
 
-            $this->assertLessThanOrEqual($dateFrom->getTimestamp(), $imgResp->uploaded);
-            $this->assertGreaterThanOrEqual($dateTo->getTimestamp(), $imgResp->uploaded);
+            $this->assertLessThanOrEqual($dateTo->getTimestamp(), $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
+            $this->assertGreaterThanOrEqual($dateFrom->getTimestamp(), $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
         }
     }
 
