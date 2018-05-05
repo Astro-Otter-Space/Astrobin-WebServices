@@ -4,13 +4,15 @@
 
 [TOC]
 
-Version 0.6.2
+Version 0.7.0
 
 Caution : API currently in progress, this is not a final version.
 
 ## Requirements
-* PHP 5.6 min or superior
+* PHP 7.0 min or superior
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
+
+> PHP 5.6 is compatible but not Unit tests.
 
 ## Introduction
 
