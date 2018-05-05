@@ -42,6 +42,8 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test with null Id
+     * @expectedException  \Astrobin\Exceptions\WsResponseException
+     *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -49,12 +51,13 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     public function testGetImageWithNullId()
     {
         $response = $this->client->getImageById(null);
-        $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $response, __METHOD__ . ' : WsResponseException returned, OK');
     }
 
 
 
     /**
+     * Test bith Bad Id
+     * @expectedException \Astrobin\Exceptions\WsResponseException
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -63,7 +66,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     {
         $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImageById($fakeId);
-        $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $response, __METHOD__ . ' : WsResponseException returned OK');
     }
 
 
@@ -104,6 +106,9 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
 
     /**
+     * Test with fake user
+     * @expectedException \Astrobin\Exceptions\WsResponseException
+     *
      * @throws ReflectionException
      * @throws \Astrobin\Exceptions\WsException
      * @throws \Astrobin\Exceptions\WsResponseException
@@ -112,8 +117,6 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     {
         $fakeUser = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $response = $this->client->getImagesByUser($fakeUser, 5);
-
-        $this->assertNull($response, __METHOD__ . ' : response by Bad User OK');
     }
 
 
