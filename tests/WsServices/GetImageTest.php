@@ -40,7 +40,7 @@ class GetImageTest extends TestCase
 
     /**
      * Test with null Id
-     * @expectedException  \Astrobin\Exceptions\WsResponseException
+     * @expectException  \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithNullId()
     {
@@ -53,7 +53,7 @@ class GetImageTest extends TestCase
     /**
      * Test bith Bad Id
      *
-     * @expectedException \Astrobin\Exceptions\WsResponseException
+     * @expectException \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImageWithBadId()
     {
@@ -102,7 +102,7 @@ class GetImageTest extends TestCase
 
 
     /**
-     * @expectedException \Astrobin\Exceptions\WsResponseException
+     * @expectException \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesBySubjectNotFound()
     {
@@ -135,7 +135,7 @@ class GetImageTest extends TestCase
 
     /**
      * Test with fake user
-     * @expectedException \Astrobin\Exceptions\WsResponseException
+     * @expectException \Astrobin\Exceptions\WsResponseException
      */
     public function testGetImagesByBadUser()
     {
