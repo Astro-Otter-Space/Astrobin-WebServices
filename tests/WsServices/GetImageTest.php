@@ -55,18 +55,38 @@ class GetImageTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @throws ReflectionException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \Astrobin\Exceptions\WsResponseException
+     *
+     */
+    public function testGetImageWithNullId()
+    {
+        try {
+            $this->client->getImageById(null);
+        } catch (Exception $e) {
+            $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $e);
+//            $this->expectException('\Astrobin\Exceptions\WsResponseException');
+        }
+    }
+
+    /**
      */
     public function testGetImageWithBadId()
     {
-        $response = $this->client->getImageById(null);
-        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
-
-        $fakeId = md5(new DateTime('now'));
-        $response = $this->$this->client->getImageById($fakeId);
-        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
+        try {
+            $fakeId = md5(new DateTime('now'));
+            $this->client->getImageById($fakeId);
+        } catch (Exception $e) {
+            $this->assertInstanceOf(\Astrobin\Exceptions\WsResponseException::class, $e);
+        }
     }
 
+
+    public function testGetImageByUser()
+    {
+        $user = array_rand(['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'], 1);
+        $response = $this->client->getImagesByUser($user, 5);
+
+        $this->assertInstanceOf(\Astrobin\Response\Image::class, $response);
+        $this->assertEquals($user, $response->user);
+
+    }
 }
