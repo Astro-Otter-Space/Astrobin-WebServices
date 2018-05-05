@@ -20,12 +20,12 @@ class Image extends AbstractResponse
 
 
     /**
-     * @return void
+     * @return bool|\DateTime
      */
     public function getUploaded()
     {
         /** @var \DateTime $uploadedFormat */
-        $uploadedFormat = \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
-        $this->uploaded = $uploadedFormat->format('Y-m-d H:i:s');
+        $this->uploaded = \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
+        return $this->uploaded;
     }
 }

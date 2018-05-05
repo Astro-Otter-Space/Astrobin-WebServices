@@ -187,6 +187,9 @@ class GetImageTest extends PHPUnit_Framework_TestCase
         $response = $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('y-m-d'));
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
         foreach ($response->getIterator() as $imgResp) {
+
+            $timestamp = DateTime::createFromFormat(, $imgResp->uploaded);
+
             $this->assertLessThanOrEqual($dateFrom->getTimestamp(), $imgResp->uploaded);
             $this->assertGreaterThanOrEqual($dateTo->getTimestamp(), $imgResp->uploaded);
         }
