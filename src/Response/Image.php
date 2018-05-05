@@ -24,7 +24,8 @@ class Image extends AbstractResponse
      */
     public function setUploaded($uploaded)
     {
-        $this->uploaded = \DateTime::createFromFormat(DATE_ATOM, $uploaded);
+        $uploaded = \DateTime::createFromFormat(DATE_ATOM, $uploaded);
+        $this->uploaded = $uploaded->format('y-m-d H:i:s');
         return $this;
     }
 }
