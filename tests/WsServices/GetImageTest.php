@@ -70,17 +70,16 @@ class GetImageTest extends PHPUnit_Framework_TestCase
     public function testGetImagesBySubject()
     {
         // Create an array of 15 messier objects from M1 to M110
-        $length = rand(1, 15);
-        $random_number_array = range(1, 110);
-        shuffle($random_number_array );
-        $random_number_array = array_slice($random_number_array ,0,$length);
+//        $length = rand(1, 15);
+//        $random_number_array = range(1, 110);
+//        shuffle($random_number_array );
+//        $random_number_array = array_slice($random_number_array ,0,$length);
+//
+//        $subjects = array_map(function($value) {
+//            return implode('', ['m', $value]);
+//        }, $random_number_array);
 
-        $subjects = array_map(function($value) {
-            return implode('', ['m', $value]);
-        }, $random_number_array);
-
-        // TODO : excluide Messier objects where no Images (ex M40, M24)
-
+        $subjects = ['m1','m16', 'm27', 'm31', 'm33', 'm42', 'm45', 'm51', 'm57', 'm82', 'm97', 'm101', 'm104'];
         foreach ($subjects as $subject) {
             $limit = rand(1, 5);
             $response = $this->client->getImagesBySubject($subject, $limit);
