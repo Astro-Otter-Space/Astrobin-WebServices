@@ -44,6 +44,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImageWithNullId()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $this->client->getImageById(null);
         $this->expectExceptionMessage("[Astrobin response] '' is not a correct value, integer expected");
     }
@@ -56,6 +57,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImageWithBadId()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImageById($fakeId);
         $this->expectExceptionMessage("[Astrobin response] \'$fakeId\' is not a correct value, integer expected");
@@ -92,6 +94,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesBySubjectNotFound()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
     }
@@ -142,7 +145,6 @@ class GetImageTest extends TestCase
 
         /** @var \Astrobin\Response\Image $imgResp */
         foreach ($response->getIterator() as $imgResp) {
-//            var_dump($imgResp->getUploaded());
             $timestamp = $imgResp->getUploaded()->getTimestamp();
             $this->assertLessThanOrEqual($dateTo->getTimestamp(), $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
             $this->assertGreaterThanOrEqual($dateFrom->getTimestamp(), $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
@@ -155,6 +157,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesByRangeDateFalse()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $dateTo = new DateTime('now');
         $dateFrom = clone $dateTo;
         $dateFrom->sub(new DateInterval('P1M'));
@@ -170,6 +173,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesByRangeDateBadFormat()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $dateTo = new DateTime('now');
 
         // Test with format yy-mm-dd also yyyy-mm-dd
