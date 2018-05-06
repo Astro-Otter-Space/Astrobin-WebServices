@@ -7,7 +7,7 @@ php:
   - hhvm
   - nightly
 before_script: composer install
-before_install: echo "extension = php_curl.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#before_install: echo "extension = php_curl.dll" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 script:
   - php ./vendor/bin/phpcs -p -n --standard=PSR2 src
   - php ./vendor/bin/phpunit tests/WsServices/
