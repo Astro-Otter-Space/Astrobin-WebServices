@@ -2,7 +2,10 @@
 
 # Astrobin API for PHP
 
-[TOC]
+## Table of contents
+    * [Requirements](#Requirements)
+    * [Introduction](#Introduction)
+    * [Installing](#Installing)
 
 Version 0.7.0
 
