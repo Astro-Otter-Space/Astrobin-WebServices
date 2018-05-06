@@ -8,7 +8,6 @@ use Astrobin\Exceptions\WsResponseException;
 use Astrobin\Response\Collection;
 use Astrobin\Response\Image;
 use Astrobin\Response\ListImages;
-use Astrobin\WsInterface;
 
 /**
  * Class GetImage
