@@ -191,6 +191,8 @@ The library expose 4 WebServices, each with these methods below.
 php ./vendor/bin/phpcs -p -n --standard=PSR2 src
 ```
 
+Due to problems dependencies between PHP 7.0, PhpUnit 6 and doctrine/instantiator explained (here)[https://github.com/sebastianbergmann/phpunit/issues/2823], if you want run PHP Unit test, run `composer install` with PHP 7.0
+
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
 
