@@ -97,6 +97,7 @@ class GetImageTest extends TestCase
         $this->setExpectedExceptionFromAnnotation();
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
     }
 
 
@@ -122,8 +123,10 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesByBadUser()
     {
+        $this->setExpectedExceptionFromAnnotation();
         $fakeUser = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesByUser($fakeUser, 5);
+        $this->expectException(\Astrobin\Exceptions\WsResponseException::class);
     }
 
 
