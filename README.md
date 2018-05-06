@@ -4,11 +4,11 @@
 
 ## Table of contents
 
- * [Requirements](#Requirements)
- * [Introduction](#Introduction)
- * [Installing](#Installing)
-   * [Usage](#Usage)
- * [WebServices](#WebServices)
+ * [Requirements](#requirements)
+ * [Introduction](#introduction)
+ * [Installing](#installing)
+   * [Usage](#usage)
+ * [WebServices](#webservices)
    * [GetImage](#GetImage)
    * [GetTodayImage](#GetTodayImage)
    * [GetCollection](#GetCollection)
@@ -20,7 +20,7 @@
    * [ListCollection](#ListCollection)
    * [Today](#Today)
    * [Location](#Location)
- * [Running the tests](#Running the tests)
+ * [Running the tests](#running-the-tests)
  * [Authors](#Authors)
  * [Licence](#Licence)
 
@@ -207,6 +207,7 @@ The library expose 4 WebServices, each with these methods below.
 *In progress*
 
 ## Running the tests
+
 ```
 php ./vendor/bin/phpcs -p -n --standard=PSR2 src
 ```
