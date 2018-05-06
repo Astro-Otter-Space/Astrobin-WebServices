@@ -25,17 +25,13 @@ class GetTodayImageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetDayImage()
     {
-        try {
-            $now = new DateTime('now');
-            $response = $this->client->getTodayDayImage();
-            $this->assertInstanceOf(\Astrobin\Response\Today::class, $response, __METHOD__ . ' : instance of ' . get_class($response) . ' OK');
-            $this->assertEquals($response->date, $now->format('Y-m-d'), __METHOD__ . ' : day returned and today are equals, OK');
+        $now = new DateTime('now');
+        $response = $this->client->getTodayDayImage();
+        $this->assertInstanceOf(\Astrobin\Response\Today::class, $response, __METHOD__ . ' : instance of ' . get_class($response) . ' OK');
+        $this->assertEquals($response->date, $now->format('Y-m-d'), __METHOD__ . ' : day returned and today are equals, OK');
 
-            foreach ($response->getIterator() as $respImage) {
-                $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : instance of ' . get_class($respImage) . ' OK');
-            }
-        } catch(Exception $e) {
-
+        foreach ($response->getIterator() as $respImage) {
+            $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : instance of ' . get_class($respImage) . ' OK');
         }
     }
 

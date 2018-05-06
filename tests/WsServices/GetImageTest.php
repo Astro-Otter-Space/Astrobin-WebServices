@@ -31,12 +31,9 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 341955;
-        try {
-            $response = $this->client->getImageById($id);
-            $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');
-            $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class, __METHOD__ . ': attribute title OK');
-        } catch(Exception $e) {
-        }
+        $response = $this->client->getImageById($id);
+        $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');
+        $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class, __METHOD__ . ': attribute title OK');
     }
 
 
@@ -71,25 +68,22 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesBySubject()
     {
-        try {
-            $subjects = ['m1', 'andromeda', 'm33', 'm42', 'pleiades', 'm51', 'm57', 'm82', 'm97', 'm101', 'm104'];
-            foreach ($subjects as $subject) {
-                $limit = rand(1, 5);
-                $response = $this->client->getImagesBySubject($subject, $limit);
+        $subjects = ['m1', 'andromeda', 'm33', 'm42', 'pleiades', 'm51', 'm57', 'm82', 'm97', 'm101', 'm104'];
+        foreach ($subjects as $subject) {
+            $limit = rand(1, 5);
+            $response = $this->client->getImagesBySubject($subject, $limit);
 
-                $instance = ($limit > 1) ? \Astrobin\Response\ListImages::class : \Astrobin\Response\Image::class;
-                $this->assertInstanceOf($instance, $response, __METHOD__  . " : response $instance OK");
-                if (is_a($response, \Astrobin\Response\ListImages::class)) {
-                    // Test images
-                    foreach ($response->getIterator() as $respImage) {
-                        $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
-                    }
-
-                } else if (is_a($response, \Astrobin\Response\Image::class)) {
-                    $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
+            $instance = ($limit > 1) ? \Astrobin\Response\ListImages::class : \Astrobin\Response\Image::class;
+            $this->assertInstanceOf($instance, $response, __METHOD__  . " : response $instance OK");
+            if (is_a($response, \Astrobin\Response\ListImages::class)) {
+                // Test images
+                foreach ($response->getIterator() as $respImage) {
+                    $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
                 }
+
+            } else if (is_a($response, \Astrobin\Response\Image::class)) {
+                $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
             }
-        }catch(Exception $e) {
         }
     }
 
@@ -111,16 +105,13 @@ class GetImageTest extends TestCase
      */
     public function testGetImageByUser()
     {
-        try {
-            $listUser = ['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'];
-            $user = $listUser[array_rand($listUser, 1)];
-            $response = $this->client->getImagesByUser($user, 5);
+        $listUser = ['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'];
+        $user = $listUser[array_rand($listUser, 1)];
+        $response = $this->client->getImagesByUser($user, 5);
 
-            $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response, __METHOD__ . ' : ListImages returned OK');
-            foreach ($response->getIterator() as $resp) {
-                $this->assertEquals($user, $resp->user, __METHOD__ . ' : ' . $user . ' selected is equale to ' . $resp->user);
-            }
-        } catch(Exception $e) {
+        $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response, __METHOD__ . ' : ListImages returned OK');
+        foreach ($response->getIterator() as $resp) {
+            $this->assertEquals($user, $resp->user, __METHOD__ . ' : ' . $user . ' selected is equale to ' . $resp->user);
         }
     }
 
@@ -144,27 +135,24 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesByRangeDate()
     {
-        try {
-            $dateTo = new DateTime('now');
-            $dateFrom = clone $dateTo;
-            $dateFrom->sub(new DateInterval('P1M'));
+        $dateTo = new DateTime('now');
+        $dateFrom = clone $dateTo;
+        $dateFrom->sub(new DateInterval('P1M'));
 
-            $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateFrom->format('Y-m-d'), 'Format dateFrom OK');
-            $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateTo->format('Y-m-d'), 'Format dateFrom OK');
+        $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateFrom->format('Y-m-d'), 'Format dateFrom OK');
+        $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateTo->format('Y-m-d'), 'Format dateFrom OK');
 
-            $response = $this->client->getImagesByRangeDate($dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d'));
-            $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
+        $response = $this->client->getImagesByRangeDate($dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d'));
+        $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
 
-            $dateToTmp = $dateTo->getTimestamp();
-            $dateFromTmp = $dateFrom->getTimestamp();
+        $dateToTmp = $dateTo->getTimestamp();
+        $dateFromTmp = $dateFrom->getTimestamp();
 
-            /** @var \Astrobin\Response\Image $imgResp */
-            foreach ($response->getIterator() as $imgResp) {
-                $timestamp = $imgResp->getUploaded()->getTimestamp();
-                $this->assertLessThanOrEqual($dateToTmp, $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
-                $this->assertGreaterThanOrEqual($dateFromTmp, $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
-            }
-        } catch (Exception $e) {
+        /** @var \Astrobin\Response\Image $imgResp */
+        foreach ($response->getIterator() as $imgResp) {
+            $timestamp = $imgResp->getUploaded()->getTimestamp();
+            $this->assertLessThanOrEqual($dateToTmp, $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
+            $this->assertGreaterThanOrEqual($dateFromTmp, $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
         }
     }
 
