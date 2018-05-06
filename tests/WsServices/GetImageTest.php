@@ -31,8 +31,10 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 341955;
-        $response = $this->client->getImageById($id);
-
+        try {
+            $response = $this->client->getImageById($id);
+        } catch(Exception $e) {
+        }
         $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');
         $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class, __METHOD__ . ': attribute title OK');
     }
