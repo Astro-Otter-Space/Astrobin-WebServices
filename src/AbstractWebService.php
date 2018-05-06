@@ -105,7 +105,7 @@ abstract class AbstractWebService
      * @param $data
      * @return resource
      */
-    private function initCurl($endPoint, $method, $data)
+    protected function initCurl($endPoint, $method, $data)
     {
         // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;

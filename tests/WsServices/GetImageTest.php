@@ -1,5 +1,6 @@
 <?php
 
+use Astrobin\AbstractWebService;
 use Astrobin\Services\GetImage;
 use PHPUnit\Framework\TestCase;
 /**
