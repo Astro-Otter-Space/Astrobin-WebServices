@@ -3,9 +3,26 @@
 # Astrobin API for PHP
 
 ## Table of contents
-    * [Requirements](#Requirements)
-    * [Introduction](#Introduction)
-    * [Installing](#Installing)
+
+ * [Requirements](#Requirements)
+ * [Introduction](#Introduction)
+ * [Installing](#Installing)
+   * [Usage](#Usage)
+ * [WebServices](#WebServices)
+   * [GetImage](#GetImage)
+   * [GetTodayImage](#GetTodayImage)
+   * [GetCollection](#GetCollection)
+   * [GetLocation](#GetLocation)
+ * [Responses](#Responses)
+   * [Image](#Image)
+   * [ListImage](#ListImage)
+   * [Collection](#Collection)
+   * [ListCollection](#ListCollection)
+   * [Today](#Today)
+   * [Location](#Location)
+ * [Running the tests](#Running the tests)
+ * [Authors](#Authors)
+ * [Licence](#Licence)
 
 Version 0.7.0
 
@@ -53,7 +70,7 @@ Then run
 
 
 ### Usage
------
+
 
 With Symfony, you can set WebService class as services :
 
