@@ -134,6 +134,7 @@ class GetImageTest extends TestCase
 
     /**
      * Test with a range date : now to now-1month
+     * TODO : verifier le contenu de ListImage !!!
      */
     public function testGetImagesByRangeDate()
     {
@@ -141,7 +142,11 @@ class GetImageTest extends TestCase
         $dateFrom = clone $dateTo;
         $dateFrom->sub(new DateInterval('P1M'));
 
-        $response = $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('y-m-d'));
+        $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateFrom->format('Y-m-d'), 'Format dateFrom OK');
+        $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateTo->format('Y-m-d'), 'Format dateFrom OK');
+
+        $response = $this->client->getImagesByRangeDate($dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d'));
+        var_dump($response);
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
         /** @var \Astrobin\Response\Image $imgResp */
         foreach ($response->getIterator() as $imgResp) {
