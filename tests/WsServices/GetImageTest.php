@@ -161,6 +161,7 @@ class GetImageTest extends TestCase
 
         // Test with format yy-mm-dd also yyyy-mm-dd
         $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('Y-m-d'));
+        $this->expectException(\Astrobin\Exceptions\WsException::class);
     }
 
 

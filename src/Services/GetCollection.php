@@ -57,7 +57,7 @@ class GetCollection extends AbstractWebService
         $params = ['user' => $username, 'limit' => $limit];
         /** @var ListCollection $astrobinListCollection */
         $astrobinListCollection = $this->callWs($params);
-        
+
         return $astrobinListCollection;
     }
 

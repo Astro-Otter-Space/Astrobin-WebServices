@@ -118,7 +118,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
-        if (false === $dateFrom) {
+        if (false === $dateFrom->format('Y-m-d') || $dateFromStr !== $dateFrom->format('Y-m-d')) {
             throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr));
         } elseif (false !== $dateFrom && array_sum($dateFrom->getLastErrors())) {
             throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()));
