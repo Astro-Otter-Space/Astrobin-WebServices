@@ -1,30 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 05/05/18
- * Time: 14:35
- */
-
-use Astrobin\AbstractWebService;
-
-class AbstractWebServiceTest extends \PHPUnit\Framework\TestCase
-{
-
-    protected $badClient;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $abstractWebServiceClass = 'Astrobin\AbstractWebService';
-        $constructArgs = [null, null];
-        $this->badClient = $this->getMockBuilder($abstractWebServiceClass)->setConstructorArgs([$constructArgs]);
-    }
-
-    public function testNullCredentials()
-    {
-
-    }
-
-}
+//
+//use Astrobin\AbstractWebService;
+//
+//class AbstractWebServiceTest extends \PHPUnit\Framework\TestCase
+//{
+//
+//    protected static $abstractWebServiceClass = 'Astrobin\AbstractWebService';
+//
+//    protected $badClient;
+//
+//
+//    public function setUp()
+//    {
+//        parent::setUp();
+//        $constructArgs = [null, null];
+//        $this->badClient = $this->getMockBuilder(self::$abstractWebServiceClass)->setConstructorArgs([$constructArgs]);
+//    }
+//
+//
+//    /**
+//     * @expectedException \Astrobin\Exceptions\WsException
+//     */
+//    public function testNullCredentials()
+//    {
+//        $this->badClient->call('my_false_endpoint/', AbstractWebService::METHOD_GET, []);
+//    }
+//}

@@ -78,12 +78,10 @@ class GetImageTest extends TestCase
                 // Test images
                 foreach ($response->getIterator() as $respImage) {
                     $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
-//                    $this->assertContains(substr(strtolower($subject), 1), strtolower($respImage->title),__METHOD__ . " : check if $subject is contained in '$respImage->title' OK");
                 }
 
             } else if (is_a($response, \Astrobin\Response\Image::class)) {
                 $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : check if instance Image OK');
-//                $this->assertContains(strtolower($subject), strtolower($response->title), __METHOD__ . " : check if $subject is contained in '$response->title' OK");
             }
         }
     }
@@ -96,11 +94,6 @@ class GetImageTest extends TestCase
     {
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesBySubject($fakeSubject, rand(1, 5));
-    }
-
-
-    public function testGetImagesByDescription()
-    {
     }
 
 
@@ -134,7 +127,6 @@ class GetImageTest extends TestCase
 
     /**
      * Test with a range date : now to now-1month
-     * TODO : verifier le contenu de ListImage !!!
      */
     public function testGetImagesByRangeDate()
     {
@@ -146,20 +138,40 @@ class GetImageTest extends TestCase
         $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateTo->format('Y-m-d'), 'Format dateFrom OK');
 
         $response = $this->client->getImagesByRangeDate($dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d'));
-        var_dump($response);
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
+
         /** @var \Astrobin\Response\Image $imgResp */
         foreach ($response->getIterator() as $imgResp) {
-
+//            var_dump($imgResp->getUploaded());
             $timestamp = $imgResp->getUploaded()->getTimestamp();
-
             $this->assertLessThanOrEqual($dateTo->getTimestamp(), $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
             $this->assertGreaterThanOrEqual($dateFrom->getTimestamp(), $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
         }
     }
 
+
+    /**
+     * @expectedException \Astrobin\Exceptions\WsException
+     */
     public function testGetImagesByRangeDateFalse()
     {
+        $dateTo = new DateTime('now');
+        $dateFrom = clone $dateTo;
+        $dateFrom->sub(new DateInterval('P1M'));
 
+        // Test with format yy-mm-dd also yyyy-mm-dd
+        $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('Y-m-d'));
+    }
+
+
+    /**
+     * @expectedException \Astrobin\Exceptions\WsException
+     */
+    public function testGetImagesByRangeDateBadFormat()
+    {
+        $dateTo = new DateTime('now');
+
+        // Test with format yy-mm-dd also yyyy-mm-dd
+        $this->client->getImagesByRangeDate('aabbccddeeff', $dateTo->format('Y-m-d'));
     }
 }

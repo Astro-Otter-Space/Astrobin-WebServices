@@ -10,8 +10,7 @@ use Astrobin\Services\GetTodayImage;
 
 class GetTodayImageTest extends \PHPUnit\Framework\TestCase
 {
-
-    /** @var GetImage */
+    /** @var GetTodayImage */
     private $client;
 
     const FAKE_KEY = '3524e6ee81749ea19a1ed0f14c5390efb4ac578f';
@@ -26,11 +25,10 @@ class GetTodayImageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetDayImage()
     {
-
+        $now = new DateTime('now');
+        $response = $this->client->getTodayDayImage();
+        $this->assertInstanceOf(\Astrobin\Response\Today::class, $response, __METHOD__ . ' : instance of ' . get_class($response) . ' OK');
+        $this->assertEquals($response->date, $now->format('Y-m-d'), __METHOD__ . ' : day returned and today are equals, OK');
     }
 
-    public function testGetTodayDayImage()
-    {
-
-    }
 }
