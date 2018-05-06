@@ -137,17 +137,22 @@ class GetImageTest extends TestCase
         $dateFrom = clone $dateTo;
         $dateFrom->sub(new DateInterval('P1M'));
 
+
+
         $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateFrom->format('Y-m-d'), 'Format dateFrom OK');
         $this->assertRegExp('/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/', $dateTo->format('Y-m-d'), 'Format dateFrom OK');
 
         $response = $this->client->getImagesByRangeDate($dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d'));
         $this->assertInstanceOf(\Astrobin\Response\ListImages::class, $response);
 
+        $dateToTmp = $dateTo->getTimestamp();
+        $dateFromTmp = $dateFrom->getTimestamp();
+
         /** @var \Astrobin\Response\Image $imgResp */
         foreach ($response->getIterator() as $imgResp) {
             $timestamp = $imgResp->getUploaded()->getTimestamp();
-            $this->assertLessThanOrEqual($dateTo->getTimestamp(), $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
-            $this->assertGreaterThanOrEqual($dateFrom->getTimestamp(), $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
+            $this->assertLessThanOrEqual($dateToTmp, $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
+            $this->assertGreaterThanOrEqual($dateFromTmp, $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
         }
     }
 
