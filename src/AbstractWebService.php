@@ -50,7 +50,7 @@ abstract class AbstractWebService
             throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
         }
 
-        $obj = null;
+
         $urlAstrobin = $this->buildUrl($endPoint, $data);
         $this->curlRequest = new CurlHttpRequest();
         $options = $this->initCurlOptions($method, $urlAstrobin);
@@ -71,34 +71,12 @@ abstract class AbstractWebService
             throw new WsException("[Astrobin Response] Empty Json");
         }
 
-        if (is_string($resp)) {
-            if (false === strpos($resp, '{', 0)) {
-                // check if html
-                if (false !== strpos($resp, '<html', 0)) {
-                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
-                }
-                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
-            }
-            $obj = json_decode($resp);
-            if (JSON_ERROR_NONE != json_last_error()) {
-                throw new WsException(
-                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
-                );
-            }
-            if (array_key_exists('error', $obj)) {
-                throw new WsException(
-                    sprintf("[Astrobin ERROR] Response : %s", $obj->error)
-                );
-            }
-        } else {
-            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
-        }
-
-        return $obj;
+        return $this->buildResponse($resp);
     }
 
 
     /**
+     * Build the WebService URL
      * @param $endPoint
      * @param $data
      * @return string
@@ -143,6 +121,8 @@ abstract class AbstractWebService
 
 
     /**
+     * Options for cURL request
+     *
      * @param $method
      * @return mixed
      */
@@ -170,5 +150,43 @@ abstract class AbstractWebService
         }
 
         return $options;
+    }
+
+
+    /**
+     * Check response and jsondecode object
+     *
+     * @param $resp
+     * @return mixed|null
+     * @throws WsException
+     */
+    public function buildResponse($resp)
+    {
+        $obj = null;
+
+        if (is_string($resp)) {
+            if (false === strpos($resp, '{', 0)) {
+                // check if html
+                if (false !== strpos($resp, '<html', 0)) {
+                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
+                }
+                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
+            }
+            $obj = json_decode($resp);
+            if (JSON_ERROR_NONE != json_last_error()) {
+                throw new WsException(
+                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
+                );
+            }
+            if (array_key_exists('error', $obj)) {
+                throw new WsException(
+                    sprintf("[Astrobin ERROR] Response : %s", $obj->error)
+                );
+            }
+        } else {
+            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
+        }
+
+        return $obj;
     }
 }
