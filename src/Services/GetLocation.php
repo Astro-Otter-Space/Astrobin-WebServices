@@ -5,7 +5,6 @@ namespace Astrobin\Services;
 use Astrobin\AbstractWebService;
 use Astrobin\Exceptions\WsResponseException;
 use Astrobin\Response\Location;
-use Astrobin\WsInterface;
 
 /**
  * Class GetLocation

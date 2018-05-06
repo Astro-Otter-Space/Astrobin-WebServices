@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin;
+namespace Astrobin\Services;
 
 /**
  * Interface WsInterface

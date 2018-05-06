@@ -6,7 +6,6 @@ use Astrobin\AbstractWebService;
 use Astrobin\Exceptions\WsResponseException;
 use Astrobin\Response\Image;
 use Astrobin\Response\Today;
-use Astrobin\WsInterface;
 
 /**
  * Class getTodayImage

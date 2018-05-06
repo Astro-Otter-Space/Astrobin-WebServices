@@ -13,7 +13,7 @@ use Astrobin\Response\ListCollection;
  * Class GetCollection
  * @package Astrobin\Services
  */
-class GetCollection extends AbstractWebService
+class GetCollection extends AbstractWebService implements WsInterface
 {
 
     const END_POINT = 'collection/';
