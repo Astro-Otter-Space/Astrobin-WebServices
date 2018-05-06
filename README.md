@@ -124,18 +124,18 @@ The library expose 4 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getImageById()`| `$id`       | `Image` |
-| `getImagesBySubject()`| `$subjectId`  `$limit`     | `ListImage`,`Image` |
-| `getImagesByDescription()`| `$description`  `$limit`     | `ListImage`,`Image` |
-| `getImagesByUser()`| `$userName`  `$limit`     | `ListImage`,`Image` |
-| `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01),   `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
+| `getImageById()`| `$id` | `Image` |
+| `getImagesBySubject()`| `$subjectId`  `$limit`| `ListImage`,`Image`|
+| `getImagesByDescription()`| `$description`  `$limit`| `ListImage`,`Image`|
+| `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
+| `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 
 ### GetTodayImage :
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getDayImage()`      | `$offset` ,  limit = 1      | `Today` |
-| `getTodayDayImage()`   |   | `Today` |
+| `getDayImage()`| `$offset` , limit = 1| `Today` |
+| `getTodayDayImage()`|| `Today` |
 
 ### GetCollection :
 
@@ -149,7 +149,7 @@ The library expose 4 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getLocationById()`      | `$id`       | `Location` |
+| `getLocationById()`| `$id`| `Location` |
 
 
 ## Responses
@@ -157,13 +157,13 @@ The library expose 4 WebServices, each with these methods below.
 ### Image
 | Parameter| Description |
 | ------------- | ------------------------------ |
-| `title`      | Title of image       |
-| `subjects`      | Keywords      |
-| `description`      | Description      |
-| `url_gallery`      | URL of image for gallery       |
-| `url_thumb`      | URL of image , thumb size      |
-| `url_regular`      | URL of image      |
-| `user`      | Username      |
+| `title`| Title of image|
+| `subjects`| Keywords|
+| `description`| Description|
+| `url_gallery`| URL of image for gallery|
+| `url_thumb`| URL of image , thumb size|
+| `url_regular`| URL of image|
+| `user`| Username|
 
 ![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
 
@@ -177,29 +177,30 @@ The library expose 4 WebServices, each with these methods below.
 ### Collection
 | Parameter| Description |
 | ------------- | ------------------------------ |
-| `id`      | Identifier       |
-| `name`      | Name of collection      |
-| `description`      | Description      |
-| `user`      | User name       |
-| `date_created`      | Date of creation      |
-| `date_updated`      | Date of modification      |
-| `images`      | Path of WS Image      |
-| `listImages`      | Path of WS Image      |
+| `id`| Identifier|
+| `name`| Name of collection|
+| `description`| Description|
+| `user` User name|
+| `date_created`| Date of creation|
+| `date_updated`| Date of modification|
+| `images`| Path of WS Image|
+| `listImages`| Path of WS Image|
 
 ![](https://image.noelshack.com/fichiers/2018/18/2/1525187691-collection.png)
 
 ### ListCollection
 | Parameter| Description |
 | ------------- | ------------------------------ |
-| `listCollection`      | List of collection with list of images       |
+| `listCollection`| List of collection with list of images|
+
 ![](https://image.noelshack.com/fichiers/2018/18/2/1525189056-listcollection.png)
 
 ### Today
 | Parameter| Description |
 | ------------- | ------------------------------ |
-| `date`      | Date of image       |
-| `resource_uri`      | URI of image       |
-| `listImages`      | List of images       |
+| `date`| Date of image       |
+| `resource_uri`| URI of image|
+| `listImages`| List of images|
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 
