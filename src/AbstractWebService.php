@@ -133,9 +133,10 @@ abstract class AbstractWebService
             'format' => 'json'
         ];
 
-        $url .= implode('', array_map(function ($k, $v) {
+        $httpParams = implode('', array_map(function ($k, $v) {
             return sprintf("&%s=%s", $k, $v);
         }, array_keys($params), $params));
+        $url .= $httpParams;
 
         return $url;
     }

@@ -77,6 +77,4 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     {
         curl_close($this->handle);
     }
-
-
 }
