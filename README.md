@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP)
+[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP) [![codecov.io](hhttps://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)
 
 # Astrobin API for PHP
 
