@@ -120,7 +120,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function responseWs($objects)
+    public function responseWs($objects = [])
     {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {
