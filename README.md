@@ -23,7 +23,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 0.8.1
+Version 0.8.2
 
 Caution : API currently in progress, this is not a final version.
 
@@ -31,7 +31,7 @@ Caution : API currently in progress, this is not a final version.
 * PHP 7.0 min or superior
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
-> PHP 5.6 is compatible but not Unit tests.
+> PHP 5.6 is compatible but not covered by unit tests.
 
 ## Introduction
 

@@ -11,7 +11,7 @@ use Astrobin\Response\Iterators\CollectionIterator;
 class ListCollection extends AbstractResponse implements \IteratorAggregate
 {
 
-    private $listCollection;
+    public $listCollection;
 
     public function getIterator()
     {

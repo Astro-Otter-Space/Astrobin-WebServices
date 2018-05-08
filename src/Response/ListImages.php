@@ -12,8 +12,8 @@ use Traversable;
 class ListImages implements \IteratorAggregate
 {
 
-    private $listImages = [];
-    private $count = 0;
+    public $listImages = [];
+    public $count = 0;
 
     /**
      * @return ImageIterator|Traversable
