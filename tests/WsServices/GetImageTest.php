@@ -1,20 +1,14 @@
 <?php
 
-use Astrobin\AbstractWebService;
 use Astrobin\Services\GetImage;
 use PHPUnit\Framework\TestCase;
+
 /**
  * Class GetImageTest
  */
 class GetImageTest extends TestCase
 {
-
-    /** @var GetImage */
-    private $client;
-
-    CONST FAKE_KEY = '3524e6ee81749ea19a1ed0f14c5390efb4ac578f';
-
-    CONST FAKE_SECRET = '6f0a67f7aeb93cbce4addec000fca9991876df63';
+    public $astrobinImageMock;
 
     /**
      *
@@ -22,7 +16,13 @@ class GetImageTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = new GetImage(self::FAKE_KEY, self::FAKE_SECRET);
+        /** @var \PHPUnit\Framework\MockObject\MockObject astrobinImageMock */
+        $this->astrobinImageMock = $this->getMockBuilder(GetImage::class)
+                ->disableOriginalConstructor()
+                ->disableOriginalClone()
+                ->disableArgumentCloning()
+                ->disallowMockingUnknownTypes()
+                ->getMock();
     }
 
 
@@ -32,7 +32,9 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 341955;
-        $response = $this->client->getImageById($id);
+//        $response = $this->client->getImageById($id);
+        $this->astrobinImageMock->
+
         $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');
         $this->assertClassHasAttribute('title', \Astrobin\Response\Image::class, __METHOD__ . ': attribute title OK');
     }

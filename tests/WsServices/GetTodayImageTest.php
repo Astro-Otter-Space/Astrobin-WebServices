@@ -13,9 +13,9 @@ class GetTodayImageTest extends \PHPUnit\Framework\TestCase
     /** @var GetTodayImage */
     private $client;
 
-    const FAKE_KEY = '3524e6ee81749ea19a1ed0f14c5390efb4ac578f';
+    const FAKE_KEY = '';
 
-    const FAKE_SECRET = '6f0a67f7aeb93cbce4addec000fca9991876df63';
+    const FAKE_SECRET = '';
 
     public function setUp()
     {
