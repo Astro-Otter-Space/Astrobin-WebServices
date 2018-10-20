@@ -18,7 +18,7 @@ class ListImages implements \IteratorAggregate
     /**
      * @return ImageIterator|Traversable
      */
-    public function getIterator()
+    public function getIterator(): ImageIterator
     {
         return new ImageIterator($this->listImages);
     }

@@ -32,7 +32,7 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 341955;
-//        $response = $this->client->getImageById($id);
+        $response = $this->client->getImageById($id);
         $this->astrobinImageMock->
 
         $this->assertInstanceOf(\Astrobin\Response\Image::class, $response, __METHOD__ . ' : response Image OK');

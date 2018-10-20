@@ -26,7 +26,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getCollectionById($id = null)
+    public function getCollectionById($id = null): Collection
     {
         if (is_null($id) || empty($id)) {
             throw new WsException('Astrobon Webservice Collection : id empty');
@@ -49,7 +49,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getListCollectionByUser($username = null, $limit = null)
+    public function getListCollectionByUser($username = null, $limit = null): ListCollection
     {
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
@@ -70,7 +70,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function getImagesCollection(Collection $astrobinCollection)
+    private function getImagesCollection(Collection $astrobinCollection): Collection
     {
         $listImagesId = array_map(function ($path) {
             if (preg_match('/\/([\d]+)/', $path, $matches)) {

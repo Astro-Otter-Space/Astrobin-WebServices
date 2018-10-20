@@ -1,4 +1,5 @@
 <?php
+
 namespace Astrobin\Response\Iterators;
 
 /**
@@ -32,12 +33,11 @@ class CollectionIterator implements \Iterator
 
 
     /**
-     * @return mixed|void
+     * @return mixed
      */
     public function next()
     {
-        $var = next($this->var);
-        return $var;
+        return next($this->var);
     }
 
     /**
@@ -45,8 +45,7 @@ class CollectionIterator implements \Iterator
      */
     public function key()
     {
-        $var = key($this->var);
-        return $var;
+        return key($this->var);
     }
 
 
@@ -61,11 +60,10 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * @return mixed|void
+     * @return mixed
      */
     public function rewind()
     {
-        $var = reset($this->var);
-        return $var;
+        return reset($this->var);
     }
 }

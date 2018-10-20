@@ -13,7 +13,10 @@ class ListCollection extends AbstractResponse implements \IteratorAggregate
 
     public $listCollection;
 
-    public function getIterator()
+    /**
+     * @return CollectionIterator|\Traversable
+     */
+    public function getIterator(): CollectionIterator
     {
         return new CollectionIterator($this->listCollection);
     }

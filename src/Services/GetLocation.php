@@ -23,7 +23,7 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getLocationById($id)
+    public function getLocationById($id): Location
     {
         return $this->callWs($id);
     }
@@ -36,7 +36,7 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function callWs($params = [])
+    public function callWs($params = []): Location
     {
         $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
         if (!isset($rawResp->objects) || 0 == $rawResp->meta->total_count) {
@@ -51,13 +51,13 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function responseWs($object = null)
+    public function responseWs($object = null): Location
     {
         $astrobinResponse = null;
 
         $astrobinResponse = new Location();
         $astrobinResponse->fromObj($object);
 
-        return$astrobinResponse;
+        return $astrobinResponse;
     }
 }

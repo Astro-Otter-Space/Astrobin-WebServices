@@ -23,15 +23,13 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 0.8.2
+Version 0.9.0
 
 Caution : API currently in progress, this is not a final version.
 
 ## Requirements
 * PHP 7.0 min or superior
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
-
-> PHP 5.6 is compatible but not covered by unit tests.
 
 ## Introduction
 
@@ -73,11 +71,10 @@ Then run
 
 With Symfony, you can set WebService class as services :
 
-First, set your keys in parameters.yml :
+First, set your keys in .env file :
 ```yml
-parameters:
-    astrobin.key: <your_api_key>
-    astrobin.secret: <your_secret_key>
+API_KEY=PutHereYourOwnApiKey
+API_SECRET=PutHereYourOwnApiSecret
 ```
 
 Symfony 2:
@@ -86,9 +83,6 @@ Symfony 2:
 astrobin.webservice:
     class: Astrobin\AbstractWebService
     abstract: true
-    arguments:
-      - "%astrobin.key%"
-      - "%astrobin.secret%"
 # Images WS
 astrobin.webservice.getimage:
     class: Astrobin\Services\GetImage
@@ -101,11 +95,14 @@ astrobin.webservice.getcollection:
 astrobin.webservice.getlocation:
     class: Astrobin\Services\GetLocation
     parent: astrobin.webservice
-# Today location
+# Today WS
 astrobin.webservice.gettodayimage:
     class: Astrobin\Services\GetTodayImage
     parent: astrobin.webservice
 ```
+
+Symfony 3 and more :
+TODO : add classes as key
 
 In your controller :
 > Exemple : i want to retrieve 5 photos from Orion Nebula (M42)

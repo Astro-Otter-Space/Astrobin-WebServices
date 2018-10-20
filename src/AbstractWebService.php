@@ -13,6 +13,7 @@ abstract class AbstractWebService
     const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
     const MAX_REDIRS = 10;
     const LIMIT_MAX = 20;
+    const TIMEYOUT = 30;
 
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
@@ -26,14 +27,12 @@ abstract class AbstractWebService
 
     /**
      * AbstractWebService constructor.
-     * @param $apiKey
-     * @param $apiSecret
      */
-    public function __construct($apiKey, $apiSecret)
+    public function __construct()
     {
-        $this->apiKey = $apiKey;
-        $this->apiSecret = $apiSecret;
-        $this->timeout = 30;
+        $this->apiKey = getenv('API_KEY');
+        $this->apiSecret = getenv('API_SECRET');
+        $this->timeout = self::TIMEYOUT;
     }
 
 
@@ -44,7 +43,7 @@ abstract class AbstractWebService
      * @return mixed|null
      * @throws WsException
      */
-    protected function call($endPoint, $method, $data)
+    protected function call($endPoint, $method, $data): string
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
@@ -81,7 +80,7 @@ abstract class AbstractWebService
      * @param $data
      * @return string
      */
-    private function buildUrl($endPoint, $data)
+    private function buildUrl($endPoint, $data): string
     {
         // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;
@@ -124,9 +123,10 @@ abstract class AbstractWebService
      * Options for cURL request
      *
      * @param $method
+     * @param string $url
      * @return mixed
      */
-    protected function initCurlOptions($method, $url)
+    protected function initCurlOptions($method, $url): array
     {
         // Options CURL
         $options = [
@@ -160,7 +160,7 @@ abstract class AbstractWebService
      * @return mixed|null
      * @throws WsException
      */
-    public function buildResponse($resp)
+    public function buildResponse($resp): string
     {
         $obj = null;
 

@@ -27,7 +27,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getDayImage($offset = null, $limit = 1)
+    public function getDayImage($offset = null, $limit = 1): Today
     {
         $params = ['limit' => $limit];
         if (isset($offset) && is_numeric($offset)) {
@@ -63,7 +63,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function getTodayDayImage()
+    public function getTodayDayImage(): Today
     {
         return $this->getDayImage();
     }
@@ -75,7 +75,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws \Astrobin\Exceptions\WsException
      * @throws \ReflectionException
      */
-    public function callWs($params = [])
+    public function callWs($params = []): Today
     {
         /** @var  $rawResp */
         $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
@@ -97,7 +97,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function responseWs($objects = [])
+    public function responseWs($objects = []): Today
     {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {
