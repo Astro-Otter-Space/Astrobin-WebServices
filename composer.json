@@ -1,6 +1,7 @@
 {
   "name" : "hamhamfonfon/astrobin",
-  "version": "0.9.",
+  "license": "MIT",
+  "version": "0.9.0",
   "description" : "Astrobin API for PHP projects",
   "type" : "library",
   "authors" : [{
@@ -9,9 +10,6 @@
   }],
   "keywords" : [
     "Astrobin", "API", "astronomy", "Deep space objects"
-  ],
-  "license" : [
-    "MIT"
   ],
   "support": {
     "issues": "https://github.com/HamHamFonFon/Astrobin-API-PHP/issues"
