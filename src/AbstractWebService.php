@@ -43,7 +43,7 @@ abstract class AbstractWebService
      * @return mixed|null
      * @throws WsException
      */
-    protected function call($endPoint, $method, $data): string
+    protected function call($endPoint, $method, $data): object
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
