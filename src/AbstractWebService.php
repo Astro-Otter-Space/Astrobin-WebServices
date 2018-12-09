@@ -157,10 +157,10 @@ abstract class AbstractWebService
      * Check response and jsondecode object
      *
      * @param $resp
-     * @return mixed|null
+     * @return object|null
      * @throws WsException
      */
-    public function buildResponse($resp): string
+    public function buildResponse($resp): object
     {
         $obj = null;
 
