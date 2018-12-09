@@ -73,8 +73,8 @@ With Symfony, you can set WebService class as services :
 
 First, set your keys in .env file :
 ```yml
-API_KEY=PutHereYourOwnApiKey
-API_SECRET=PutHereYourOwnApiSecret
+ASTROBIN_API_KEY=PutHereYourOwnApiKey
+ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 ```
 
 Symfony 2:
@@ -102,7 +102,10 @@ astrobin.webservice.gettodayimage:
 ```
 
 Symfony 3 and more :
-TODO : add classes as key
+WIP
+
+Symfony 4:
+WIP
 
 In your controller :
 > Exemple : i want to retrieve 5 photos from Orion Nebula (M42)

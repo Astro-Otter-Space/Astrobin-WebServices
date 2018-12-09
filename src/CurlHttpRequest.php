@@ -24,7 +24,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
      * @param $value
      * @return bool
      */
-    public function setOption($name, $value): bool
+    public function setOption($name, $value)
     {
         curl_setopt($this->handle, $name, $value);
     }
@@ -33,7 +33,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
      * @param $options
      * @return bool
      */
-    public function setOptionArray($options): bool
+    public function setOptionArray($options)
     {
         curl_setopt_array($this->handle, $options);
     }
@@ -58,7 +58,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      * @return string
      */
-    public function getError(): string
+    public function getError()
     {
         return curl_error($this->handle);
     }
@@ -66,7 +66,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      * @return int
      */
-    public function getErrNo(): int
+    public function getErrNo()
     {
         return curl_errno($this->handle);
     }
