@@ -49,7 +49,6 @@ abstract class AbstractWebService
             throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
         }
 
-
         $urlAstrobin = $this->buildUrl($endPoint, $data);
         $this->curlRequest = new CurlHttpRequest();
         $options = $this->initCurlOptions($method, $urlAstrobin);
@@ -57,7 +56,7 @@ abstract class AbstractWebService
 
         if (!$resp = $this->curlRequest->execute()) {
             if (empty($resp)) {
-                throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $resp));
+                throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $this->curlRequest->getError()));
             }
             // show problem and throw exception
             throw new WsException(
