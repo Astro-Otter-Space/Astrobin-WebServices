@@ -56,7 +56,7 @@ abstract class AbstractWebService
 
         if (!$resp = $this->curlRequest->execute()) {
             if (empty($resp)) {
-                throw new WsException(sprintf("[Astrobin Response] Empty response :\n %s", $this->curlRequest->getError()));
+                throw new WsException(sprintf("[Astrobin Response] Empty response, check data :\n %s", implode(' . ', $data)));
             }
             // show problem and throw exception
             throw new WsException(
