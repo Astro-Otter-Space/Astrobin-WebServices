@@ -50,6 +50,7 @@ abstract class AbstractWebService
         }
 
         $urlAstrobin = $this->buildUrl($endPoint, $data);
+        /** @var CurlHttpRequestInterface curlRequest */
         $this->curlRequest = new CurlHttpRequest();
         $options = $this->initCurlOptions($method, $urlAstrobin);
         $this->curlRequest->setOptionArray($options);
@@ -94,7 +95,7 @@ abstract class AbstractWebService
 
         if (!$resp = $this->curlRequest->execute()) {
 
-            $returnErr->http_code = curl_getinfo($this->curlRequest, CURLINFO_HTTP_CODE);
+            $returnErr->http_code = curl_getinfo($this->curlRequest->getHandle(), CURLINFO_HTTP_CODE);
             $returnErr->endpoint = $endPoint;
             $returnErr->method = $endPoint;
             $returnErr->data = $data;

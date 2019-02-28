@@ -1,7 +1,7 @@
 {
   "name" : "hamhamfonfon/astrobin",
   "license": "MIT",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description" : "Astrobin API for PHP projects",
   "type" : "library",
   "authors" : [{

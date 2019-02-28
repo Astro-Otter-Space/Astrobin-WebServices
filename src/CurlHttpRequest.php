@@ -20,6 +20,14 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     }
 
     /**
+     * @return false|resource
+     */
+    public function getHandle()
+    {
+        return $this->handle;
+    }
+
+    /**
      * @param $name
      * @param $value
      * @return bool
@@ -70,7 +78,6 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     {
         return curl_errno($this->handle);
     }
-
 
     /**
      *
