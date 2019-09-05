@@ -50,6 +50,7 @@ abstract class AbstractWebService
         }
 
         $urlAstrobin = $this->buildUrl($endPoint, $data);
+        /** @var CurlHttpRequestInterface curlRequest */
         $this->curlRequest = new CurlHttpRequest();
         $options = $this->initCurlOptions($method, $urlAstrobin);
         $this->curlRequest->setOptionArray($options);
@@ -57,7 +58,7 @@ abstract class AbstractWebService
         if (!$resp = $this->curlRequest->execute()) {
             if (empty($resp)) {
                 $dataErr = (!is_array($data)) ? [$data] : $data;
-                throw new WsException(sprintf("[Astrobin Response] Empty response, check data :\n %s", implode(' . ', $dataErr)));
+                throw new WsException(sprintf("[Astrobin Response] Empty response from \"%s\", check data : %s", $endPoint, implode(' . ', $dataErr)));
             }
             // show problem and throw exception
             throw new WsException(
@@ -73,6 +74,37 @@ abstract class AbstractWebService
         return $this->buildResponse($resp);
     }
 
+
+    /**
+     * DEBUG request
+     * TODO : make better, this is only for a specific dev
+     *
+     * @param $endPoint
+     * @param $method
+     * @param $data
+     * @return \stdClass
+     */
+    protected function callDebug($endPoint, $method, $data)
+    {
+        $returnErr = new \stdClass();
+
+        $urlAstrobin = $this->buildUrl($endPoint, $data);
+        $this->curlRequest = new CurlHttpRequest();
+        $options = $this->initCurlOptions($method, $urlAstrobin);
+        $this->curlRequest->setOptionArray($options);
+
+        if (!$resp = $this->curlRequest->execute()) {
+
+            $returnErr->http_code = curl_getinfo($this->curlRequest->getHandle(), CURLINFO_HTTP_CODE);
+            $returnErr->endpoint = $endPoint;
+            $returnErr->method = $endPoint;
+            $returnErr->data = $data;
+        }
+
+        $this->curlRequest->close();
+
+        return $returnErr;
+    }
 
     /**
      * Build the WebService URL

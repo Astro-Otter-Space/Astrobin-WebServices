@@ -34,6 +34,14 @@ class GetImage extends AbstractWebService implements WsInterface
         return $this->callWs($id);
     }
 
+    public function debugImageById($id)
+    {
+        if (is_null($id) || !is_numeric($id)) {
+            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, integer expected", $id));
+        }
+
+        return $this->callDebug(self::END_POINT, AbstractWebService::METHOD_GET, $id);
+    }
 
     /**
      * Return a collection of Image()
@@ -107,8 +115,10 @@ class GetImage extends AbstractWebService implements WsInterface
     {
 
         if (is_null($dateToStr)) {
+            /** @var \DateTime $dateTo */
             $dateTo = new \DateTime('now');
         } else {
+            /** @var \DateTime $dateTo */
             $dateTo = new \DateTime($dateToStr);
         }
 
@@ -116,9 +126,11 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr));
         }
 
+        /** @var \DateTime $dateFrom */
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
         if (false === $dateFrom->format('Y-m-d') || $dateFromStr !== $dateFrom->format('Y-m-d')) {
             throw new WsException(sprintf("Format \"%s\" is not a correct format for a date, please use YYYY-mm-dd instead", $dateFromStr));
+
         } elseif (false !== $dateFrom && array_sum($dateFrom->getLastErrors())) {
             throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()));
         }

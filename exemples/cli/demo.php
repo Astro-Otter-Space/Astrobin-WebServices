@@ -17,12 +17,12 @@ include __DIR__ . './../../src/Response/ListImages.php';
 include __DIR__ . './../../src/Response/Image.php';
 
 
-$curl = initCurl('image/', 'GET', 356706);
+$curl = initCurl(\Astrobin\Services\GetImage::END_POINT, 'GET', 356706);
 
 function initCurl($endPoint, $method, $data)
 {
-    $apiKey = '3524e6ee81749ea19a1ed0f14c5390efb4ac578f';
-    $apiSecret = '6f0a67f7aeb93cbce4addec000fca9991876df63';
+    $apiKey = '';
+    $apiSecret = '';
     // Build URL with params
     $url = 'https://www.astrobin.com/api/v1/' . $endPoint;
     if (is_array($data) && 0 < count($data)) {
