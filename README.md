@@ -23,7 +23,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 0.9.8
+Version 0.9.9
 
 Caution : API currently in progress, this is not a final version.
 
