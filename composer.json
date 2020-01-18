@@ -9,7 +9,7 @@
     "email" : "balistik.fonfon@gmail.com"
   }],
   "keywords" : [
-    "Astrobin", "API", "astronomy", "Deep space objects"
+    "Astrobin WebServices", "API", "astronomy", "Deep space objects"
   ],
   "support": {
     "issues": "https://github.com/HamHamFonFon/Astrobin-API-PHP/issues"
@@ -19,7 +19,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "Astrobin\\" : "src/"
+      "AstrobinWs\\" : "src/"
     },
     "classmap": [
       "src/"
