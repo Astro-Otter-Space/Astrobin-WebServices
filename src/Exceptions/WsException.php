@@ -17,7 +17,7 @@ class WsException extends \Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "", $code = 0, Throwable $previous = null)
+    public function __construct(string $message, int $code, ?Throwable $previous)
     {
         parent::__construct($message, $code, $previous);
     }
@@ -25,7 +25,7 @@ class WsException extends \Exception
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return __CLASS__ . "[{$this->getCode()}]: {$this->getMessage()}\n";
     }
