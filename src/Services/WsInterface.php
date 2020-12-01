@@ -8,6 +8,7 @@ namespace Astrobin\Services;
  */
 interface WsInterface
 {
-    public function callWs();
+    public function callWithId(int $id);
+    public function callWithParams(array $params);
     public function responseWs();
 }

@@ -16,8 +16,7 @@ use Astrobin\Response\ListImages;
 class GetImage extends AbstractWebService implements WsInterface
 {
 
-    const END_POINT = 'image/';
-
+    public const END_POINT = 'image/';
 
     /**
      * @param $id
@@ -30,12 +29,10 @@ class GetImage extends AbstractWebService implements WsInterface
     public function getImageById(?int $id): Image
     {
         if (is_null($id) || !ctype_alnum($id)) {
-            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id));
+            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
         }
-        return $this->callWs($id);
+        return $this->callWithId($id);
     }
-
-
 
     /**
      * Return a collection of Image()
@@ -55,7 +52,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = ['subjects' => $subjectId, 'limit' => $limit];
-        return $this->callWs($params);
+        return $this->callWithParams($params);
     }
 
 
@@ -75,7 +72,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = ['title__icontains' => urlencode($description), 'limit' => $limit];
-        return $this->callWs($params);
+        return $this->callWithParams($params);
     }
 
 
@@ -97,32 +94,32 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = ['user' => $userName, 'limit' => $limit];
-        return $this->callWs($params);
+        return $this->callWithParams($params);
     }
 
 
     /**
-     * @param null $dateFromStr
-     * @param null $dateToStr
+     * @param string|null $dateFromStr
+     * @param string|null $dateToStr
      *
      * @return ListImages|Image|null
-     * @throws WsResponseException
      * @throws WsException
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr)
     {
 
         if (is_null($dateToStr)) {
-            /** @var \DateTime $dateTo */
+            /** @var \DateTimeInterface $dateTo */
             $dateTo = new \DateTime('now');
         } else {
-            /** @var \DateTime $dateTo */
+            /** @var \DateTimeInterface $dateTo */
             $dateTo = new \DateTime($dateToStr);
         }
 
         if (false === strtotime($dateFromStr)) {
-            throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr));
+            throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr), 500, null);
         }
 
         /** @var \DateTime $dateFrom */
@@ -142,31 +139,58 @@ class GetImage extends AbstractWebService implements WsInterface
             'limit' => AbstractWebService::LIMIT_MAX
         ];
 
-        return $this->callWs($params);
+        return $this->callWithParams($params);
+    }
+
+    /**
+     * @param $params
+     *
+     * @return Image|ListImages|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     */
+    public function callWithParams(array $params)
+    {
+        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, $params, null);
+
+        return $this->callWs($rawResp);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return Image|ListImages|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     */
+    public function callWithId(int $id)
+    {
+        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, null, $id);
+        return $this->callWs($rawResp);
     }
 
     /**
      * Call WS "image" with parameters
      *
-     * @param array $params
+     * @param $rawResp
      *
      * @return ListImages|Image|null
      * @throws WsResponseException
-     * @throws WsException
      * @throws \ReflectionException
      */
-    public function callWs($params = [])
+    private function callWs($rawResp)
     {
-        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, $params);
         if (!is_object($rawResp)) {
-            throw new WsResponseException("Response from Astrobin is empty");
+            throw new WsResponseException("Response from Astrobin is empty", 500, null);
         }
 
         if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta")) {
             if (0 < $rawResp->meta->total_count) {
                 return $this->responseWs($rawResp->objects);
             }
-            throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)));
+            throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)), 500, null);
         }
 
         return $this->responseWs([$rawResp]);

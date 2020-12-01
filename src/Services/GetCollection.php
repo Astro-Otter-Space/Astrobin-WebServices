@@ -29,10 +29,10 @@ class GetCollection extends AbstractWebService implements WsInterface
     public function getCollectionById(?int $id): Collection
     {
         if (is_null($id)) {
-            throw new WsException('Astrobon Webservice Collection : id empty');
+            throw new WsException('Astrobon Webservice Collection : id empty', 500, null);
         }
 
-        $astrobinCollection = $this->callWs($id);
+        $astrobinCollection = $this->callWithId($id);
         if (isset($astrobinCollection->images) && 0 < count($astrobinCollection->images)) {
             $astrobinCollection = $this->getImagesCollection($astrobinCollection);
         }
@@ -57,7 +57,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         }
         $params = ['user' => $username, 'limit' => $limit];
         /** @var ListCollection $astrobinListCollection */
-        $astrobinListCollection = $this->callWs($params);
+        $astrobinListCollection = $this->callWithParams($params);
 
         return $astrobinListCollection;
     }
@@ -80,7 +80,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         }, $astrobinCollection->images);
         if (0 < count($listImagesId)) {
             foreach ($listImagesId as $imageId) {
-                $imgRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
+                $imgRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, null, $imageId);
 
                 $image = new Image();
                 $image->fromObj($imgRawCall);
@@ -93,17 +93,47 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param array|integer $params
+     * @param int $id
+     *
+     * @return Collection|ListCollection|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     */
+    public function callWithId(int $id)
+    {
+        $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, null, $id);
+        return $this->callWs($rawResp);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return Collection|ListCollection|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     */
+    public function callWithParams(array $params)
+    {
+        $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params, null);
+        return $this->callWs($rawResp);
+    }
+
+
+    /**
+     * @param $rawResp
+     *
      * @return ListCollection|Collection|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function callWs($params = [])
+    public function callWs($rawResp)
     {
-        $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
+
         if (!is_object($rawResp)) {
-            throw new WsResponseException("Response from Astrobin is empty");
+            throw new WsResponseException("Response from Astrobin is empty", 500, null);
         }
 
         if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {

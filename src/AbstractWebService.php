@@ -13,7 +13,7 @@ abstract class AbstractWebService
     public const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
     public const MAX_REDIRS = 10;
     public const LIMIT_MAX = 20;
-    public const TIMEYOUT = 30;
+    public const TIMEOUT = 30;
 
     public const METHOD_GET = 'GET';
     public const METHOD_POST = 'POST';
@@ -32,24 +32,30 @@ abstract class AbstractWebService
     {
         $this->apiKey = getenv('ASTROBIN_API_KEY');
         $this->apiSecret = getenv('ASTROBIN_API_SECRET');
-        $this->timeout = self::TIMEYOUT;
+        $this->timeout = self::TIMEOUT;
     }
 
-
     /**
-     * @param $endPoint
-     * @param $method
-     * @param $data
+     * @param string $endPoint
+     * @param string $method
+     * @param array|null $data
+     * @param int|null $id
+     *
      * @return mixed|null
      * @throws WsException
      */
-    protected function call(string $endPoint, string $method, array $data)
+    protected function call(string $endPoint, string $method, ?array $data, ?int $id)
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
         }
 
-        $urlAstrobin = $this->buildUrl($endPoint, $data);
+        if (!is_null($data) && is_null($id)) {
+            $urlAstrobin = $this->buildUrl($endPoint, $data, null);
+        } elseif (is_null($data) && !is_null($id)) {
+            $urlAstrobin = $this->buildUrl($endPoint, null, $id);
+        }
+
         /** @var CurlHttpRequestInterface curlRequest */
         $this->curlRequest = new CurlHttpRequest();
         $options = $this->initCurlOptions($method, $urlAstrobin);
@@ -78,48 +84,20 @@ abstract class AbstractWebService
 
 
     /**
-     * DEBUG request
-     * TODO : make better, this is only for a specific dev
-     *
-     * @param $endPoint
-     * @param $method
-     * @param $data
-     * @return \stdClass
-     */
-    protected function callDebug($endPoint, $method, $data)
-    {
-        $returnErr = new \stdClass();
-
-        $urlAstrobin = $this->buildUrl($endPoint, $data);
-        $this->curlRequest = new CurlHttpRequest();
-        $options = $this->initCurlOptions($method, $urlAstrobin);
-        $this->curlRequest->setOptionArray($options);
-
-        if (!$resp = $this->curlRequest->execute()) {
-
-            $returnErr->http_code = curl_getinfo($this->curlRequest->getHandle(), CURLINFO_HTTP_CODE);
-            $returnErr->endpoint = $endPoint;
-            $returnErr->method = $endPoint;
-            $returnErr->data = $data;
-        }
-
-        $this->curlRequest->close();
-
-        return $returnErr;
-    }
-
-    /**
      * Build the WebService URL
+     *
      * @param string $endPoint
-     * @param $data
+     * @param array $data
+     * @param int $id
+     *
      * @return string
      */
-    private function buildUrl(string $endPoint, $data): string
+    private function buildUrl(string $endPoint, array $data, int $id): string
     {
         // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;
 
-        if (is_array($data) && 0 < count($data)) {
+        if (!is_null($data) && 0 < count($data)) {
             $paramData = implode('&', array_map(static function ($k, $v) {
                 $formatValue = "%s";
                 if (is_numeric($v)) {
@@ -129,12 +107,12 @@ abstract class AbstractWebService
             }, array_keys($data), $data));
 
             $url .= '?' . $paramData;
-        } else {
+        } elseif (!is_null($id)){
             if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
                 $url .= '/';
             }
             // Warning : the "/" before "?" is mandatory or else no response from WS...
-            $url .= $data . '/?';
+            $url .= $id . '/?';
         }
 
         // Add keys and format
@@ -202,23 +180,27 @@ abstract class AbstractWebService
             if (false === strpos($resp, '{', 0)) {
                 // check if html
                 if (false !== strpos($resp, '<html', 0)) {
-                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp));
+                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp), 500, null);
                 }
-                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
+                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp), 500, null);
             }
             $obj = json_decode($resp, false);
             if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new WsException(
-                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
+                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error()),
+                    500,
+                    null
                 );
             }
             if (array_key_exists('error', $obj)) {
                 throw new WsException(
-                    sprintf("[Astrobin ERROR] Response : %s", $obj->error)
+                    sprintf("[Astrobin ERROR] Response : %s", $obj->error),
+                    500,
+                    null
                 );
             }
         } else {
-            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.");
+            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.", 500, null);
         }
 
         return $obj;
