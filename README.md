@@ -151,6 +151,8 @@ The library expose 4 WebServices, each with these methods below.
 | `url_thumb`| URL of image , thumb size|
 | `url_regular`| URL of image|
 | `user`| Username|
+| `url_histogram` | URL to histogram |
+| `url_skyplot` | URL to skyplot |
 
 ![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
 
