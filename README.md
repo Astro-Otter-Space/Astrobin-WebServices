@@ -77,43 +77,31 @@ ASTROBIN_API_KEY=PutHereYourOwnApiKey
 ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 ```
 
-Symfony 2:
-
-```yml
-astrobin.webservice:
-    class: Astrobin\AbstractWebService
-    abstract: true
-# Images WS
-astrobin.webservice.getimage:
-    class: Astrobin\Services\GetImage
-    parent: astrobin.webservice
-# Collection WS
-astrobin.webservice.getcollection:
-    class: Astrobin\Services\GetLocation
-    parent: astrobin.webservice
-# Location WS
-astrobin.webservice.getlocation:
-    class: Astrobin\Services\GetLocation
-    parent: astrobin.webservice
-# Today WS
-astrobin.webservice.gettodayimage:
-    class: Astrobin\Services\GetTodayImage
-    parent: astrobin.webservice
+Exemple with Symfony 4:
 ```
+use Astrobin\Exceptions\WsException;
+use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Image as AstrobinImage;
+use Astrobin\Services\GetImage;
 
-Symfony 3 and more :
-WIP
+class MyService
+{
+    /** @var GetImage **/ 
+    private $astrobinImage;
 
-Symfony 4:
-WIP
+    public function __construct()
+    {
+        $this->astrobinImage = new GetImage();
+    }
 
-In your controller :
-> Exemple : i want to retrieve 5 photos from Orion Nebula (M42)
-```php
-$astrobinWs = $this->container->get('astrobin.webservice.getimage');
-$data = $astrobinWs->getImagesBySubject('m42', 5);
+    public function getOrionNebula():? AstrobinImage
+    {
+        $orion = $this->astrobinImage->getImageById('m42');
+
+        return $orion;
+    }
+}
 ```
-
 
 ## WebServices
 

@@ -43,10 +43,10 @@ abstract class AbstractWebService
      * @return mixed|null
      * @throws WsException
      */
-    protected function call(string $endPoint, string $method, array $data): mixed
+    protected function call(string $endPoint, string $method, array $data)
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
-            throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
+            throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
         }
 
         $urlAstrobin = $this->buildUrl($endPoint, $data);
@@ -58,17 +58,19 @@ abstract class AbstractWebService
         if (!$resp = $this->curlRequest->execute()) {
             if (empty($resp)) {
                 $dataErr = (!is_array($data)) ? [$data] : $data;
-                throw new WsException(sprintf("[Astrobin Response] Empty response from \"%s\", check data : %s", $endPoint, implode(' . ', $dataErr)));
+                throw new WsException(sprintf("[Astrobin Response] Empty response from \"%s\", check data : %s", $endPoint, implode(' . ', $dataErr)), 500, null);
             }
             // show problem and throw exception
             throw new WsException(
-                sprintf("[Astrobin Response] HTTP Error (curl_exec) #%u: %s", $this->curlRequest->getErrNo(), $this->curlRequest->getError())
+                sprintf("[Astrobin Response] HTTP Error (curl_exec) #%u: %s", $this->curlRequest->getErrNo(), $this->curlRequest->getError()),
+                500,
+                null
             );
         }
         $this->curlRequest->close();
 
         if (!$resp || empty($resp)) {
-            throw new WsException("[Astrobin Response] Empty Json");
+            throw new WsException("[Astrobin Response] Empty Json", 500, null);
         }
 
         return $this->buildResponse($resp);
