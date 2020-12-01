@@ -9,7 +9,7 @@ use Traversable;
  * Class Collection
  * @package Astrobin\Response
  */
-class Collection extends AbstractResponse implements \IteratorAggregate
+final class Collection extends AbstractResponse implements \IteratorAggregate
 {
     /** @var integer */
     public $id;
@@ -38,7 +38,7 @@ class Collection extends AbstractResponse implements \IteratorAggregate
     /**
      * @param Image $image
      */
-    public function add(Image $image)
+    public function add(Image $image): void
     {
         $this->listImages[] = $image;
     }

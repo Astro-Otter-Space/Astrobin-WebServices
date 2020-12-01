@@ -9,7 +9,7 @@ use Traversable;
  * Class Today
  * @package Astrobin\Response
  */
-class Today extends AbstractResponse implements \IteratorAggregate
+final class Today extends AbstractResponse implements \IteratorAggregate
 {
     public $date;
     public $resource_uri;
@@ -28,7 +28,7 @@ class Today extends AbstractResponse implements \IteratorAggregate
      * @param Image $image
      * @return void
      */
-    public function add(Image $image)
+    public function add(Image $image): void
     {
         $this->listImages[] = $image;
     }

@@ -10,14 +10,14 @@ use Astrobin\Exceptions\WsException;
  */
 abstract class AbstractWebService
 {
-    const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
-    const MAX_REDIRS = 10;
-    const LIMIT_MAX = 20;
-    const TIMEYOUT = 30;
+    public const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
+    public const MAX_REDIRS = 10;
+    public const LIMIT_MAX = 20;
+    public const TIMEYOUT = 30;
 
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
+    public const METHOD_PUT = 'PUT';
 
     protected $timeout;
     private $apiKey;
@@ -43,7 +43,7 @@ abstract class AbstractWebService
      * @return mixed|null
      * @throws WsException
      */
-    protected function call($endPoint, $method, $data): object
+    protected function call(string $endPoint, string $method, array $data): mixed
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException(sprintf("Astrobin Webservice : API key or API secret are null"));
@@ -108,17 +108,17 @@ abstract class AbstractWebService
 
     /**
      * Build the WebService URL
-     * @param $endPoint
+     * @param string $endPoint
      * @param $data
      * @return string
      */
-    private function buildUrl($endPoint, $data): string
+    private function buildUrl(string $endPoint, $data): string
     {
         // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;
 
         if (is_array($data) && 0 < count($data)) {
-            $paramData = implode('&', array_map(function ($k, $v) {
+            $paramData = implode('&', array_map(static function ($k, $v) {
                 $formatValue = "%s";
                 if (is_numeric($v)) {
                     $formatValue = "%d";
@@ -142,7 +142,7 @@ abstract class AbstractWebService
             'format' => 'json'
         ];
 
-        $httpParams = implode('', array_map(function ($k, $v) {
+        $httpParams = implode('', array_map(static function ($k, $v) {
             return sprintf("&%s=%s", $k, $v);
         }, array_keys($params), $params));
         $url .= $httpParams;
@@ -158,7 +158,7 @@ abstract class AbstractWebService
      * @param string $url
      * @return mixed
      */
-    protected function initCurlOptions($method, $url): array
+    protected function initCurlOptions(string $method, string$url): array
     {
         // Options CURL
         $options = [
@@ -189,10 +189,10 @@ abstract class AbstractWebService
      * Check response and jsondecode object
      *
      * @param $resp
-     * @return object|null
+     * @return mixed|null
      * @throws WsException
      */
-    public function buildResponse($resp): object
+    public function buildResponse(string $resp)
     {
         $obj = null;
 
@@ -204,8 +204,8 @@ abstract class AbstractWebService
                 }
                 throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp));
             }
-            $obj = json_decode($resp);
-            if (JSON_ERROR_NONE != json_last_error()) {
+            $obj = json_decode($resp, false);
+            if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new WsException(
                     sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error())
                 );

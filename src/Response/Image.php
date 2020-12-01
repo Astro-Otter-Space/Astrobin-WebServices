@@ -6,18 +6,30 @@ namespace Astrobin\Response;
  * Class Image
  * @package Astrobin\Response
  */
-class Image extends AbstractResponse
+final class Image extends AbstractResponse
 {
+    /** @var string */
     public $title;
+    /** @var string */
     public $subjects;
+    /** @var string */
     public $description;
+    /** @var string */
     public $uploaded;
+    /** @var string */
     public $url_gallery;
+    /** @var string */
     public $url_thumb;
+    /** @var string */
     public $url_regular;
+    /** @var string */
     public $url_hd;
+    /** @var string */
     public $user;
-
+    /** @var string */
+    public $url_histogram;
+    /** @var string */
+    public $url_skyplot;
 
     /**
      * @return bool|\DateTime
@@ -25,7 +37,6 @@ class Image extends AbstractResponse
     public function getUploaded()
     {
         /** @var \DateTime $uploadedFormat */
-        $this->uploaded = \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
-        return $this->uploaded;
+        return \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
     }
 }

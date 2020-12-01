@@ -17,7 +17,7 @@ abstract class AbstractResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function fromObj(\stdClass $obj)
+    public function fromObj(\stdClass $obj): void
     {
         $this->fromArray((array)$obj);
     }
@@ -29,7 +29,7 @@ abstract class AbstractResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function fromArray(array $objArr)
+    private function fromArray(array $objArr): void
     {
         $listNotFields = ['listImages'];
         /** @var \ReflectionClass $reflector */

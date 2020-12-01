@@ -6,16 +6,16 @@ namespace Astrobin\Response\Iterators;
  * Class ImageIterator
  * @package Astrobin\Response
  */
-class ImageIterator implements \Iterator
+final class ImageIterator implements \Iterator
 {
-
+    /** @var array  */
     private $var = [];
 
     /**
      * ImageIterator constructor.
      * @param $array
      */
-    public function __construct($array)
+    public function __construct(array $array)
     {
         if (is_array($array)) {
             $this->var = $array;
@@ -51,11 +51,10 @@ class ImageIterator implements \Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $key = key($this->var);
-        $var = (!is_null($key) && false !== $key);
-        return $var;
+        return !is_null($key) && false !== $key;
     }
 
 

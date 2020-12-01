@@ -15,7 +15,7 @@
     "issues": "https://github.com/HamHamFonFon/Astrobin-API-PHP/issues"
   },
   "require" : {
-    "php": ">7.0.0"
+    "php": ">7.2.*"
   },
   "autoload" : {
     "psr-4" : {

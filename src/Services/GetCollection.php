@@ -16,19 +16,19 @@ use Astrobin\Response\ListCollection;
 class GetCollection extends AbstractWebService implements WsInterface
 {
 
-    const END_POINT = 'collection/';
+    public const END_POINT = 'collection/';
 
 
     /**
-     * @param null $id
+     * @param int|null $id
      * @return Collection|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getCollectionById($id = null): Collection
+    public function getCollectionById(?int $id): Collection
     {
-        if (is_null($id) || empty($id)) {
+        if (is_null($id)) {
             throw new WsException('Astrobon Webservice Collection : id empty');
         }
 
@@ -42,14 +42,15 @@ class GetCollection extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param null $username
-     * @param null $limit
+     * @param string|null $username
+     * @param int|null $limit
+     *
      * @return ListCollection|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getListCollectionByUser($username = null, $limit = null): ListCollection
+    public function getListCollectionByUser(?string $username, ?int $limit): ListCollection
     {
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
@@ -72,7 +73,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      */
     private function getImagesCollection(Collection $astrobinCollection): Collection
     {
-        $listImagesId = array_map(function ($path) {
+        $listImagesId = array_map(static function ($path) {
             if (preg_match('/\/([\d]+)/', $path, $matches)) {
                 return $matches[1];
             }
@@ -103,13 +104,13 @@ class GetCollection extends AbstractWebService implements WsInterface
         $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
         if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty");
-        } else {
-            if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
-                return $this->responseWs($rawResp->objects);
-            } else {
-                return $this->responseWs([$rawResp]);
-            }
         }
+
+        if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
+            return $this->responseWs($rawResp->objects);
+        }
+
+        return $this->responseWs([$rawResp]);
     }
 
 
