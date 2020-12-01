@@ -13,13 +13,13 @@ interface CurlHttpRequestInterface
      * @param $value
      * @return mixed
      */
-    public function setOption($name, $value);
+    public function setOption(string $name, string $value);
 
     /**
      * @param $options
      * @return mixed
      */
-    public function setOptionArray($options);
+    public function setOptionArray(array $options);
 
     /**
      * @return mixed
@@ -30,7 +30,7 @@ interface CurlHttpRequestInterface
      * @param $name
      * @return mixed
      */
-    public function getInfo($name);
+    public function getInfo(string $name);
 
     /**
      * @return mixed

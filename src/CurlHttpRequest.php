@@ -12,7 +12,6 @@ class CurlHttpRequest implements CurlHttpRequestInterface
 
     /**
      * CurlHttpRequest constructor.
-     * @param $url
      */
     public function __construct()
     {
@@ -30,26 +29,28 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      * @param $name
      * @param $value
-     * @return bool
+     *
+     * @return void
      */
-    public function setOption($name, $value)
+    public function setOption(string $name, string $value): void
     {
         curl_setopt($this->handle, $name, $value);
     }
 
     /**
-     * @param $options
-     * @return bool
+     * @param array $options
+     *
+     * @return void
      */
-    public function setOptionArray($options)
+    public function setOptionArray(array $options): void
     {
         curl_setopt_array($this->handle, $options);
     }
 
     /**
-     * @return mixed
+     * @return string|bool
      */
-    public function execute()
+    public function execute(): string
     {
         return curl_exec($this->handle);
     }
@@ -58,7 +59,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
      * @param $name
      * @return mixed
      */
-    public function getInfo($name)
+    public function getInfo(string $name): mixed
     {
         return curl_getinfo($this->handle, $name);
     }
@@ -66,7 +67,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      * @return string
      */
-    public function getError()
+    public function getError(): string
     {
         return curl_error($this->handle);
     }
@@ -74,7 +75,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      * @return int
      */
-    public function getErrNo()
+    public function getErrNo(): int
     {
         return curl_errno($this->handle);
     }
@@ -82,7 +83,7 @@ class CurlHttpRequest implements CurlHttpRequestInterface
     /**
      *
      */
-    public function close()
+    public function close(): void
     {
         curl_close($this->handle);
     }
