@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)
-# Astrobin API for PHP
+# WebServices for Astrobin's API REST
 
 ## Table of contents
 
@@ -25,16 +25,14 @@
 
 Version 1.1.0
 
-Caution : API currently in progress, this is not a final version.
-
 ## Requirements
-* PHP 7.0 min or superior
+* PHP 7.2 min or superior
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
 
-
-Astrobin API is a PHP library made to retrieve astrophotography from [Astrobin](http://www.astrobin.com).
+Astrobin's WebServices is a PHP library for request Astrobin's API Rest and get amazing astrophotographies hosted on from [Astrobin](http://www.astrobin.com).
+Please read API section in ["Terms of service"](https://welcome.astrobin.com/terms-of-service)
 
 ## Installing
 
