@@ -38,20 +38,27 @@ Astrobin API is a PHP library made to retrieve astrophotography from [Astrobin](
 
 ## Installing
 
-You can install this API in 3 different ways.
+You can install this package in 2 different ways.
 
+* Basic installation; just install package from composer :
+
+> `composer require hamhamfonfon/astrobin-ws`
+
+For update :
+> `composer update hamhamfonfon/astrobin-ws`
+>
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
 
 > `git clone git@github.com:HamHamFonFon/Astrobin-API-PHP.git`
 
 
-* If you want to add to your own composer.json project :
+* [OLD] If you want to add to your own composer.json project :
 
 ```json
     [...]
     "require" : {
         [...]
-        "hamhamfonfon/astrobin" : "dev-master"
+        "hamhamfonfon/astrobin-ws" : "dev-master"
     },
     "repositories" : [{
         "type" : "vcs",
@@ -59,12 +66,6 @@ You can install this API in 3 different ways.
     }],
     [...]
 ```
-
-Then run
-> `composer update hamhamfonfon/astrobin`
-
-* Soon, adding with composer from packagist.
-
 
 ### Usage
 
