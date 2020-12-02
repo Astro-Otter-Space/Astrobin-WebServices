@@ -10,5 +10,5 @@ interface WsInterface
 {
     public function callWithId(int $id);
     public function callWithParams(array $params);
-    public function responseWs();
+    public function responseWs(array $objects);
 }
