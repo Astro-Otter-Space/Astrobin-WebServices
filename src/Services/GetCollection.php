@@ -18,7 +18,6 @@ class GetCollection extends AbstractWebService implements WsInterface
 
     public const END_POINT = 'collection/';
 
-
     /**
      * @param int|null $id
      * @return Collection|null

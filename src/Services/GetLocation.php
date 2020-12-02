@@ -14,8 +14,7 @@ use AstrobinWs\Response\Location;
 class GetLocation extends AbstractWebService implements WsInterface
 {
 
-    const END_POINT = 'location/';
-
+    public const END_POINT = 'location/';
 
     /**
      * @param $id
