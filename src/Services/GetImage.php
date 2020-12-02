@@ -109,7 +109,6 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr)
     {
-
         if (is_null($dateToStr)) {
             /** @var \DateTimeInterface $dateTo */
             $dateTo = new \DateTime('now');

@@ -1,5 +1,4 @@
 <?php
-
 namespace Astrobin;
 
 use Astrobin\Exceptions\WsException;
@@ -94,7 +93,6 @@ abstract class AbstractWebService
      */
     private function buildUrl(string $endPoint, array $data, int $id): string
     {
-        // Build URL with params
         $url = self::ASTROBIN_URL . $endPoint;
 
         if (!is_null($data) && 0 < count($data)) {
