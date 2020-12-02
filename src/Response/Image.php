@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
 /**
  * Class Image
@@ -34,7 +34,7 @@ final class Image extends AbstractResponse
     /**
      * @return bool|\DateTime
      */
-    public function getUploaded()
+    public function getUploaded(): string
     {
         /** @var \DateTime $uploadedFormat */
         return \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);

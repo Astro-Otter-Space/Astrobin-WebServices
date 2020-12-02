@@ -1,8 +1,8 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
-use Astrobin\Exceptions\WsResponseException;
+use AstrobinWs\Exceptions\WsResponseException;
 
 /**
  * Class AbstractResponse
@@ -32,6 +32,7 @@ abstract class AbstractResponse
     private function fromArray(array $objArr): void
     {
         $listNotFields = ['listImages'];
+
         /** @var \ReflectionClass $reflector */
         $reflector = new \ReflectionClass($this);
         foreach ($reflector->getProperties() as $property) {
@@ -42,7 +43,9 @@ abstract class AbstractResponse
             }
             if (!array_key_exists($property->getName(), $objArr)) {
                 throw new WsResponseException(
-                    sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), get_class($this))
+                    sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), get_class($this)),
+                    500,
+                    null
                 );
             }
 

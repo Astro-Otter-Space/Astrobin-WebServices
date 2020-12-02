@@ -1,10 +1,10 @@
 <?php
 
-namespace Astrobin\Services;
+namespace AstrobinWs\Services;
 
-use Astrobin\AbstractWebService;
-use Astrobin\Exceptions\WsResponseException;
-use Astrobin\Response\Location;
+use AstrobinWs\AbstractWebService;
+use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\Location;
 
 /**
  * Class GetLocation
@@ -18,9 +18,10 @@ class GetLocation extends AbstractWebService implements WsInterface
 
     /**
      * @param $id
+     *
      * @return Location|null
      * @throws WsResponseException
-     * @throws \Astrobin\Exceptions\WsException
+     * @throws \AstrobinWs\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function getLocationById($id): Location
@@ -31,9 +32,10 @@ class GetLocation extends AbstractWebService implements WsInterface
 
     /**
      * @param array $params
+     *
      * @return Location|null
      * @throws WsResponseException
-     * @throws \Astrobin\Exceptions\WsException
+     * @throws \AstrobinWs\Exceptions\WsException
      * @throws \ReflectionException
      */
     public function callWs($params = []): Location

@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin\Exceptions;
+namespace AstrobinWs\Exceptions;
 
 use Throwable;
 

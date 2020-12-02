@@ -1,13 +1,13 @@
 <?php
 
-namespace Astrobin\Services;
+namespace AstrobinWs\Services;
 
-use Astrobin\AbstractWebService;
-use Astrobin\Exceptions\WsException;
-use Astrobin\Exceptions\WsResponseException;
-use Astrobin\Response\Collection;
-use Astrobin\Response\Image;
-use Astrobin\Response\ListImages;
+use AstrobinWs\AbstractWebService;
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\Collection;
+use AstrobinWs\Response\Image;
+use AstrobinWs\Response\ListImages;
 
 /**
  * Class GetImage
@@ -123,13 +123,12 @@ class GetImage extends AbstractWebService implements WsInterface
 
         /** @var \DateTime $dateFrom */
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
-        if (false === $dateFrom->format('Y-m-d') || $dateFromStr !== $dateFrom->format('Y-m-d')) {
-            throw new WsException(sprintf("Format \"%s\" is not a correct format for a date, please use YYYY-mm-dd instead", $dateFromStr));
-
+        if ($dateFromStr !== $dateFrom->format('Y-m-d')) {
+            throw new WsException(sprintf("Format \"%s\" is not a correct format for a date, please use YYYY-mm-dd instead", $dateFromStr), 500, null);
         }
 
         if (false !== $dateFrom && array_sum($dateFrom->getLastErrors())) {
-            throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()));
+            throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()), 500, null);
         }
 
         $params = [
@@ -179,7 +178,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function callWs($rawResp)
+    private function callWs()
     {
         if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty", 500, null);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin;
+namespace AstrobinWs;
 
 /**
  * Interface CurlHttpRequestInterface

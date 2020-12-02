@@ -1,8 +1,8 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
-use Astrobin\Response\Iterators\ImageIterator;
+use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**

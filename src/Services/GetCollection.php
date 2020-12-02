@@ -1,13 +1,13 @@
 <?php
 
-namespace Astrobin\Services;
+namespace AstrobinWs\Services;
 
-use Astrobin\AbstractWebService;
-use Astrobin\Exceptions\WsException;
-use Astrobin\Exceptions\WsResponseException;
-use Astrobin\Response\Collection;
-use Astrobin\Response\Image;
-use Astrobin\Response\ListCollection;
+use AstrobinWs\AbstractWebService;
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\Collection;
+use AstrobinWs\Response\Image;
+use AstrobinWs\Response\ListCollection;
 
 /**
  * Class GetCollection

@@ -6,7 +6,7 @@
  * Time: 18:04
  */
 
-use Astrobin\Services\GetTodayImage;
+use AstrobinWs\Services\GetTodayImage;
 
 class GetTodayImageTest extends \PHPUnit\Framework\TestCase
 {
@@ -27,11 +27,11 @@ class GetTodayImageTest extends \PHPUnit\Framework\TestCase
     {
         $now = new DateTime('now');
         $response = $this->client->getTodayDayImage();
-        $this->assertInstanceOf(\Astrobin\Response\Today::class, $response, __METHOD__ . ' : instance of ' . get_class($response) . ' OK');
+        $this->assertInstanceOf(\AstrobinWs\Response\Today::class, $response, __METHOD__ . ' : instance of ' . get_class($response) . ' OK');
         $this->assertEquals($response->date, $now->format('Y-m-d'), __METHOD__ . ' : day returned and today are equals, OK');
 
         foreach ($response->getIterator() as $respImage) {
-            $this->assertInstanceOf(\Astrobin\Response\Image::class, $respImage, __METHOD__ . ' : instance of ' . get_class($respImage) . ' OK');
+            $this->assertInstanceOf(\AstrobinWs\Response\Image::class, $respImage, __METHOD__ . ' : instance of ' . get_class($respImage) . ' OK');
         }
     }
 

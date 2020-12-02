@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
 /**
  * Class Location

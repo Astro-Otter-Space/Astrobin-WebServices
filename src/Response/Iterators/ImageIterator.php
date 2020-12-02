@@ -1,6 +1,6 @@
 <?php
 
-namespace Astrobin\Response\Iterators;
+namespace AstrobinWs\Response\Iterators;
 
 /**
  * Class ImageIterator

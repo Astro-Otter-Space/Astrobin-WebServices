@@ -1,7 +1,7 @@
 <?php
-namespace Astrobin;
+namespace AstrobinWs;
 
-use Astrobin\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsException;
 
 /**
  * Class AstrobinWebService
@@ -21,6 +21,7 @@ abstract class AbstractWebService
     protected $timeout;
     private $apiKey;
     private $apiSecret;
+
     /** @var CurlHttpRequestInterface */
     protected $curlRequest;
 
@@ -105,7 +106,7 @@ abstract class AbstractWebService
             }, array_keys($data), $data));
 
             $url .= '?' . $paramData;
-        } elseif (!is_null($id)){
+        } elseif (!is_null($id)) {
             if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
                 $url .= '/';
             }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
-use Astrobin\Response\Iterators\CollectionIterator;
+use AstrobinWs\Response\Iterators\CollectionIterator;
 
 /**
  * Class ListCollection

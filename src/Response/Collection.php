@@ -1,8 +1,8 @@
 <?php
 
-namespace Astrobin\Response;
+namespace AstrobinWs\Response;
 
-use Astrobin\Response\Iterators\ImageIterator;
+use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**
@@ -45,23 +45,25 @@ final class Collection extends AbstractResponse implements \IteratorAggregate
 
 
     /**
-     * @param $date_created
+     * @param string $dateCreated
+     *
      * @return $this
      */
-    public function setDateCreated($date_created)
+    public function setDateCreated(string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat('Y-m-d', $date_created);
+        $this->date_created = \DateTime::createFromFormat('Y-m-d', $dateCreated);
         return $this;
     }
 
 
     /**
-     * @param $date_updated
+     * @param string $dateUpdated
+     *
      * @return $this
      */
-    public function setDateUpdated($date_updated)
+    public function setDateUpdated(string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat('Y-m-d', $date_updated);
+        $this->date_updated = \DateTime::createFromFormat('Y-m-d', $dateUpdated);
         return $this;
     }
 }
