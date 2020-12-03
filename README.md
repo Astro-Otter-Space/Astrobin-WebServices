@@ -31,7 +31,7 @@ Version 1.1.0
 
 ## Introduction
 
-Astrobin's WebServices is a PHP library for request Astrobin's API Rest and get amazing astrophotographies hosted on from [Astrobin](http://www.astrobin.com).
+Astrobin's WebServices is a PHP library for request Astrobin's API Rest and get amazing astrophotographies hosted on [Astrobin](http://www.astrobin.com).
 Please read API section in ["Terms of service"](https://welcome.astrobin.com/terms-of-service)
 
 ## Installing

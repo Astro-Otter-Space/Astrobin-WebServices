@@ -58,7 +58,7 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function callWs($rawResp): Location
+    protected function callWs($rawResp): Location
     {
         if (!isset($rawResp->objects) || 0 === $rawResp->meta->total_count) {
             throw new WsResponseException("Response from Astrobin is empty", 500, null);

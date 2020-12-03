@@ -95,7 +95,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function callWs($rawResp): Today
+    protected function callWs($rawResp): Today
     {
         if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
             return $this->responseWs($rawResp->objects);

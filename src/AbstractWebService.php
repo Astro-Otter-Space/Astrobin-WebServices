@@ -82,7 +82,7 @@ abstract class AbstractWebService
         return $this->buildResponse($resp);
     }
 
-    abstract function callWs($rawResp);
+    abstract protected function callWs($rawResp);
 
     /**
      * Build the WebService URL

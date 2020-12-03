@@ -128,7 +128,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function callWs($rawResp)
+    protected function callWs($rawResp)
     {
         if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty", 500, null);

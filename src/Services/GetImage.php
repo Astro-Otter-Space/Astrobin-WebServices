@@ -178,7 +178,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function callWs()
+    protected function callWs($rawResp)
     {
         if (!is_object($rawResp)) {
             throw new WsResponseException("Response from Astrobin is empty", 500, null);
