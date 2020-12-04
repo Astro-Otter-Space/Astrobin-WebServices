@@ -20,10 +20,7 @@ class GetImageTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        /** @var \PHPUnit\Framework\MockObject\MockObject astrobinImageMock */
-        $this->astrobinImageMock = $this->getMockBuilder(GetImage::class)
-                ->disallowMockingUnknownTypes()
-                ->getMock();
+        $this->client = $this->getMockBuilder(GetImage::class)->getMock();
     }
 
 

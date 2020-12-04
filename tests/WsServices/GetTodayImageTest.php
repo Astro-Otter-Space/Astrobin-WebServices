@@ -16,7 +16,7 @@ class GetTodayImageTest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->client = new GetTodayImage(self::FAKE_KEY, self::FAKE_SECRET);
+        $this->client = new GetTodayImage();
     }
 
     public function testGetDayImage()
