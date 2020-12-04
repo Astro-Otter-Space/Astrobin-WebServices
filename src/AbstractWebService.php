@@ -88,12 +88,12 @@ abstract class AbstractWebService
      * Build the WebService URL
      *
      * @param string $endPoint
-     * @param array $data
-     * @param int $id
+     * @param array|null $data
+     * @param int|null $id
      *
      * @return string
      */
-    private function buildUrl(string $endPoint, array $data, int $id): string
+    private function buildUrl(string $endPoint, ?array $data, ?int $id): string
     {
         $url = self::ASTROBIN_URL . $endPoint;
 

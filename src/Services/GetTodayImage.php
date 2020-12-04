@@ -33,10 +33,14 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         if (is_null($limit)) {
             $limit = 1;
         }
-        $params = ['limit' => $limit];
-        if (isset($offset) && is_numeric($offset)) {
-            $params['offset'] = $offset;
+        if (is_null($offset)) {
+            $offset = parent::LIMIT_MAX;
         }
+
+        $params = [
+            'limit' => $limit,
+            'offset' => $offset
+        ];
 
         $astrobinToday = $this->callWithParams($params);
 
