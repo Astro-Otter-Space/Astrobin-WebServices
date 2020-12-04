@@ -19,7 +19,7 @@ class WsException extends \Exception
      */
     public function __construct(string $message, int $code, ?Throwable $previous)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct(...func_num_args());
     }
 
     /**
