@@ -22,9 +22,6 @@ class GetImageTest extends TestCase
         parent::setUp();
         /** @var \PHPUnit\Framework\MockObject\MockObject astrobinImageMock */
         $this->astrobinImageMock = $this->getMockBuilder(GetImage::class)
-                ->disableOriginalConstructor()
-                ->disableOriginalClone()
-                ->disableArgumentCloning()
                 ->disallowMockingUnknownTypes()
                 ->getMock();
     }
@@ -47,12 +44,12 @@ class GetImageTest extends TestCase
      * Test with null Id
      * @expectedException WsResponseException
      */
-    public function testGetImageWithNullId()
+    /*public function testGetImageWithNullId()
     {
         $this->setExpectedExceptionFromAnnotation();
         $this->client->getImageById(null);
         $this->expectExceptionMessage("[Astrobin response] '' is not a correct value, integer expected");
-    }
+    }*/
 
 
     /**
@@ -60,20 +57,20 @@ class GetImageTest extends TestCase
      *
      * @expectedException WsResponseException
      */
-    public function testGetImageWithBadId()
+    /*public function testGetImageWithBadId()
     {
         $this->setExpectedExceptionFromAnnotation();
         $fakeId = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImageById($fakeId);
         $this->expectExceptionMessage("[Astrobin response] \'$fakeId\' is not a correct value, integer expected");
-    }
+    }*/
 
 
     /**
      * Test by subjects
      * @throws Exception
      */
-    public function testGetImagesBySubject()
+    /*public function testGetImagesBySubject()
     {
         $subjects = ['m1', 'andromeda', 'm33', 'm42', 'pleiades', 'm51', 'm57', 'm82', 'm97', 'm101', 'm104'];
         foreach ($subjects as $subject) {
@@ -92,26 +89,26 @@ class GetImageTest extends TestCase
                 $this->assertInstanceOf(Image::class, $response, __METHOD__ . ' : check if instance Image OK');
             }
         }
-    }
+    }*/
 
 
     /**
      * @expectedException WsResponseException
      * @throws Exception
      */
-    public function testGetImagesBySubjectNotFound()
+    /*public function testGetImagesBySubjectNotFound()
     {
         $this->setExpectedExceptionFromAnnotation();
         $fakeSubject = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesBySubject($fakeSubject, random_int(1, 5));
         $this->expectException(WsResponseException::class);
-    }
+    }*/
 
 
     /**
      * Test by username
      */
-    public function testGetImageByUser()
+    /*public function testGetImageByUser()
     {
         $listUser = ['gorann', 'protoplot', 'tlewis', 'Mark_Hudson', 'SparkyHT'];
         $user = $listUser[array_rand($listUser, 1)];
@@ -121,27 +118,27 @@ class GetImageTest extends TestCase
         foreach ($response->getIterator() as $resp) {
             $this->assertEquals($user, $resp->user, __METHOD__ . ' : ' . $user . ' selected is equale to ' . $resp->user);
         }
-    }
+    }*/
 
 
     /**
      * Test with fake user
      * @expectedException WsResponseException
      */
-    public function testGetImagesByBadUser()
+    /*public function testGetImagesByBadUser()
     {
         $this->setExpectedExceptionFromAnnotation();
         $fakeUser = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,20);
         $this->client->getImagesByUser($fakeUser, 5);
         $this->expectException(WsResponseException::class);
-    }
+    }*/
 
 
 
     /**
      * Test with a range date : now to now-1month
      */
-    public function testGetImagesByRangeDate()
+    /*public function testGetImagesByRangeDate()
     {
         $dateTo = new DateTime('now');
         $dateFrom = clone $dateTo;
@@ -157,18 +154,18 @@ class GetImageTest extends TestCase
         $dateFromTmp = $dateFrom->getTimestamp();
 
         /** @var Image $imgResp */
-        foreach ($response->getIterator() as $imgResp) {
+        /*foreach ($response->getIterator() as $imgResp) {
             $timestamp = $imgResp->getUploaded()->getTimestamp();
             $this->assertLessThanOrEqual($dateToTmp, $timestamp, __METHOD__ . ' : interval lether date uploaded OK');
             $this->assertGreaterThanOrEqual($dateFromTmp, $timestamp,__METHOD__ . ' : interval greather date uploaded OK');
         }
-    }
+    }*/
 
 
     /**
      * @expectedException WsException
      */
-    public function testGetImagesByRangeDateFalse()
+    /*public function testGetImagesByRangeDateFalse()
     {
         $this->setExpectedExceptionFromAnnotation();
         $dateTo = new DateTime('now');
@@ -178,17 +175,17 @@ class GetImageTest extends TestCase
         // Test with format yy-mm-dd also yyyy-mm-dd
         $this->client->getImagesByRangeDate($dateFrom->format('y-m-d'), $dateTo->format('Y-m-d'));
         $this->expectException(WsException::class);
-    }
+    }*/
 
 
     /**
      * @expectedException WsException
      */
-    public function testGetImagesByRangeDateBadFormat()
+   /*public function testGetImagesByRangeDateBadFormat()
     {
         $this->setExpectedExceptionFromAnnotation();
         $dateTo = new DateTime('now');
 
         $this->client->getImagesByRangeDate('aabbccddeeff', $dateTo->format('Y-m-d'));
-    }
+    }*/
 }

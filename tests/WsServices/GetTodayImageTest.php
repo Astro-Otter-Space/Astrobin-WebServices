@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 05/05/18
- * Time: 18:04
- */
 
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\Today;

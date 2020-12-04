@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
 >
     <testsuites>
-        <testsuite name="Astrobin Test Suite">
+        <testsuite name="AstrobinWs Test Suite">
             <directory>tests/WsServices</directory>
         </testsuite>
     </testsuites>
