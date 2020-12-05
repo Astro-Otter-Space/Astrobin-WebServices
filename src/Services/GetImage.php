@@ -2,6 +2,7 @@
 
 namespace AstrobinWs\Services;
 
+use Astrobin\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
@@ -15,23 +16,31 @@ use AstrobinWs\Response\ListImages;
  */
 class GetImage extends AbstractWebService implements WsInterface
 {
-
-    public const END_POINT = 'image/';
+    private const END_POINT = 'image';
 
     /**
-     * @param $id
+     * @return string
+     */
+    protected function getEndPoint(): string
+    {
+        return self::END_POINT;
+    }
+
+    /**
+     * @param int|null $id
      *
-     * @return Image|null
-     * @throws WsResponseException
+     * @return AstrobinResponse
      * @throws WsException
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getImageById(?int $id): Image
+    public function getById(?int $id): ?AstrobinResponse
     {
         if (is_null($id) || !ctype_alnum($id)) {
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
         }
-        return $this->callWithId($id);
+        $response = $this->get($id, null);
+        return $this->buildResponse($response);
     }
 
     /**
@@ -45,14 +54,15 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesBySubject(string $subjectId, int $limit)
+    public function getImagesBySubject(string $subjectId, int $limit):? AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
 
         $params = ['subjects' => $subjectId, 'limit' => $limit];
-        return $this->callWithParams($params);
+        $response = $this->get(null, $params);
+        return $this->buildResponse($response);
     }
 
 
@@ -65,14 +75,15 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesByDescription(string $description, int $limit)
+    public function getImagesByDescription(string $description, int $limit):? AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
 
         $params = ['title__icontains' => urlencode($description), 'limit' => $limit];
-        return $this->callWithParams($params);
+        $response = $this->get(null, $params);
+        return $this->buildResponse($response);
     }
 
 
@@ -87,14 +98,16 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesByUser(string $userName, int $limit)
+    public function getImagesByUser(string $userName, int $limit):? AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
 
         $params = ['user' => $userName, 'limit' => $limit];
-        return $this->callWithParams($params);
+        $response = $this->get(null, $params);
+
+        return $this->buildResponse($response);
     }
 
 
@@ -106,8 +119,9 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr)
+    public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr):? AstrobinResponse
     {
         if (is_null($dateToStr)) {
             /** @var \DateTimeInterface $dateTo */
@@ -137,39 +151,12 @@ class GetImage extends AbstractWebService implements WsInterface
             'limit' => AbstractWebService::LIMIT_MAX
         ];
 
-        return $this->callWithParams($params);
+        $response = $this->get(null, $params);
+        return $this->buildResponse($response);
     }
 
     /**
-     * @param $params
-     *
-     * @return Image|ListImages|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    public function callWithParams(array $params)
-    {
-        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, $params, null);
-
-        return $this->callWs($rawResp);
-    }
-
-    /**
-     * @param $id
-     *
-     * @return Image|ListImages|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    public function callWithId(int $id)
-    {
-        $rawResp = $this->call(self::END_POINT, AbstractWebService::METHOD_GET, null, $id);
-        return $this->callWs($rawResp);
-    }
-
-    /**
+     * TODO  : move to pârent
      * Call WS "image" with parameters
      *
      * @param $rawResp
@@ -197,12 +184,14 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Build response from WebService Astrobin
+     *
      * @param array $objects
-     * @return ListImages|Image|null
+     *
+     * @return AstrobinResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function responseWs($objects = [])
+    public function buildResponse($objects): AstrobinResponse
     {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {

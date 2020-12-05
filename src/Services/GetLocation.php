@@ -14,7 +14,16 @@ use AstrobinWs\Response\Location;
 class GetLocation extends AbstractWebService implements WsInterface
 {
 
-    public const END_POINT = 'location/';
+    private const END_POINT = 'location';
+
+    /**
+     * @return string
+     */
+    protected function getEndPoint(): string
+    {
+        return self::END_POINT;
+    }
+
 
     /**
      * @param $id
@@ -24,9 +33,9 @@ class GetLocation extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getLocationById($id): Location
+    public function getById($id): Location
     {
-        return $this->callWithId($id);
+        return $this->get($id);
     }
 
     /**

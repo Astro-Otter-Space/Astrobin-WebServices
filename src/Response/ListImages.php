@@ -2,6 +2,7 @@
 
 namespace AstrobinWs\Response;
 
+use Astrobin\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
@@ -9,7 +10,7 @@ use Traversable;
  * Class ListImages
  * @package Astrobin\Response
  */
-final class ListImages implements \IteratorAggregate
+final class ListImages implements \IteratorAggregate, AstrobinResponse
 {
 
     public $listImages = [];

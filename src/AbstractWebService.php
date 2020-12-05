@@ -2,6 +2,14 @@
 namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\GuzzleSingleton;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Request;
+use http\Client\Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class AstrobinWebService
@@ -9,21 +17,23 @@ use AstrobinWs\Exceptions\WsException;
  */
 abstract class AbstractWebService
 {
-    public const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
+
     public const MAX_REDIRS = 10;
     public const LIMIT_MAX = 20;
     public const TIMEOUT = 30;
-
-    public const METHOD_GET = 'GET';
-    public const METHOD_POST = 'POST';
-    public const METHOD_PUT = 'PUT';
 
     protected $timeout;
     private $apiKey;
     private $apiSecret;
 
-    /** @var CurlHttpRequestInterface */
-    protected $curlRequest;
+    protected static $headers = [
+        'Accept' => GuzzleSingleton::APPLICATION_JSON,
+        'Content-Type' => GuzzleSingleton::APPLICATION_JSON
+    ];
+
+    /** @var Client */
+    private $client;
+
 
     /**
      * AbstractWebService constructor.
@@ -33,176 +43,127 @@ abstract class AbstractWebService
         $this->apiKey = getenv('ASTROBIN_API_KEY');
         $this->apiSecret = getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
+        $this->buildFactory();
+    }
+
+
+    /**
+     * Get Guzzle Instance
+     */
+    public function buildFactory(): void
+    {
+        $this->client = GuzzleSingleton::getInstance();
+    }
+
+    /** Return endpoint */
+    abstract protected function getEndPoint(): string;
+
+    /**
+     * Build EndPoint
+     * @param int|null $param
+     *
+     * @return string
+     */
+    private function buildEndpoint(?int $param): string
+    {
+        return (!is_null($param)) ? sprintf('/%s/%d', $this->getEndPoint(), $param) : $this->getEndPoint();
     }
 
     /**
-     * @param string $endPoint
-     * @param string $method
-     * @param array|null $data
-     * @param int|null $id
+     * @param int $id
+     * @param array|null $queryParams
      *
-     * @return mixed|null
+     * @return Response
      * @throws WsException
      */
-    protected function call(string $endPoint, string $method, ?array $data, ?int $id)
+    protected function get(?int $id, ?array $queryParams): Response
+    {
+        return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
+    }
+
+    /**
+     * NOT USED, just for example
+     *
+     * @param int $id
+     * @param array $queryParams
+     * @param array $body
+     *
+     * @throws WsException
+     */
+    protected function post(int $id, array $queryParams, array $body)
+    {
+        $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
+    }
+
+    /**
+     * @param int $id
+     * @param array $body
+     * @param array|null $queryParams
+     * @param array $headers
+     * @param string $method
+     *
+     * @return
+     * @throws WsException
+     */
+    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method)
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
         }
 
-        if (!is_null($data) && is_null($id)) {
-            $urlAstrobin = $this->buildUrl($endPoint, $data, null);
-        } elseif (is_null($data) && !is_null($id)) {
-            $urlAstrobin = $this->buildUrl($endPoint, null, $id);
-        }
+        $endPoint = $this->buildEndpoint($id);
 
-        /** @var CurlHttpRequestInterface curlRequest */
-        $this->curlRequest = new CurlHttpRequest();
-        $options = $this->initCurlOptions($method, $urlAstrobin);
-        $this->curlRequest->setOptionArray($options);
-
-        if (!$resp = $this->curlRequest->execute()) {
-            if (empty($resp)) {
-                $dataErr = (!is_array($data)) ? [$data] : $data;
-                throw new WsException(sprintf("[Astrobin Response] Empty response from \"%s\", check data : %s", $endPoint, implode(' . ', $dataErr)), 500, null);
-            }
-            // show problem and throw exception
-            throw new WsException(
-                sprintf("[Astrobin Response] HTTP Error (curl_exec) #%u: %s", $this->curlRequest->getErrNo(), $this->curlRequest->getError()),
-                500,
-                null
-            );
-        }
-        $this->curlRequest->close();
-
-        if (!$resp || empty($resp)) {
-            throw new WsException("[Astrobin Response] Empty Json", 500, null);
-        }
-
-        return $this->buildResponse($resp);
-    }
-
-    abstract protected function callWs($rawResp);
-
-    /**
-     * Build the WebService URL
-     *
-     * @param string $endPoint
-     * @param array|null $data
-     * @param int|null $id
-     *
-     * @return string
-     */
-    private function buildUrl(string $endPoint, ?array $data, ?int $id): string
-    {
-        $url = self::ASTROBIN_URL . $endPoint;
-
-        if (!is_null($data) && 0 < count($data)) {
-            $paramData = implode('&', array_map(static function ($k, $v) {
-                $formatValue = "%s";
-                if (is_numeric($v)) {
-                    $formatValue = "%d";
-                }
-                return sprintf("%s=$formatValue", $k, $v);
-            }, array_keys($data), $data));
-
-            $url .= '?' . $paramData;
-        } elseif (!is_null($id)) {
-            if ('/' !== substr($url, strlen($url)-1, strlen($url))) {
-                $url .= '/';
-            }
-            // Warning : the "/" before "?" is mandatory or else no response from WS...
-            $url .= $id . '/?';
-        }
-
-        // Add keys and format
-        $params = [
+        $astrobinParams = [
             'api_key' => $this->apiKey,
             'api_secret' => $this->apiSecret,
             'format' => 'json'
         ];
 
-        $httpParams = implode('', array_map(static function ($k, $v) {
-            return sprintf("&%s=%s", $k, $v);
-        }, array_keys($params), $params));
-        $url .= $httpParams;
-
-        return $url;
-    }
-
-
-    /**
-     * Options for cURL request
-     *
-     * @param $method
-     * @param string $url
-     * @return mixed
-     */
-    protected function initCurlOptions(string $method, string$url): array
-    {
-        // Options CURL
         $options = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => self::MAX_REDIRS,
-            CURLOPT_HEADER => "Accept:application/json",
-            CURLOPT_CONNECTTIMEOUT => $this->timeout,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_TIMEOUT => $this->timeout,
-            CURLOPT_SSL_VERIFYPEER => true
+            'query' => array_filter(array_merge($astrobinParams, $queryParams))
         ];
 
-        // GET
-        if (self::METHOD_GET === $method) {
-            $options = array_replace_recursive($options, [
-                CURLOPT_CUSTOMREQUEST => self::METHOD_GET,
-                CURLOPT_HTTPGET => true,
-            ]);
+        $options['headers'] = self::$headers;
+
+        if (!is_null($body) && !empty($body)) {
+            $options['body'] = $body;
         }
 
-        return $options;
+        try {
+            /** @var ResponseInterface $request */
+            $response = $this->client->request($method, $endPoint, $options);
+        } catch (GuzzleException $e) {
+            throw new WsException($e->getMessage(), $e->getCode(), null);
+        }
+
+        return $this->getResponse($response);
     }
 
 
     /**
      * Check response and jsondecode object
      *
-     * @param $resp
+     * @param ResponseInterface $response
+     *
      * @return mixed|null
      * @throws WsException
      */
-    public function buildResponse(string $resp)
+    public function getResponse(ResponseInterface $response): string
     {
-        $obj = null;
-
-        if (is_string($resp)) {
-            if (false === strpos($resp, '{', 0)) {
-                // check if html
-                if (false !== strpos($resp, '<html', 0)) {
-                    throw new WsException(sprintf("[Astrobin Response] Response in HTML format :\n %s", $resp), 500, null);
-                }
-                throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", $resp), 500, null);
-            }
-            $obj = json_decode($resp, false);
-            if (JSON_ERROR_NONE !== json_last_error()) {
-                throw new WsException(
-                    sprintf("[Astrobin ERROR] Error JSON :\n%s", json_last_error()),
-                    500,
-                    null
-                );
-            }
-            if (array_key_exists('error', $obj)) {
-                throw new WsException(
-                    sprintf("[Astrobin ERROR] Response : %s", $obj->error),
-                    500,
-                    null
-                );
-            }
-        } else {
-            throw new WsException("[Astrobin ERROR] Response is not a string, got ". gettype($resp) . " instead.", 500, null);
+        if (200 !== $response->getStatusCode()) {
+            throw new WsException(sprintf('[Astrobin Response] Error response: %s', $response->getReasonPhrase()), 500, null);
         }
 
-        return $obj;
+        /** @var StreamInterface $body */
+        $body = $response->getBody();
+        if (false === strpos($body, '{', 0)) {
+            throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", (string)$body), 500, null);
+        }
+
+        $contents = $body->getContents();
+        if (empty($contents)) {
+            throw new WsException(sprintf("[Astrobin Response] Empty response from endPoint \"%s\"", $this->getEndPoint()), 500, null);
+        }
+        return $contents;
     }
 }

@@ -6,7 +6,7 @@ namespace AstrobinWs\Response;
  * Class Image
  * @package Astrobin\Response
  */
-final class Image extends AbstractResponse
+final class Image extends AbstractResponse implements AstrobinResponse
 {
     /** @var string */
     public $title;

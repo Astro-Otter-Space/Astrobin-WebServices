@@ -2,13 +2,15 @@
 
 namespace AstrobinWs\Services;
 
+use Astrobin\Response\AstrobinResponse;
+
 /**
  * Interface WsInterface
+ *
  * @package Astrobin
  */
 interface WsInterface
 {
-    public function callWithId(int $id);
-    public function callWithParams(array $params);
-    public function responseWs(array $objects);
+    public function getById(int $id);
+    public function buildResponse(array $objects): AstrobinResponse;
 }

@@ -2,6 +2,7 @@
 
 namespace AstrobinWs\Response;
 
+use Astrobin\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
@@ -9,7 +10,7 @@ use Traversable;
  * Class Today
  * @package Astrobin\Response
  */
-final class Today extends AbstractResponse implements \IteratorAggregate
+final class Today extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
     public $date;
     public $resource_uri;

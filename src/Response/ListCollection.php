@@ -2,13 +2,14 @@
 
 namespace AstrobinWs\Response;
 
+use Astrobin\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\CollectionIterator;
 
 /**
  * Class ListCollection
  * @package Astrobin\Response
  */
-final class ListCollection extends AbstractResponse implements \IteratorAggregate
+final class ListCollection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
 
     public $listCollection;
