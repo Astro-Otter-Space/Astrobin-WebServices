@@ -2,12 +2,9 @@
 namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
-use AstrobinWs\GuzzleSingleton;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Request;
 use http\Client\Response;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -102,16 +99,21 @@ abstract class AbstractWebService
      * @param array $headers
      * @param string $method
      *
-     * @return
+     * @return string|null
      * @throws WsException
      */
-    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method)
+    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method):? string
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
         }
 
         $endPoint = $this->buildEndpoint($id);
+        if (!is_null($headers)) {
+            $options['headers'] = array_merge(self::$headers, $headers);
+        } else {
+            $options['headers'] = self::$headers;
+        }
 
         $astrobinParams = [
             'api_key' => $this->apiKey,
@@ -123,8 +125,6 @@ abstract class AbstractWebService
             'query' => array_filter(array_merge($astrobinParams, $queryParams))
         ];
 
-        $options['headers'] = self::$headers;
-
         if (!is_null($body) && !empty($body)) {
             $options['body'] = $body;
         }
@@ -132,11 +132,12 @@ abstract class AbstractWebService
         try {
             /** @var ResponseInterface $request */
             $response = $this->client->request($method, $endPoint, $options);
+            return $this->getResponse($response);
         } catch (GuzzleException $e) {
             throw new WsException($e->getMessage(), $e->getCode(), null);
         }
 
-        return $this->getResponse($response);
+        return null;
     }
 
 
