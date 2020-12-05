@@ -3,6 +3,7 @@
 namespace AstrobinWs;
 
 /**
+ * @deprecated
  * Interface CurlHttpRequestInterface
  * @package Astrobin
  */
