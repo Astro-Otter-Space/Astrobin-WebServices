@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Astrobin\Response;
-
+namespace AstrobinWs\Response;
 
 interface AstrobinResponse
 {
