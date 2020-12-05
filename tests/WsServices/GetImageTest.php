@@ -5,6 +5,7 @@ use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Services\GetImage;
+use AstrobinWs\Services\WsInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,7 +21,7 @@ class GetImageTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = $this->getMockBuilder(GetImage::class)->getMock();
+        $this->client = $this->getMockBuilder(WsInterface::class)->getMock();
     }
 
 
