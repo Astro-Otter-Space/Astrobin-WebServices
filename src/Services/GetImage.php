@@ -27,6 +27,20 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
+     * Only for retro-compatibility with version 1.x
+     * @param $id
+     *
+     * @return AstrobinResponse|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     */
+    public function getImageById($id)
+    {
+        return $this->getById($id);
+    }
+
+    /**
      * @param int|null $id
      *
      * @return AstrobinResponse

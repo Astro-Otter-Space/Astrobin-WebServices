@@ -28,10 +28,24 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
+     * Only for retro-compatibility with version 1.x
+     *
+     * @param $id
+     *
+     * @return AstrobinResponse
+     * @throws WsException*@throws \ReflectionException
+     */
+    public function getCollectionById($id)
+    {
+        return $this->getById($id);
+    }
+
+    /**
      * @param int $id
      *
      * @return AstrobinResponse
      * @throws WsException
+     * @throws \ReflectionException
      */
     public function getById(int $id): AstrobinResponse
     {
@@ -72,12 +86,12 @@ class GetCollection extends AbstractWebService implements WsInterface
     /**
      * Retrieve images of a collection by WS GetImage
      * @param Collection $astrobinCollection
-     * @return Collection
+     * @return AstrobinResponse|Collection
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function getImagesCollection(Collection $astrobinCollection): Collection
+    private function getImagesCollection(Collection $astrobinCollection): AstrobinResponse
     {
         $listImagesId = array_map(static function ($path) {
             if (preg_match('/\/([\d]+)/', $path, $matches)) {
