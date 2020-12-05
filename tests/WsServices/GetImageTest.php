@@ -6,6 +6,7 @@ use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Services\GetImage;
 use AstrobinWs\Services\WsInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,13 +14,14 @@ use PHPUnit\Framework\TestCase;
  */
 class GetImageTest extends TestCase
 {
-
+    /** @var MockObject|GetImage  */
     private $client;
 
 
     public function setUp(): void
     {
         parent::setUp();
+        /** @var GetImage client */
         $this->client = $this->getMockBuilder(WsInterface::class)->getMock();
     }
 
@@ -30,7 +32,7 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 341955;
-        $response = $this->client->getImageById($id);
+        $response = $this->client->getById($id);
 
         $this->assertInstanceOf(Image::class, $response, __METHOD__ . ' : response Image OK');
         $this->assertClassHasAttribute('title', Image::class, __METHOD__ . ': attribute title OK');

@@ -2,7 +2,7 @@
 
 namespace AstrobinWs\Services;
 
-use Astrobin\Response\AstrobinResponse;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
@@ -27,21 +27,19 @@ class GetCollection extends AbstractWebService implements WsInterface
        return self::END_POINT;
     }
 
-
     /**
-     * @param int|null $id
-     * @return Collection|null
+     * @param int $id
+     *
+     * @return AstrobinResponse
      * @throws WsException
-     * @throws WsResponseException
-     * @throws \ReflectionException
      */
-    public function getById(?int $id): Collection
+    public function getById(int $id): AstrobinResponse
     {
         if (is_null($id)) {
-            throw new WsException('Astrobon Webservice Collection : id empty', 500, null);
+            throw new WsException('Astrobin Webservice Collection : id empty', 500, null);
         }
 
-        $astrobinCollection = $this->get($id);
+        $astrobinCollection = $this->get($id, null);
         if (isset($astrobinCollection->images) && 0 < count($astrobinCollection->images)) {
             $astrobinCollection = $this->getImagesCollection($astrobinCollection);
         }
@@ -56,10 +54,9 @@ class GetCollection extends AbstractWebService implements WsInterface
      *
      * @return ListCollection|null
      * @throws WsException
-     * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getListCollectionByUser(?string $username, ?int $limit): ListCollection
+    public function getListCollectionByUser(?string $username, ?int $limit):? AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
@@ -68,7 +65,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         /** @var ListCollection $astrobinListCollection */
         $response = $this->get(null, $params);
 
-        return $astrobinListCollection;
+        return $this->buildResponse($response);
     }
 
 
@@ -103,21 +100,21 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param array $response
+     * @param string $object
      *
-     * @return AstrobinResponse|null
+     * @return AstrobinResponse|ListCollection|Collection|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse($response):? AstrobinResponse
+    public function buildResponse(string $object):? AstrobinResponse
     {
         $astrobinResponse = null;
-        if (is_array($objects) && 0 < count($objects)) {
-            if (1 < count($objects)) {
+        if (is_array($object) && 0 < count($object)) {
+            if (1 < count($object)) {
                 /** @var ListCollection $astrobinResponse */
                 $astrobinResponse = new ListCollection();
-                foreach ($objects as $object) {
+                foreach ($object as $object) {
                     $collection = new Collection();
                     $collection->fromObj($object);
 
@@ -127,9 +124,10 @@ class GetCollection extends AbstractWebService implements WsInterface
             } else {
                 /** @var Collection $astrobinResponse */
                 $astrobinResponse = new Collection();
-                $astrobinResponse->fromObj($objects[0]);
+                $astrobinResponse->fromObj($object[0]);
             }
         }
+
         return $astrobinResponse;
     }
 }

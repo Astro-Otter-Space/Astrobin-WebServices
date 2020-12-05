@@ -5,6 +5,7 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Location;
 
 /**
@@ -26,16 +27,18 @@ class GetLocation extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param $id
+     * @param int $id
      *
-     * @return Location|null
-     * @throws WsResponseException
+     * @return AstrobinResponse|null
      * @throws WsException
-     * @throws \ReflectionException
      */
-    public function getById($id): Location
+    public function getById($id):? AstrobinResponse
     {
-        return $this->get($id);
+        if (is_null($id) || !ctype_alnum($id)) {
+            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
+        }
+        $response = $this->get($id, null);
+        return $this->buildResponse($response);
     }
 
     /**

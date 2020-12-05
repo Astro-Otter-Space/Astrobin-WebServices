@@ -2,7 +2,7 @@
 
 namespace AstrobinWs\Response;
 
-use Astrobin\Response\AstrobinResponse;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 

@@ -33,12 +33,17 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     /**
      * @param int $id
      *
-     * @return Response
+     * @return AstrobinResponse|Today|null
      * @throws WsException
+     * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getById(int $id)
+    public function getById(int $id):? AstrobinResponse
     {
+        if (is_null($id) || !ctype_alnum($id)) {
+            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
+        }
+
         $response = $this->get($id, null);
         return $this->buildResponse($response);
     }
