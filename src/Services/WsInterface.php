@@ -2,7 +2,7 @@
 
 namespace AstrobinWs\Services;
 
-use Astrobin\Response\AstrobinResponse;
+use AstrobinWs\Response\AstrobinResponse;
 
 /**
  * Interface WsInterface
@@ -12,5 +12,5 @@ use Astrobin\Response\AstrobinResponse;
 interface WsInterface
 {
     public function getById(int $id);
-    public function buildResponse(array $objects): AstrobinResponse;
+    public function buildResponse(string $object): AstrobinResponse;
 }

@@ -2,13 +2,14 @@
 
 namespace AstrobinWs\Services;
 
-use Astrobin\Response\AstrobinResponse;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Response\Today;
+use http\Client\Response;
 
 /**
  * Class getTodayImage
@@ -32,7 +33,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     /**
      * @param int $id
      *
-     * @return \http\Client\Response
+     * @return Response
      * @throws WsException
      * @throws \ReflectionException
      */
@@ -65,7 +66,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
             'offset' => $offset
         ];
 
-        $astrobinToday = $this->callWithParams($params);
+        $astrobinToday = $this->get(null, $params);
 
         // For Image of the day
         if (is_null($offset)) {
@@ -108,7 +109,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(array $objects):? AstrobinResponse
+    public function buildResponse(string $objects):? AstrobinResponse
     {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {

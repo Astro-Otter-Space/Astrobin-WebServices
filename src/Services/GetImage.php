@@ -2,10 +2,10 @@
 
 namespace AstrobinWs\Services;
 
-use Astrobin\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Collection;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
@@ -16,7 +16,7 @@ use AstrobinWs\Response\ListImages;
  */
 class GetImage extends AbstractWebService implements WsInterface
 {
-    private const END_POINT = 'image';
+    public const END_POINT = 'image';
 
     /**
      * @return string
@@ -156,21 +156,16 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
-     * TODO  : move to pârent
-     * Call WS "image" with parameters
+     * Build response from WebService Astrobin
      *
-     * @param $rawResp
+     * @param string $objects
      *
-     * @return ListImages|Image|null
+     * @return AstrobinResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    protected function callWs($rawResp)
+    public function buildResponse(string $objects): AstrobinResponse
     {
-        if (!is_object($rawResp)) {
-            throw new WsResponseException("Response from Astrobin is empty", 500, null);
-        }
-
         if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta")) {
             if (0 < $rawResp->meta->total_count) {
                 return $this->responseWs($rawResp->objects);
@@ -178,21 +173,7 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)), 500, null);
         }
 
-        return $this->responseWs([$rawResp]);
-    }
 
-
-    /**
-     * Build response from WebService Astrobin
-     *
-     * @param array $objects
-     *
-     * @return AstrobinResponse
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    public function buildResponse($objects): AstrobinResponse
-    {
         $astrobinResponse = null;
         if (is_array($objects) && 0 < count($objects)) {
             if (1 < count($objects)) {
