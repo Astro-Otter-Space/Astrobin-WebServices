@@ -26,7 +26,7 @@
 Version 1.1.0
 
 ## Requirements
-* PHP 7.2 min or superior
+* PHP 7.3 min or superior (oldest version of PHP is not supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
