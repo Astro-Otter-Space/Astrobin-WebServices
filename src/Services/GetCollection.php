@@ -24,7 +24,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      */
     protected function getEndPoint(): string
     {
-       return self::END_POINT;
+        return self::END_POINT;
     }
 
     /**
@@ -33,7 +33,8 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @param $id
      *
      * @return AstrobinResponse
-     * @throws WsException*@throws \ReflectionException
+     * @throws WsException
+     * @throws \ReflectionException
      */
     public function getCollectionById($id)
     {
