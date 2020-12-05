@@ -13,12 +13,11 @@ use PHPUnit\Framework\TestCase;
  */
 class GetImageTest extends TestCase
 {
-    public $astrobinImageMock;
 
-    /**
-     *
-     */
-    public function setUp()
+    private $client;
+
+
+    public function setUp(): void
     {
         parent::setUp();
         $this->client = $this->getMockBuilder(WsInterface::class)->getMock();
