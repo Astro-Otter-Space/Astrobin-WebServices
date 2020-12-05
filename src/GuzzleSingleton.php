@@ -24,9 +24,10 @@ class GuzzleSingleton
     private static $_instance = null;
 
     /**
-     * @return Client|null
+     * Build Client instance
+     * @return Client
      */
-    public static function getInstance():? Client
+    public static function getInstance(): Client
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new Client(['base_uri' => self::ASTROBIN_URL, 'timeout' => self::TIMEOUT]);
