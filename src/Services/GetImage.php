@@ -35,7 +35,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getImageById($id)
+    public function getImageById($id): ?AstrobinResponse
     {
         return $this->getById($id);
     }
@@ -68,7 +68,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesBySubject(string $subjectId, int $limit):? AstrobinResponse
+    public function getImagesBySubject(string $subjectId, int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
@@ -112,7 +112,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesByUser(string $userName, int $limit):? AstrobinResponse
+    public function getImagesByUser(string $userName, int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
@@ -135,7 +135,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr):? AstrobinResponse
+    public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
         if (is_null($dateToStr)) {
             /** @var \DateTimeInterface $dateTo */
@@ -178,7 +178,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(string $object):? AstrobinResponse
+    public function buildResponse(string $object): ?AstrobinResponse
     {
         var_dump($object);
         die();

@@ -1,4 +1,5 @@
 <?php
+
 namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
@@ -93,16 +94,16 @@ abstract class AbstractWebService
     }
 
     /**
-     * @param int $id
-     * @param array $body
+     * @param int|null $id
+     * @param array|null $body
      * @param array|null $queryParams
-     * @param array $headers
+     * @param array|null $headers
      * @param string $method
      *
      * @return string|null
      * @throws WsException
      */
-    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method):? string
+    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);

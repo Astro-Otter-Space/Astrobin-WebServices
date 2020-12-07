@@ -38,7 +38,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getById(int $id):? AstrobinResponse
+    public function getById(int $id): ?AstrobinResponse
     {
         if (is_null($id) || !ctype_alnum($id)) {
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
@@ -57,7 +57,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getDayImage(?int $offset, ?int $limit)
+    public function getDayImage(?int $offset, ?int $limit): ?AstrobinResponse
     {
         if (is_null($limit)) {
             $limit = 1;
@@ -114,7 +114,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(string $object):? AstrobinResponse
+    public function buildResponse(string $object): ?AstrobinResponse
     {
         $astrobinResponse = null;
         if (is_array($object) && 0 < count($object)) {

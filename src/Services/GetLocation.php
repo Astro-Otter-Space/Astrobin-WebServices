@@ -25,14 +25,14 @@ class GetLocation extends AbstractWebService implements WsInterface
         return self::END_POINT;
     }
 
-
     /**
-     * @param int $id
+     * @param int|null $id
      *
      * @return AstrobinResponse|null
      * @throws WsException
+     * @throws WsResponseException
      */
-    public function getById($id):? AstrobinResponse
+    public function getById(?int $id): ?AstrobinResponse
     {
         if (is_null($id) || !ctype_alnum($id)) {
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
@@ -40,28 +40,6 @@ class GetLocation extends AbstractWebService implements WsInterface
         $response = $this->get($id, null);
         return $this->buildResponse($response);
     }
-
-    /**
-     * @param int $id
-     *
-     * @return Location|null
-     * @throws WsResponseException
-     * @throws WsException
-     * @throws \ReflectionException
-     */
-    public function callWithId(int $id): Location
-    {
-        $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, null, $id);
-        return $this->callWs($rawResp);
-    }
-
-    /**
-     * @param array $params
-     */
-    public function callWithParams(array $params): void
-    {
-    }
-
 
     /**
      * @param $rawResp
@@ -79,6 +57,7 @@ class GetLocation extends AbstractWebService implements WsInterface
     }
 
     /**
+     * @deprecated
      * @param array $object
      *
      * @return Location
@@ -91,5 +70,15 @@ class GetLocation extends AbstractWebService implements WsInterface
         $astrobinResponse->fromObj($object);
 
         return $astrobinResponse;
+    }
+
+    /**
+     * @param string $object
+     *
+     * @return AstrobinResponse|null
+     */
+    public function buildResponse(string $object): ?AstrobinResponse
+    {
+        // TODO: Implement buildResponse() method.
     }
 }

@@ -36,7 +36,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getCollectionById($id)
+    public function getCollectionById($id): ?AstrobinResponse
     {
         return $this->getById($id);
     }
@@ -48,7 +48,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getById(int $id): AstrobinResponse
+    public function getById(int $id): ?AstrobinResponse
     {
         if (is_null($id)) {
             throw new WsException('Astrobin Webservice Collection : id empty', 500, null);
@@ -71,7 +71,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getListCollectionByUser(?string $username, ?int $limit):? AstrobinResponse
+    public function getListCollectionByUser(?string $username, ?int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
@@ -87,12 +87,12 @@ class GetCollection extends AbstractWebService implements WsInterface
     /**
      * Retrieve images of a collection by WS GetImage
      * @param Collection $astrobinCollection
-     * @return AstrobinResponse|Collection
+     * @return AstrobinResponse|Collection|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    private function getImagesCollection(Collection $astrobinCollection): AstrobinResponse
+    private function getImagesCollection(Collection $astrobinCollection): ?AstrobinResponse
     {
         $listImagesId = array_map(static function ($path) {
             if (preg_match('/\/([\d]+)/', $path, $matches)) {
@@ -122,7 +122,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(string $object):? AstrobinResponse
+    public function buildResponse(string $object): ?AstrobinResponse
     {
         $astrobinResponse = null;
         if (is_array($object) && 0 < count($object)) {
