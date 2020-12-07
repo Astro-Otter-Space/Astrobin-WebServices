@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AstrobinWs\Services;
@@ -43,21 +44,6 @@ class GetLocation extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param $rawResp
-     *
-     * @return Location|null
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    protected function callWs($rawResp): Location
-    {
-        if (!isset($rawResp->objects) || 0 === $rawResp->meta->total_count) {
-            throw new WsResponseException("Response from Astrobin is empty", 500, null);
-        }
-        return $this->responseWs($rawResp->objects);
-    }
-
-    /**
      * @deprecated
      * @param array $object
      *
@@ -80,6 +66,6 @@ class GetLocation extends AbstractWebService implements WsInterface
      */
     public function buildResponse(string $object): ?AstrobinResponse
     {
-        // TODO: Implement buildResponse() method.
+        return null;
     }
 }

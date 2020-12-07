@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AstrobinWs\Services;
@@ -53,12 +54,13 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     /**
      * @param $offset
      * @param $limit
-     * @return Today
+     *
+     * @return string
      * @throws WsResponseException
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getDayImage(?int $offset, ?int $limit): ?AstrobinResponse
+    public function getDayImage(?int $offset, ?int $limit): string
     {
         if (is_null($limit)) {
             $limit = 1;
@@ -76,7 +78,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
         // For Image of the day
         if (is_null($offset)) {
-            /** @var \DateTimeInterface $today */
             $today = new \DateTime('now');
             // If it is not today, take yesterday image
             $params['offset'] = (($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date)) ?: 1;
@@ -96,12 +97,12 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @return Today
+     * @return string
      * @throws WsResponseException
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getTodayDayImage(): Today
+    public function getTodayDayImage(): string
     {
         return $this->getDayImage(0, 1);
     }
