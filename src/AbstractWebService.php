@@ -82,13 +82,13 @@ abstract class AbstractWebService
      * NOT USED, just for example
      *
      * @param int $id
-     * @param array $queryParams
-     * @param array $body
+     * @param array|null $queryParams
+     * @param array|null $body
      *
      * @return string
      * @throws WsException
      */
-    protected function post(int $id, array $queryParams, array $body): ?string
+    protected function post(int $id, ?array $queryParams, ?array $body): ?string
     {
         $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
     }

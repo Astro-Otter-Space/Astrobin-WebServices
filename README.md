@@ -93,7 +93,7 @@ class MyService
         $this->astrobinImage = new GetImage();
     }
 
-    public function getOrionNebula():? AstrobinImage
+    public function getOrionNebula(): ?AstrobinImage
     {
         $orion = $this->astrobinImage->getImageById('m42');
       
