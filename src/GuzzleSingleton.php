@@ -22,7 +22,7 @@ class GuzzleSingleton
     public const METHOD_PUT = 'PUT';
 
     /**
-     * @var Client  
+     * @var Client
      */
     private static $_instance = null;
 

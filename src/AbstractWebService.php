@@ -31,7 +31,7 @@ abstract class AbstractWebService
     ];
 
     /**
-     * @var Client 
+     * @var Client
      */
     private $client;
 
@@ -56,7 +56,7 @@ abstract class AbstractWebService
     }
 
     /**
-     * Return endpoint 
+     * Return endpoint
      */
     abstract protected function getEndPoint(): string;
 
