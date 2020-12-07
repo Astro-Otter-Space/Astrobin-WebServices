@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AstrobinWs\Services;
@@ -13,6 +14,7 @@ use AstrobinWs\Response\ListImages;
 
 /**
  * Class GetImage
+ *
  * @package Astrobin\Services
  */
 class GetImage extends AbstractWebService implements WsInterface
@@ -29,6 +31,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Only for retro-compatibility with version 1.x
+     *
      * @param $id
      *
      * @return AstrobinResponse|null
@@ -139,10 +142,14 @@ class GetImage extends AbstractWebService implements WsInterface
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
         if (is_null($dateToStr)) {
-            /** @var \DateTimeInterface $dateTo */
+            /**
+             * @var \DateTimeInterface $dateTo
+            */
             $dateTo = new \DateTime('now');
         } else {
-            /** @var \DateTimeInterface $dateTo */
+            /**
+             * @var \DateTimeInterface $dateTo
+            */
             $dateTo = new \DateTime($dateToStr);
         }
 
@@ -150,7 +157,9 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr), 500, null);
         }
 
-        /** @var \DateTime $dateFrom */
+        /**
+         * @var \DateTime $dateFrom
+        */
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
         if ($dateFromStr !== $dateFrom->format('Y-m-d')) {
             throw new WsException(sprintf("Format \"%s\" is not a correct format for a date, please use YYYY-mm-dd instead", $dateFromStr), 500, null);
@@ -192,7 +201,9 @@ class GetImage extends AbstractWebService implements WsInterface
         $astrobinResponse = null;
         if (is_array($object) && 0 < count($object)) {
             if (1 < count($object)) {
-                /** @var Collection $astrobinCollection */
+                /**
+                 * @var Collection $astrobinCollection
+                */
                 $astrobinResponse = new ListImages();
                 foreach ($object as $object) {
                     $image = new Image();
@@ -200,7 +211,9 @@ class GetImage extends AbstractWebService implements WsInterface
                     $astrobinResponse->add($image);
                 }
             } else {
-                /** @var Image $astrobinResponse */
+                /**
+                 * @var Image $astrobinResponse
+                */
                 $astrobinResponse = new Image();
                 $astrobinResponse->fromObj($objects[0]);
             }
