@@ -198,10 +198,13 @@ The library expose 4 WebServices, each with these methods below.
 ## Running the tests
 
 ```
-php ./vendor/bin/phpcs -p -n --standard=PSR2 src
+php ./vendor/bin/phpcs -p -n --standard=PSR12 src
 ```
 
-Due to problems dependencies between PHP 7.0, PhpUnit 6 and doctrine/instantiator explained (here)[https://github.com/sebastianbergmann/phpunit/issues/2823], if you want run PHP Unit test, run `composer install` with PHP 7.0
+Apply PHPCBF (fix and beautify PHPCS errors):
+```
+php ./vendor/bin/phpcbf src/path/to/file.php
+```
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
