@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace AstrobinWs\Response;
 
-use Astrobin\Response\AstrobinResponse;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\CollectionIterator;
 
 /**

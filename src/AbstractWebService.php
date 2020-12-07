@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AstrobinWs;
 
@@ -16,7 +17,6 @@ use Psr\Http\Message\StreamInterface;
 abstract class AbstractWebService
 {
 
-    public const MAX_REDIRS = 10;
     public const LIMIT_MAX = 20;
     public const TIMEOUT = 30;
 
@@ -31,7 +31,6 @@ abstract class AbstractWebService
 
     /** @var Client */
     private $client;
-
 
     /**
      * AbstractWebService constructor.
@@ -68,13 +67,13 @@ abstract class AbstractWebService
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @param array|null $queryParams
      *
-     * @return Response
+     * @return string
      * @throws WsException
      */
-    protected function get(?int $id, ?array $queryParams): Response
+    protected function get(?int $id, ?array $queryParams): ?string
     {
         return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
     }
@@ -86,9 +85,10 @@ abstract class AbstractWebService
      * @param array $queryParams
      * @param array $body
      *
+     * @return string
      * @throws WsException
      */
-    protected function post(int $id, array $queryParams, array $body)
+    protected function post(int $id, array $queryParams, array $body): ?string
     {
         $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
     }

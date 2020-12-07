@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  php:
+    container_name: php_astrobin_ws
+    build:
+      context: src/Docker
+    hostname: php
+    volumes:
+      - './:/var/www/astrobin:rw'
+      - "${SSH_AUTH_SOCK}:/ssh-agent"
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+      - TERM=xterm-color
+    env_file:
+      - .env

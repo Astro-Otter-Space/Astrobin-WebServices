@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
@@ -94,7 +95,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         return $astrobinToday;
     }
 
-
     /**
      * @return Today
      * @throws WsResponseException
@@ -105,7 +105,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     {
         return $this->getDayImage(0, 1);
     }
-
 
     /**
      * @param string $object

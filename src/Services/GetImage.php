@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
@@ -89,7 +90,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \ReflectionException
      */
-    public function getImagesByDescription(string $description, int $limit):? AstrobinResponse
+    public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
@@ -180,8 +181,6 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function buildResponse(string $object): ?AstrobinResponse
     {
-        var_dump($object);
-        die();
         if (property_exists($object, "objects") && property_exists($object, "meta")) {
             if (0 < $object->meta->total_count) {
                 return $this->responseWs($object->objects);
@@ -191,11 +190,11 @@ class GetImage extends AbstractWebService implements WsInterface
 
 
         $astrobinResponse = null;
-        if (is_array($objects) && 0 < count($objects)) {
-            if (1 < count($objects)) {
+        if (is_array($object) && 0 < count($object)) {
+            if (1 < count($object)) {
                 /** @var Collection $astrobinCollection */
                 $astrobinResponse = new ListImages();
-                foreach ($objects as $object) {
+                foreach ($object as $object) {
                     $image = new Image();
                     $image->fromObj($object);
                     $astrobinResponse->add($image);

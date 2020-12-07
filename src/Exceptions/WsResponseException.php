@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AstrobinWs\Exceptions;
 
@@ -6,7 +7,7 @@ namespace AstrobinWs\Exceptions;
  * Class WsResponseException
  * @package Astrobin\Exceptions
  */
-class WsResponseException extends WsException
+final class WsResponseException extends WsException
 {
 
 }
