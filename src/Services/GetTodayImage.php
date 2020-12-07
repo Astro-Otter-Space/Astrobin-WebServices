@@ -108,21 +108,20 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param $objects
+     * @param string $object
      *
      * @return AstrobinResponse|null
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(string $objects):? AstrobinResponse
+    public function buildResponse(string $object):? AstrobinResponse
     {
         $astrobinResponse = null;
-        if (is_array($objects) && 0 < count($objects)) {
+        if (is_array($object) && 0 < count($object)) {
             $astrobinResponse = new Today();
-            $astrobinResponse->fromObj($objects[0]);
+            $astrobinResponse->fromObj($object[0]);
         }
 
         return $astrobinResponse;
     }
-
 }
