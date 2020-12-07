@@ -84,7 +84,7 @@ class GetImageTest extends TestCase
                     $this->assertInstanceOf(Image::class, $respImage, __METHOD__ . ' : check if instance Image OK');
                 }
 
-            } else if (is_a($response, Image::class)) {
+            } elseif (is_a($response, Image::class)) {
                 $this->assertInstanceOf(Image::class, $response, __METHOD__ . ' : check if instance Image OK');
             }
         }

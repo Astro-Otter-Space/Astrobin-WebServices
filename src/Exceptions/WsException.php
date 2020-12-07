@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AstrobinWs\Exceptions;
@@ -11,7 +12,6 @@ use Throwable;
  */
 class WsException extends \Exception
 {
-
     /**
      * WsException constructor.
      * @param string $message

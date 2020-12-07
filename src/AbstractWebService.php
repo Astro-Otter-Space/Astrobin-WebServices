@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AstrobinWs;
@@ -16,7 +17,6 @@ use Psr\Http\Message\StreamInterface;
  */
 abstract class AbstractWebService
 {
-
     public const LIMIT_MAX = 20;
     public const TIMEOUT = 30;
 
