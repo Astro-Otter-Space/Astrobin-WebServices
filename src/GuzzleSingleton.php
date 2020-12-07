@@ -21,11 +21,14 @@ class GuzzleSingleton
     public const METHOD_POST = 'POST';
     public const METHOD_PUT = 'PUT';
 
-    /** @var Client  */
+    /**
+     * @var Client  
+     */
     private static $_instance = null;
 
     /**
      * Build Client instance
+     *
      * @return Client
      */
     public static function getInstance(): Client
