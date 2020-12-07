@@ -13,6 +13,7 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Class AstrobinWebService
+ *
  * @package AppBundle\Astrobin
  */
 abstract class AbstractWebService
@@ -29,7 +30,9 @@ abstract class AbstractWebService
         'Content-Type' => GuzzleSingleton::APPLICATION_JSON
     ];
 
-    /** @var Client */
+    /**
+     * @var Client 
+     */
     private $client;
 
     /**
@@ -52,11 +55,14 @@ abstract class AbstractWebService
         $this->client = GuzzleSingleton::getInstance();
     }
 
-    /** Return endpoint */
+    /**
+     * Return endpoint 
+     */
     abstract protected function getEndPoint(): string;
 
     /**
      * Build EndPoint
+     *
      * @param int|null $param
      *
      * @return string
@@ -67,7 +73,7 @@ abstract class AbstractWebService
     }
 
     /**
-     * @param int|null $id
+     * @param int|null   $id
      * @param array|null $queryParams
      *
      * @return string
@@ -81,7 +87,7 @@ abstract class AbstractWebService
     /**
      * NOT USED, just for example
      *
-     * @param int $id
+     * @param int        $id
      * @param array|null $queryParams
      * @param array|null $body
      *
@@ -94,11 +100,11 @@ abstract class AbstractWebService
     }
 
     /**
-     * @param int|null $id
+     * @param int|null   $id
      * @param array|null $body
      * @param array|null $queryParams
      * @param array|null $headers
-     * @param string $method
+     * @param string     $method
      *
      * @return string|null
      * @throws WsException
@@ -131,7 +137,9 @@ abstract class AbstractWebService
         }
 
         try {
-            /** @var ResponseInterface $request */
+            /**
+             * @var ResponseInterface $response
+             */
             $response = $this->client->request($method, $endPoint, $options);
             return $this->getResponse($response);
         } catch (GuzzleException $e) {
@@ -156,7 +164,9 @@ abstract class AbstractWebService
             throw new WsException(sprintf('[Astrobin Response] Error response: %s', $response->getReasonPhrase()), 500, null);
         }
 
-        /** @var StreamInterface $body */
+        /**
+         * @var StreamInterface $body
+        */
         $body = $response->getBody();
         if (false === strpos($body, '{', 0)) {
             throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", (string)$body), 500, null);
