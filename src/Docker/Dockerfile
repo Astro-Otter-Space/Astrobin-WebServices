@@ -1,8 +1,8 @@
 FROM php:7.3-fpm
 
-RUN apt-get install --no-cache msmtp perl wget procps shadow libzip libpng libjpeg-turbo libwebp freetype icu
+RUN apt-get install msmtp perl wget procps shadow libzip libpng libjpeg-turbo libwebp freetype icu
 
-RUN apt-get install --no-cache --virtual build-essentials \
+RUN apt-get install --virtual build-essentials \
     icu-dev icu-libs zlib-dev g++ make automake autoconf shadow libzip-dev curl \
     libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
     docker-php-ext-configure gd \
