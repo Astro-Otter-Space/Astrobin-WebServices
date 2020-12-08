@@ -23,9 +23,10 @@ include __DIR__ . './../src/Response/Image.php';
 $imageWs = new \AstrobinWs\Services\GetImage();
 
 $idAlphaNum = 'tiy8v8';
-$response = $imageWs->getById($idAlphaNum);
-var_dump($response);
+//$response = $imageWs->getById($idAlphaNum);
 
-$idOnlyNum = 341955;
-$response = $imageWs->getById($idOnlyNum);
-var_dump($response);
+$idOnlyNum = (string)341955;
+//$response = $imageWs->getById($idOnlyNum);
+
+$response = $imageWs->getImagesBySubject('m42', 3);
+dump($response);

@@ -28,13 +28,14 @@ class GetLocation extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param int|null $id
+     * @param string|null $id
      *
      * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
+     * @throws \JsonException
      */
-    public function getById(?int $id): ?AstrobinResponse
+    public function getById(?string $id): ?AstrobinResponse
     {
         if (is_null($id) || !ctype_alnum($id)) {
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
@@ -43,29 +44,17 @@ class GetLocation extends AbstractWebService implements WsInterface
         return $this->buildResponse($response);
     }
 
-    /**
-     * @deprecated
-     * @param array $object
-     *
-     * @return Location
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    public function responseWs(array $object): Location
-    {
-        $astrobinResponse = new Location();
-        $astrobinResponse->fromObj($object);
-
-        return $astrobinResponse;
-    }
 
     /**
-     * @param string $object
+     * @param string $response
      *
      * @return AstrobinResponse|null
+     * @throws WsResponseException
+     * @throws \JsonException
      */
-    public function buildResponse(string $object): ?AstrobinResponse
+    public function buildResponse(string $response): ?AstrobinResponse
     {
+        $object = $this->deserialize($response);
         return null;
     }
 }

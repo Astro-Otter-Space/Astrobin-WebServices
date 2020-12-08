@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Client\Response;
@@ -69,7 +70,7 @@ abstract class AbstractWebService
      */
     private function buildEndpoint(?string $param): string
     {
-        return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : $this->getEndPoint();
+        return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : sprintf('/api/v1/%s', $this->getEndPoint());
     }
 
     /**
@@ -151,7 +152,8 @@ abstract class AbstractWebService
         } catch (GuzzleException $e) {
             //throw
             $responseGuzzle = null;
-            throw new WsException($e->getMessage(), $e->getCode(), $e);
+            var_dump($e->getMessage());
+//            throw new WsException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $this->getResponse($responseGuzzle);
@@ -165,7 +167,6 @@ abstract class AbstractWebService
      *
      * @return mixed|null
      * @throws WsException
-     * @throws \JsonException
      */
     public function getResponse(ResponseInterface $response): string
     {
@@ -200,12 +201,16 @@ abstract class AbstractWebService
      * @param string $contents
      *
      * @return \stdClass
+     * @throws \JsonException
+     * @throws WsResponseException
      */
     protected function deserialize(string $contents): \stdClass
     {
-        try {
-            return json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
+        $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
+        if (property_exists($responseJson, "objects") && property_exists($responseJson, "meta") && 0 === $responseJson->meta->total_count) {
+            throw new WsResponseException("Astrobin doen't find any objects, check your params", 500, null);
         }
+
+        return $responseJson;
     }
 }

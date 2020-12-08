@@ -44,16 +44,18 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return AstrobinResponse
      * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
      * @throws \ReflectionException
      */
-    public function getById(int $id): ?AstrobinResponse
+    public function getById(?string $id): ?AstrobinResponse
     {
         if (is_null($id)) {
-            throw new WsException('Astrobin Webservice Collection : id empty', 500, null);
+            throw new WsException('Astrobin Webservice Collection: empty id value', 500, null);
         }
 
         $astrobinCollection = $this->get($id, null);
@@ -72,6 +74,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @return ListCollection|null
      * @throws WsException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getListCollectionByUser(?string $username, ?int $limit): ?AstrobinResponse
     {
@@ -117,23 +120,25 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param string $object
+     * @param string $response
      *
      * @return AstrobinResponse|ListCollection|Collection|null
      * @throws WsException
      * @throws WsResponseException
-     * @throws \ReflectionException
+     * @throws \ReflectionException|\JsonException
      */
-    public function buildResponse(string $object): ?AstrobinResponse
+    public function buildResponse(string $response): ?AstrobinResponse
     {
+        $object = $this->deserialize($response);
         $astrobinResponse = null;
+
         if (is_array($object) && 0 < count($object)) {
-            if (1 < count($object)) {
+            if (1 < count($response)) {
                 /** @var ListCollection $astrobinResponse */
                 $astrobinResponse = new ListCollection();
-                foreach ($object as $object) {
+                foreach ($object as $strCollection) {
                     $collection = new Collection();
-                    $collection->fromObj($object);
+                    $collection->fromObj($strCollection);
 
                     $this->getImagesCollection($collection);
                     $astrobinResponse->add($collection);
@@ -141,7 +146,7 @@ class GetCollection extends AbstractWebService implements WsInterface
             } else {
                 /** @var Collection $astrobinResponse */
                 $astrobinResponse = new Collection();
-                $astrobinResponse->fromObj($object[0]);
+                $astrobinResponse->fromObj($object);
             }
         }
 

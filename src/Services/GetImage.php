@@ -53,6 +53,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -60,7 +61,6 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
         }
         $response = $this->get($id, null);
-
         return $this->buildResponse($response);
     }
 
@@ -74,6 +74,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws WsException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getImagesBySubject(string $subjectId, int $limit): ?AstrobinResponse
     {
@@ -194,13 +195,7 @@ class GetImage extends AbstractWebService implements WsInterface
     public function buildResponse(string $response): ?AstrobinResponse
     {
         $object = $this->deserialize($response);
-
-        if (property_exists($object, "objects") && property_exists($object, "meta")) {
-//            if (0 < $object->meta->total_count) {
-//                return $this->responseWs($object->objects);
-//            }
-//            throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)), 500, null);
-        }
+        var_dump($object); die();
 
         $astrobinResponse = null;
         if (is_array($object) && 0 < count($object)) {
