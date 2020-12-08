@@ -1,1 +1,1 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":228:{a:2:{s:7:"defects";a:2:{s:30:"GetImageTest::testGetImageById";i:3;s:34:"GetTodayImageTest::testGetDayImage";i:4;}s:5:"times";a:2:{s:30:"GetImageTest::testGetImageById";d:0.011;s:34:"GetTodayImageTest::testGetDayImage";d:0.678;}}}
+C:37:"PHPUnit\Runner\DefaultTestResultCache":227:{a:2:{s:7:"defects";a:2:{s:30:"GetImageTest::testGetImageById";i:3;s:34:"GetTodayImageTest::testGetDayImage";i:4;}s:5:"times";a:2:{s:30:"GetImageTest::testGetImageById";d:0.008;s:34:"GetTodayImageTest::testGetDayImage";d:1.25;}}}
