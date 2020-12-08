@@ -13,6 +13,6 @@ use AstrobinWs\Response\AstrobinResponse;
  */
 interface WsInterface
 {
-    public function getById(int $id): ?AstrobinResponse;
+    public function getById(?string $id): ?AstrobinResponse;
     public function buildResponse(string $object): ?AstrobinResponse;
 }

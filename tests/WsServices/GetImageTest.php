@@ -17,7 +17,6 @@ class GetImageTest extends TestCase
     /** @var MockObject|GetImage  */
     private $client;
 
-
     public function setUp(): void
     {
         parent::setUp();

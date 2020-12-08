@@ -39,26 +39,29 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getImageById($id): ?AstrobinResponse
+    public function getImageById(string $id): ?AstrobinResponse
     {
         return $this->getById($id);
     }
 
     /**
-     * @param int|null $id
+     * Id of image can be a string or an int
+     *
+     * @param string|null $id
      *
      * @return AstrobinResponse
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function getById(int $id): ?AstrobinResponse
+    public function getById(?string $id): ?AstrobinResponse
     {
-        if (is_null($id) || !ctype_alnum($id)) {
+        if (is_null($id)) {
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
         }
         $response = $this->get($id, null);
-        return $this->buildResponse($response);
+        return $response;
+//        return $this->buildResponse($response);
     }
 
     /**

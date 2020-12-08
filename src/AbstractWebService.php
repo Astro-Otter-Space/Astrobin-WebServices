@@ -63,23 +63,23 @@ abstract class AbstractWebService
     /**
      * Build EndPoint
      *
-     * @param int|null $param
+     * @param string|null $param
      *
      * @return string
      */
-    private function buildEndpoint(?int $param): string
+    private function buildEndpoint(?string $param): string
     {
-        return (!is_null($param)) ? sprintf('/%s/%d', $this->getEndPoint(), $param) : $this->getEndPoint();
+        return (!is_null($param)) ? sprintf('/%s/%s', $this->getEndPoint(), $param) : $this->getEndPoint();
     }
 
     /**
-     * @param int|null   $id
+     * @param string|null $id
      * @param array|null $queryParams
      *
      * @return string
      * @throws WsException
      */
-    protected function get(?int $id, ?array $queryParams): ?string
+    protected function get(?string $id, ?array $queryParams): ?string
     {
         return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
     }
@@ -87,29 +87,29 @@ abstract class AbstractWebService
     /**
      * NOT USED, just for example
      *
-     * @param int        $id
+     * @param string $id
      * @param array|null $queryParams
      * @param array|null $body
      *
      * @return string
      * @throws WsException
      */
-    protected function post(int $id, ?array $queryParams, ?array $body): ?string
+    protected function post(string $id, ?array $queryParams, ?array $body): ?string
     {
         $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
     }
 
     /**
-     * @param int|null   $id
+     * @param string|null $id
      * @param array|null $body
      * @param array|null $queryParams
      * @param array|null $headers
-     * @param string     $method
+     * @param string $method
      *
      * @return string|null
      * @throws WsException
      */
-    private function buildRequest(?int $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
+    private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
             throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
@@ -127,6 +127,10 @@ abstract class AbstractWebService
             'api_secret' => $this->apiSecret,
             'format' => 'json'
         ];
+
+        if (is_null($queryParams)) {
+            $queryParams = [];
+        }
 
         $options = [
             'query' => array_filter(array_merge($astrobinParams, $queryParams))
