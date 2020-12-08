@@ -190,38 +190,31 @@ class GetImage extends AbstractWebService implements WsInterface
      *
      * @return AstrobinResponse
      * @throws WsResponseException
-     * @throws \ReflectionException
+     * @throws \ReflectionException|\JsonException
      */
     public function buildResponse(string $response): ?AstrobinResponse
     {
-        $object = $this->deserialize($response);
-        var_dump($object); die();
-
         $astrobinResponse = null;
-        if (is_array($object) && 0 < count($object)) {
-            if (1 < count($object)) {
-                /**
-                 * @var Collection $astrobinCollection
-                */
+        $object = $this->deserialize($response);
+
+        if (property_exists($object, "objects") && 0 < count($object)) {
+            $listObjects = $object->objects;
+            if (1 < count($listObjects)) {
                 $astrobinResponse = new ListImages();
-                foreach ($object as $object) {
+                foreach ($listObjects as $object) {
                     $image = new Image();
                     $image->fromObj($object);
                     $astrobinResponse->add($image);
                 }
             } else {
-                /**
-                 * @var Image $astrobinResponse
-                */
                 $astrobinResponse = new Image();
-//                $astrobinResponse->fromObj($objects[0]);
+                $astrobinResponse->fromObj(reset($listObjects));
             }
         } else {
             $astrobinResponse = new Image();
             $astrobinResponse->fromObj($object);
         }
 
-        var_dump($astrobinResponse);
         return $astrobinResponse;
     }
 }

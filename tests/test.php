@@ -28,5 +28,5 @@ $idAlphaNum = 'tiy8v8';
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
 
-$response = $imageWs->getImagesBySubject('m42', 3);
-dump($response);
+$response = $imageWs->getImagesBySubject('m31', 1);
+var_dump($response);
