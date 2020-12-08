@@ -29,13 +29,14 @@ abstract class AbstractResponse
      * Build properties of class based on WS response
      * @param array $objArr
      * @throws WsResponseException
-     * @throws \ReflectionException
      */
     private function fromArray(array $objArr): void
     {
         $listNotFields = ['listImages'];
 
-        /** @var \ReflectionClass $reflector */
+        /**
+         * @var \ReflectionClass $reflector
+         */
         $reflector = new \ReflectionClass($this);
         foreach ($reflector->getProperties() as $property) {
             if (in_array($property->getName(), $listNotFields)) {

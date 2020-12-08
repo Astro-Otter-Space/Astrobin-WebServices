@@ -13,7 +13,7 @@ use GuzzleHttp\Client;
  */
 class GuzzleSingleton
 {
-    public const ASTROBIN_URL = 'https://www.astrobin.com/api/v1/';
+    public const ASTROBIN_URL = 'https://www.astrobin.com';
     public const TIMEOUT = '2.0';
 
     public const APPLICATION_JSON = 'application/json';

@@ -69,15 +69,16 @@ abstract class AbstractWebService
      */
     private function buildEndpoint(?string $param): string
     {
-        return (!is_null($param)) ? sprintf('/%s/%s', $this->getEndPoint(), $param) : $this->getEndPoint();
+        return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : $this->getEndPoint();
     }
 
     /**
      * @param string|null $id
      * @param array|null $queryParams
      *
-     * @return string
+     * @return \stdClass|null
      * @throws WsException
+     * @throws \JsonException
      */
     protected function get(?string $id, ?array $queryParams): ?string
     {
@@ -91,8 +92,9 @@ abstract class AbstractWebService
      * @param array|null $queryParams
      * @param array|null $body
      *
-     * @return string
+     * @return \stdClass|null
      * @throws WsException
+     * @throws \JsonException
      */
     protected function post(string $id, ?array $queryParams, ?array $body): ?string
     {
@@ -106,8 +108,9 @@ abstract class AbstractWebService
      * @param array|null $headers
      * @param string $method
      *
-     * @return string|null
+     * @return \stdClass|null
      * @throws WsException
+     * @throws \JsonException
      */
     private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
@@ -142,15 +145,16 @@ abstract class AbstractWebService
 
         try {
             /**
-             * @var ResponseInterface $response
+             * @var ResponseInterface $responseGuzzle
              */
-            $response = $this->client->request($method, $endPoint, $options);
-            return $this->getResponse($response);
+            $responseGuzzle = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $e) {
-            throw new WsException($e->getMessage(), $e->getCode(), null);
+            //throw
+            $responseGuzzle = null;
+            throw new WsException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return null;
+        return $this->getResponse($responseGuzzle);
     }
 
 
@@ -161,6 +165,7 @@ abstract class AbstractWebService
      *
      * @return mixed|null
      * @throws WsException
+     * @throws \JsonException
      */
     public function getResponse(ResponseInterface $response): string
     {
@@ -172,14 +177,35 @@ abstract class AbstractWebService
          * @var StreamInterface $body
         */
         $body = $response->getBody();
-        if (false === strpos($body, '{', 0)) {
-            throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", (string)$body), 500, null);
+
+        if (false === $body->isReadable()) {
+            throw new WsException("[Astrobin Response] Response not readable", 500, null);
+        }
+
+        if (0 === $body->getSize()) {
+            throw new WsException(sprintf("[Astrobin Response] Empty response from endPoint \"%s\"", $this->getEndPoint()), 500, null);
         }
 
         $contents = $body->getContents();
-        if (empty($contents)) {
-            throw new WsException(sprintf("[Astrobin Response] Empty response from endPoint \"%s\"", $this->getEndPoint()), 500, null);
+        if (false === strpos($contents, '{', 0)) {
+            throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", (string)$body), 500, null);
         }
+
         return $contents;
+    }
+
+    /**
+     * Convert string into Json
+     *
+     * @param string $contents
+     *
+     * @return \stdClass
+     */
+    protected function deserialize(string $contents): \stdClass
+    {
+        try {
+            return json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+        }
     }
 }

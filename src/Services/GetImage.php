@@ -60,8 +60,8 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
         }
         $response = $this->get($id, null);
-        return $response;
-//        return $this->buildResponse($response);
+
+        return $this->buildResponse($response);
     }
 
     /**
@@ -185,21 +185,22 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * Build response from WebService Astrobin
      *
-     * @param string $object
+     * @param string $response
      *
      * @return AstrobinResponse
      * @throws WsResponseException
      * @throws \ReflectionException
      */
-    public function buildResponse(string $object): ?AstrobinResponse
+    public function buildResponse(string $response): ?AstrobinResponse
     {
-        if (property_exists($object, "objects") && property_exists($object, "meta")) {
-            if (0 < $object->meta->total_count) {
-                return $this->responseWs($object->objects);
-            }
-            throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)), 500, null);
-        }
+        $object = $this->deserialize($response);
 
+        if (property_exists($object, "objects") && property_exists($object, "meta")) {
+//            if (0 < $object->meta->total_count) {
+//                return $this->responseWs($object->objects);
+//            }
+//            throw new WsResponseException(sprintf("Astrobin doen't find any objects with params : %s", json_encode($params)), 500, null);
+        }
 
         $astrobinResponse = null;
         if (is_array($object) && 0 < count($object)) {
@@ -218,13 +219,14 @@ class GetImage extends AbstractWebService implements WsInterface
                  * @var Image $astrobinResponse
                 */
                 $astrobinResponse = new Image();
-                $astrobinResponse->fromObj($objects[0]);
+//                $astrobinResponse->fromObj($objects[0]);
             }
         } else {
             $astrobinResponse = new Image();
-            $astrobinResponse->fromObj($objects[0]);
+            $astrobinResponse->fromObj($object);
         }
 
+        var_dump($astrobinResponse);
         return $astrobinResponse;
     }
 }
