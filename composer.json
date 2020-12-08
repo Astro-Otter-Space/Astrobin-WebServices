@@ -18,7 +18,8 @@
     "php": ">=7.3.0",
     "guzzlehttp/guzzle": "^7.0",
     "ext-http": "*",
-    "ext-ctype": "*"
+    "ext-ctype": "*",
+    "ext-json": "*"
   },
   "autoload" : {
     "psr-4" : {
