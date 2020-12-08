@@ -17,7 +17,8 @@
   "require" : {
     "php": ">=7.3.0",
     "guzzlehttp/guzzle": "^7.0",
-    "ext-http": "*"
+    "ext-http": "*",
+    "ext-ctype": "*"
   },
   "autoload" : {
     "psr-4" : {
