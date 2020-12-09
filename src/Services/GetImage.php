@@ -74,7 +74,7 @@ class GetImage extends AbstractWebService implements WsInterface
     public function getById(?string $id): ?AstrobinResponse
     {
         if (is_null($id)) {
-            throw new WsResponseException(sprintf("[Astrobin response] '%s' is not a correct value, alphanumeric expected", $id), 500, null);
+            throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
         $response = $this->get($id, null);
         return $this->buildResponse($response);
@@ -176,7 +176,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         if (false === strtotime($dateFromStr)) {
-            throw new WsException(sprintf("Format \"%s\" is not a correct format, please use YYYY-mm-dd", $dateFromStr), 500, null);
+            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
 
         /**
@@ -184,11 +184,11 @@ class GetImage extends AbstractWebService implements WsInterface
         */
         $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFromStr);
         if ($dateFromStr !== $dateFrom->format('Y-m-d')) {
-            throw new WsException(sprintf("Format \"%s\" is not a correct format for a date, please use YYYY-mm-dd instead", $dateFromStr), 500, null);
+            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
 
         if (false !== $dateFrom && array_sum($dateFrom->getLastErrors())) {
-            throw new WsException("Error date format : \n" . print_r($dateFrom->getLastErrors()), 500, null);
+            throw new WsException(WsException::ERR_DATE . print_r($dateFrom->getLastErrors()), 500, null);
         }
 
         $params = [

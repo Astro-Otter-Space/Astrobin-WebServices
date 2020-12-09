@@ -25,7 +25,6 @@ class GetImageTest extends TestCase
         $this->client = $this->createMock(WsInterface::class);
     }
 
-
     /**
      * Test by ID OK
      */

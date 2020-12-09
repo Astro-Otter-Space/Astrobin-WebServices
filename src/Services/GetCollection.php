@@ -72,7 +72,7 @@ class GetCollection extends AbstractWebService implements WsInterface
     public function getById(?string $id): ?AstrobinResponse
     {
         if (is_null($id)) {
-            throw new WsException('Astrobin Webservice Collection: empty id value', 500, null);
+            throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
 
         $astrobinCollection = $this->get($id, null);

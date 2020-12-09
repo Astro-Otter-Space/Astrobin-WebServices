@@ -135,7 +135,7 @@ abstract class AbstractWebService
     private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
         if (is_null($this->apiKey) || is_null($this->apiSecret)) {
-            throw new WsException("Astrobin Webservice : API key or API secret are null", 500, null);
+            throw new WsException(WsException::KEYS_ERROR, 500, null);
         }
 
         $endPoint = $this->buildEndpoint($id);
@@ -190,7 +190,7 @@ abstract class AbstractWebService
     public function getResponse(ResponseInterface $response): string
     {
         if (200 !== $response->getStatusCode()) {
-            throw new WsException(sprintf('[Astrobin Response] Error response: %s', $response->getReasonPhrase()), 500, null);
+            throw new WsException(sprintf(WsException::GUZZLE_RESPONSE, $response->getReasonPhrase()), 500, null);
         }
 
         /**
@@ -199,16 +199,16 @@ abstract class AbstractWebService
         $body = $response->getBody();
 
         if (false === $body->isReadable()) {
-            throw new WsException("[Astrobin Response] Response not readable", 500, null);
+            throw new WsException(WsException::ERR_READABLE, 500, null);
         }
 
         if (0 === $body->getSize()) {
-            throw new WsException(sprintf("[Astrobin Response] Empty response from endPoint \"%s\"", $this->getEndPoint()), 500, null);
+            throw new WsException(sprintf(WsException::ERR_EMPTY, $this->getEndPoint()), 500, null);
         }
 
         $contents = $body->getContents();
         if (false === strpos($contents, '{', 0)) {
-            throw new WsException(sprintf("[Astrobin Response] Not a JSON valid format :\n %s", (string)$body), 500, null);
+            throw new WsException(sprintf(WsException::ERR_JSON, (string)$body), 500, null);
         }
 
         return $contents;
@@ -227,7 +227,7 @@ abstract class AbstractWebService
     {
         $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
         if (property_exists($responseJson, "objects") && property_exists($responseJson, "meta") && 0 === $responseJson->meta->total_count) {
-            throw new WsResponseException("Astrobin doen't find any objects, check your params", 500, null);
+            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
         return $responseJson;

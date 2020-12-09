@@ -63,14 +63,14 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param $offset
-     * @param $limit
+     * @param int|null $offset
+     * @param int|null $limit
      *
-     * @return string
-     * @throws WsResponseException
+     * @return AstrobinResponse|null
      * @throws WsException
-     * @throws \ReflectionException
+     * @throws WsResponseException
      * @throws \JsonException
+     * @throws \ReflectionException
      */
     public function getDayImage(?int $offset, ?int $limit): ?AstrobinResponse
     {
@@ -89,6 +89,10 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         $response = $this->get(null, $params);
         /** @var Today|ListToday|AstrobinResponse $today */
         $today = $this->buildResponse($response);
+
+        if (is_null($today)) {
+            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
+        }
 
         // For Image of the day
         if (is_null($offset)) {
