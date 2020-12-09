@@ -28,8 +28,7 @@ trait WsAstrobinTrait
      */
     protected function getImagesFromResource(AstrobinResponse $entity): ?AstrobinResponse
     {
-
-        if(property_exists($entity, 'image')) {
+        if (property_exists($entity, 'image')) {
             $imageId = substr($entity->image, strrpos($entity->image, '/') + 1);
             $image = $this->getWsImage($imageId);
 

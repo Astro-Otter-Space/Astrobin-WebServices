@@ -20,7 +20,6 @@ use http\Client\Response;
  */
 class GetTodayImage extends AbstractWebService implements WsInterface
 {
-
     use WsAstrobinTrait;
 
     private const END_POINT = 'imageoftheday';
@@ -126,5 +125,4 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
         return $today;
     }
-
 }

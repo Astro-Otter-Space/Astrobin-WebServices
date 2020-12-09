@@ -83,7 +83,7 @@ class GetCollection extends AbstractWebService implements WsInterface
             return $this->getImagesFromResource($collection);
         }
 
-       return null;
+        return null;
     }
 
 
@@ -107,5 +107,4 @@ class GetCollection extends AbstractWebService implements WsInterface
 
         return $this->buildResponse($response);
     }
-
 }
