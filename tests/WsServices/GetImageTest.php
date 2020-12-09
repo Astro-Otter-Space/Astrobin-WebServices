@@ -30,7 +30,7 @@ class GetImageTest extends TestCase
      */
     public function testGetImageById()
     {
-        $id = 341955;
+        $id = 'tiy8v8';
         $response = $this->client->getById($id);
 
         $this->assertInstanceOf(Image::class, $response, __METHOD__ . ' : response Image OK');

@@ -30,6 +30,23 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
+     * @return string
+     */
+    protected function getObjectEntity(): string
+    {
+        return Collection::class;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCollectionEntity(): string
+    {
+        return ListCollection::class;
+    }
+
+
+    /**
      * Only for retro-compatibility with version 1.x
      *
      * @param $id
@@ -44,7 +61,7 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @param string $id
+     * @param string|null $id
      *
      * @return AstrobinResponse
      * @throws WsException
@@ -132,10 +149,14 @@ class GetCollection extends AbstractWebService implements WsInterface
         $object = $this->deserialize($response);
         $astrobinResponse = null;
 
+        /** @var Collection $entity */
+        $entity = $this->getObjectEntity();
+        /** @var ListCollection $collectionEntity */
+        $collectionEntity = $this->getCollectionEntity();
+
         if (is_array($object) && 0 < count($object)) {
             if (1 < count($response)) {
-                /** @var ListCollection $astrobinResponse */
-                $astrobinResponse = new ListCollection();
+                $astrobinResponse = $collectionEntity;
                 foreach ($object as $strCollection) {
                     $collection = new Collection();
                     $collection->fromObj($strCollection);
@@ -144,8 +165,7 @@ class GetCollection extends AbstractWebService implements WsInterface
                     $astrobinResponse->add($collection);
                 }
             } else {
-                /** @var Collection $astrobinResponse */
-                $astrobinResponse = new Collection();
+                $astrobinResponse = new $entity;
                 $astrobinResponse->fromObj($object);
             }
         }

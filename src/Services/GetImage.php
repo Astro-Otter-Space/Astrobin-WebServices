@@ -184,6 +184,20 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
+     * @return string
+     */
+    protected function getObjectEntity(): string
+    {
+       return Image::class;
+    }
+
+    protected function getCollectionEntity(): string
+    {
+        return ListImages::class;
+    }
+
+
+    /**
      * Build response from WebService Astrobin
      *
      * @param string $response
@@ -197,21 +211,26 @@ class GetImage extends AbstractWebService implements WsInterface
         $astrobinResponse = null;
         $object = $this->deserialize($response);
 
+        /** @var Image $entity */
+        $entity = $this->getObjectEntity();
+        /** @var ListImages $collectionEntity */
+        $collectionEntity = $this->getCollectionEntity();
+
         if (property_exists($object, "objects") && 0 < count($object)) {
             $listObjects = $object->objects;
             if (1 < count($listObjects)) {
-                $astrobinResponse = new ListImages();
+                $astrobinResponse = new $collectionEntity;
                 foreach ($listObjects as $object) {
-                    $image = new Image();
+                    $image = new $entity;
                     $image->fromObj($object);
                     $astrobinResponse->add($image);
                 }
             } else {
-                $astrobinResponse = new Image();
+                $astrobinResponse = new $entity;
                 $astrobinResponse->fromObj(reset($listObjects));
             }
         } else {
-            $astrobinResponse = new Image();
+            $astrobinResponse = new $entity;
             $astrobinResponse->fromObj($object);
         }
 

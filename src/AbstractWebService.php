@@ -62,6 +62,19 @@ abstract class AbstractWebService
     abstract protected function getEndPoint(): string;
 
     /**
+     * Get Instance of response object Entity
+     *
+     * @return string
+     */
+    abstract protected function getObjectEntity(): string;
+
+    /**
+     * Get instance of response collection entity
+     * @return string
+     */
+    abstract protected function getCollectionEntity(): string;
+
+    /**
      * Build EndPoint
      *
      * @param string|null $param
