@@ -17,7 +17,6 @@
   "require" : {
     "php": ">=7.3.0",
     "guzzlehttp/guzzle": "^7.0",
-    "ext-http": "*",
     "ext-ctype": "*",
     "ext-json": "*"
   },
@@ -32,6 +31,7 @@
   "target-dir" : "",
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.2",
-    "phpunit/phpunit": "^9.3"
+    "phpunit/phpunit": "^9.3",
+    "dg/bypass-finals": "^1.3"
   }
 }

@@ -54,6 +54,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getImageById(string $id): ?AstrobinResponse
     {

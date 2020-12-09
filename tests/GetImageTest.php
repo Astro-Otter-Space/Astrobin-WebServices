@@ -1,13 +1,10 @@
 <?php
 
+use DG\BypassFinals;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\ListImages;
 use AstrobinWs\Services\GetImage;
-use AstrobinWs\Services\WsInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,14 +12,13 @@ use PHPUnit\Framework\TestCase;
  */
 class GetImageTest extends TestCase
 {
-    /** @var MockObject|GetImage  */
-    private $client;
+
+    private $stub;
 
     public function setUp(): void
     {
         parent::setUp();
-        /** @var GetImage client */
-        $this->client = $this->createMock(WsInterface::class);
+        BypassFinals::enable();
     }
 
     /**
@@ -31,10 +27,10 @@ class GetImageTest extends TestCase
     public function testGetImageById()
     {
         $id = 'tiy8v8';
-        $response = $this->client->getById($id);
+        $stub = $this->createMock(GetImage::class);
+        $response = $stub->method('getById')
+            ->willReturn(AstrobinResponse::class);
 
-        $this->assertInstanceOf(AstrobinResponse::class, $response, __METHOD__ . ' : response Image OK');
-        $this->assertClassHasAttribute('title', AstrobinResponse::class, __METHOD__ . ': attribute title OK');
     }
 
 
