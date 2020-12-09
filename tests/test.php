@@ -37,4 +37,12 @@ $idOnlyNum = (string)341955;
  * TODAY
  */
 $todayWs = new \AstrobinWs\Services\GetTodayImage();
-//$today = $todayWs->getTodayImage(); var_dump($today);
+//$today = $todayWs->getTodayImage();
+// var_dump($today);
+
+$listDays = $todayWs->getDayImage(0, 2);
+var_dump($listDays);
+
+/**
+ * Collection
+ */

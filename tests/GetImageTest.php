@@ -2,6 +2,7 @@
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Services\GetImage;
@@ -21,7 +22,7 @@ class GetImageTest extends TestCase
     {
         parent::setUp();
         /** @var GetImage client */
-        $this->client = $this->getMockBuilder(WsInterface::class)->getMock();
+        $this->client = $this->createMock(WsInterface::class);
     }
 
 
@@ -33,8 +34,8 @@ class GetImageTest extends TestCase
         $id = 'tiy8v8';
         $response = $this->client->getById($id);
 
-        $this->assertInstanceOf(Image::class, $response, __METHOD__ . ' : response Image OK');
-        $this->assertClassHasAttribute('title', Image::class, __METHOD__ . ': attribute title OK');
+        $this->assertInstanceOf(AstrobinResponse::class, $response, __METHOD__ . ' : response Image OK');
+        $this->assertClassHasAttribute('title', AstrobinResponse::class, __METHOD__ . ': attribute title OK');
     }
 
 

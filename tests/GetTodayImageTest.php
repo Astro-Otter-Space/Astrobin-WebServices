@@ -17,7 +17,7 @@ class GetTodayImageTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->client = new GetTodayImage();
+        $this->client = null; // new GetTodayImage();
     }
 
     public function testGetDayImage()
