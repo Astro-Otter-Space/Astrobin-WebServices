@@ -11,14 +11,12 @@
    * [GetImage](#getimage)
    * [GetTodayImage](#gettodayimage)
    * [GetCollection](#getcollection)
-   * [GetLocation](#getlocation)
  * [Responses](#responses)
    * [Image](#image)
    * [ListImage](#listimage)
    * [Collection](#collection)
    * [ListCollection](#listcollection)
    * [Today](#today)
-   * [Location](#location)
  * [Running the tests](#running-the-tests)
  * [Authors](#authors)
  * [Licence](#licence)
@@ -130,13 +128,6 @@ The library expose 4 WebServices, each with these methods below.
 | `getCollectionById()`| `$id`| `Collection` |
 | `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
 
-### GetLocation :
-*In progress...*
-
-| Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |
-| `getLocationById()`| `$id`| `Location` |
-
 
 ## Responses
 
@@ -191,9 +182,6 @@ The library expose 4 WebServices, each with these methods below.
 | `listImages`| List of images|
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
-
-### Location
-*In progress*
 
 ## Running the tests
 
