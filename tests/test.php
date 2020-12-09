@@ -26,7 +26,8 @@ include __DIR__ . './../src/Response/Image.php';
 $imageWs = new \AstrobinWs\Services\GetImage();
 
 $idAlphaNum = 'tiy8v8';
-$response = $imageWs->getById($idAlphaNum); var_dump($response);
+//$response = $imageWs->getById($idAlphaNum);
+//var_dump($response);
 
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
@@ -38,11 +39,14 @@ $idOnlyNum = (string)341955;
  */
 $todayWs = new \AstrobinWs\Services\GetTodayImage();
 //$today = $todayWs->getTodayImage();
-// var_dump($today);
+//var_dump($today);
 
 $listDays = $todayWs->getDayImage(0, 2);
-var_dump($listDays);
+//var_dump($listDays);
 
 /**
  * Collection
  */
+$collectionWs = new \AstrobinWs\Services\GetCollection();
+$collection = $collectionWs->getById("655");
+var_dump($collection);

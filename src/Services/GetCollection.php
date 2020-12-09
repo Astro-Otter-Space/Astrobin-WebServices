@@ -18,6 +18,7 @@ use AstrobinWs\Response\ListCollection;
  */
 class GetCollection extends AbstractWebService implements WsInterface
 {
+    use WsAstrobinTrait;
 
     private const END_POINT = 'collection';
 
@@ -53,7 +54,7 @@ class GetCollection extends AbstractWebService implements WsInterface
      *
      * @return AstrobinResponse
      * @throws WsException
-     * @throws \ReflectionException
+     * @throws \ReflectionException|\JsonException
      */
     public function getCollectionById($id): ?AstrobinResponse
     {
@@ -75,12 +76,14 @@ class GetCollection extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
 
-        $astrobinCollection = $this->get($id, null);
-        if (isset($astrobinCollection->images) && 0 < count($astrobinCollection->images)) {
-            $astrobinCollection = $this->getImagesCollection($astrobinCollection);
+        $response = $this->get($id, null);
+        $collection = $this->buildResponse($response);
+
+        if (!is_null($collection)) {
+            return $this->getImagesFromResource($collection);
         }
 
-        return $astrobinCollection;
+       return null;
     }
 
 
@@ -105,71 +108,4 @@ class GetCollection extends AbstractWebService implements WsInterface
         return $this->buildResponse($response);
     }
 
-
-    /**
-     * Retrieve images of a collection by WS GetImage
-     * @param Collection $astrobinCollection
-     * @return AstrobinResponse|Collection|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    private function getImagesCollection(Collection $astrobinCollection): ?AstrobinResponse
-    {
-        $listImagesId = array_map(static function ($path) {
-            if (preg_match('/\/([\d]+)/', $path, $matches)) {
-                return $matches[1];
-            }
-        }, $astrobinCollection->images);
-        if (0 < count($listImagesId)) {
-            foreach ($listImagesId as $imageId) {
-                $getImage = new GetImage();
-                $imgRawCall = $getImage->getById($imageId);
-
-                $image = new Image();
-                $image->fromObj($imgRawCall);
-
-                $astrobinCollection->add($image);
-            }
-        }
-
-        return $astrobinCollection;
-    }
-
-    /**
-     * @param string $response
-     *
-     * @return AstrobinResponse|ListCollection|Collection|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \ReflectionException|\JsonException
-     */
-    public function buildResponse(string $response): ?AstrobinResponse
-    {
-        $object = $this->deserialize($response);
-        $astrobinResponse = null;
-
-        /** @var Collection $entity */
-        $entity = $this->getObjectEntity();
-        /** @var ListCollection $collectionEntity */
-        $collectionEntity = $this->getCollectionEntity();
-
-        if (is_array($object) && 0 < count($object)) {
-            if (1 < count($response)) {
-                $astrobinResponse = new $collectionEntity();
-                foreach ($object as $strCollection) {
-                    $collection = new Collection();
-                    $collection->fromObj($strCollection);
-
-                    //$this->getImagesCollection($collection);
-                    //$astrobinResponse->add($collection);
-                }
-            } else {
-                $astrobinResponse = new $entity();
-                $astrobinResponse->fromObj($object);
-            }
-        }
-
-        return $astrobinResponse;
-    }
 }

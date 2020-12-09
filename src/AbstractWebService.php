@@ -171,7 +171,6 @@ abstract class AbstractWebService
         } catch (GuzzleException $e) {
             //throw
             $responseGuzzle = null;
-            var_dump($e->getMessage());
 //            throw new WsException($e->getMessage(), $e->getCode(), $e);
         }
 
