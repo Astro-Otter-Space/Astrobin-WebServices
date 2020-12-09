@@ -156,16 +156,16 @@ class GetCollection extends AbstractWebService implements WsInterface
 
         if (is_array($object) && 0 < count($object)) {
             if (1 < count($response)) {
-                $astrobinResponse = $collectionEntity;
+                $astrobinResponse = new $collectionEntity();
                 foreach ($object as $strCollection) {
                     $collection = new Collection();
                     $collection->fromObj($strCollection);
 
-                    $this->getImagesCollection($collection);
-                    $astrobinResponse->add($collection);
+                    //$this->getImagesCollection($collection);
+                    //$astrobinResponse->add($collection);
                 }
             } else {
-                $astrobinResponse = new $entity;
+                $astrobinResponse = new $entity();
                 $astrobinResponse->fromObj($object);
             }
         }

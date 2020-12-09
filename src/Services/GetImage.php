@@ -30,6 +30,22 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
+     * @return string
+     */
+    protected function getObjectEntity(): string
+    {
+        return Image::class;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCollectionEntity(): string
+    {
+        return ListImages::class;
+    }
+
+    /**
      * Only for retro-compatibility with version 1.x
      *
      * @param $id
@@ -96,6 +112,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws WsException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
     {
@@ -119,6 +136,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws WsResponseException
      * @throws WsException
      * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function getImagesByUser(string $userName, int $limit): ?AstrobinResponse
     {
@@ -181,59 +199,5 @@ class GetImage extends AbstractWebService implements WsInterface
 
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getObjectEntity(): string
-    {
-       return Image::class;
-    }
-
-    protected function getCollectionEntity(): string
-    {
-        return ListImages::class;
-    }
-
-
-    /**
-     * Build response from WebService Astrobin
-     *
-     * @param string $response
-     *
-     * @return AstrobinResponse
-     * @throws WsResponseException
-     * @throws \ReflectionException|\JsonException
-     */
-    public function buildResponse(string $response): ?AstrobinResponse
-    {
-        $astrobinResponse = null;
-        $object = $this->deserialize($response);
-
-        /** @var Image $entity */
-        $entity = $this->getObjectEntity();
-        /** @var ListImages $collectionEntity */
-        $collectionEntity = $this->getCollectionEntity();
-
-        if (property_exists($object, "objects") && 0 < count($object)) {
-            $listObjects = $object->objects;
-            if (1 < count($listObjects)) {
-                $astrobinResponse = new $collectionEntity;
-                foreach ($listObjects as $object) {
-                    $image = new $entity;
-                    $image->fromObj($object);
-                    $astrobinResponse->add($image);
-                }
-            } else {
-                $astrobinResponse = new $entity;
-                $astrobinResponse->fromObj(reset($listObjects));
-            }
-        } else {
-            $astrobinResponse = new $entity;
-            $astrobinResponse->fromObj($object);
-        }
-
-        return $astrobinResponse;
     }
 }

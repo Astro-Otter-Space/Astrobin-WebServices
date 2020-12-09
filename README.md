@@ -118,8 +118,8 @@ The library expose 4 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getDayImage()`| `$offset` , limit = 1| `Today` |
-| `getTodayDayImage()`|| `Today` |
+| `getDayImage()`| `$offset` , limit = 1| `ListToday` |
+| `getTodayImage()`|| `Today` |
 
 ### GetCollection :
 
@@ -178,7 +178,8 @@ The library expose 4 WebServices, each with these methods below.
 | Parameter| Description |
 | ------------- | ------------------------------ |
 | `date`| Date of image       |
-| `resource_uri`| URI of image|
+| `image`| URI of image|
+| `resource_uri`| URI of today|
 | `listImages`| List of images|
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)

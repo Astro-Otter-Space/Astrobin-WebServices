@@ -14,5 +14,4 @@ use AstrobinWs\Response\AstrobinResponse;
 interface WsInterface
 {
     public function getById(?string $id): ?AstrobinResponse;
-    public function buildResponse(string $response): ?AstrobinResponse;
 }

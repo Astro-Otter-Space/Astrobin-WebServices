@@ -20,13 +20,21 @@ include __DIR__ . './../src/Response/AbstractResponse.php';
 include __DIR__ . './../src/Response/ListImages.php';
 include __DIR__ . './../src/Response/Image.php';
 
+/**
+ * IMAGE
+ */
 $imageWs = new \AstrobinWs\Services\GetImage();
 
 $idAlphaNum = 'tiy8v8';
-//$response = $imageWs->getById($idAlphaNum);
+$response = $imageWs->getById($idAlphaNum); var_dump($response);
 
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
 
-$response = $imageWs->getImagesBySubject('m31', 1);
-var_dump($response);
+//$response = $imageWs->getImagesBySubject('m31', 1);
+
+/**
+ * TODAY
+ */
+$todayWs = new \AstrobinWs\Services\GetTodayImage();
+//$today = $todayWs->getTodayImage(); var_dump($today);

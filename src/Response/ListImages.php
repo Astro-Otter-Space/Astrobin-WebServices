@@ -14,7 +14,6 @@ use Traversable;
  */
 final class ListImages implements \IteratorAggregate, AstrobinResponse
 {
-
     public $listImages = [];
     public $count = 0;
 

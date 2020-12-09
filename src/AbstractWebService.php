@@ -6,6 +6,12 @@ namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\Collection;
+use AstrobinWs\Response\Image;
+use AstrobinWs\Response\ListCollection;
+use AstrobinWs\Response\ListImages;
+use AstrobinWs\Response\Today;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Client\Response;
@@ -66,13 +72,13 @@ abstract class AbstractWebService
      *
      * @return string
      */
-    abstract protected function getObjectEntity(): string;
+    abstract protected function getObjectEntity(): ?string;
 
     /**
      * Get instance of response collection entity
      * @return string
      */
-    abstract protected function getCollectionEntity(): string;
+    abstract protected function getCollectionEntity(): ?string;
 
     /**
      * Build EndPoint
@@ -225,5 +231,46 @@ abstract class AbstractWebService
         }
 
         return $responseJson;
+    }
+
+    /**
+     * Build response from WebService Astrobin
+     *
+     * @param string $response
+     *
+     * @return AstrobinResponse
+     * @throws WsResponseException
+     * @throws \ReflectionException|\JsonException
+     */
+    protected function buildResponse(string $response): ?AstrobinResponse
+    {
+        $astrobinResponse = null;
+        $object = $this->deserialize($response);
+
+        /** @var Image|Today|Collection|AstrobinResponse $entity */
+        $entity = $this->getObjectEntity();
+
+        /** @var ListImages|ListCollection|ListImages|AstrobinResponse $collectionEntity */
+        $collectionEntity = $this->getCollectionEntity();
+
+        if (property_exists($object, "objects") && 0 < count($object->objects)) {
+            $listObjects = $object->objects;
+            if (1 < count($listObjects)) {
+                $astrobinResponse = new $collectionEntity();
+                foreach ($listObjects as $object) {
+                    $entity = new $entity();
+                    $entity->fromObj($object);
+                    $astrobinResponse->add($entity);
+                }
+            } else {
+                $astrobinResponse = new $entity();
+                $astrobinResponse->fromObj(reset($listObjects));
+            }
+        } else {
+            $astrobinResponse = new $entity();
+            $astrobinResponse->fromObj($object);
+        }
+
+        return $astrobinResponse;
     }
 }
