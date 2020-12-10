@@ -28,9 +28,11 @@ class GetImageTest extends TestCase
     {
         $id = 'tiy8v8';
         $stub = $this->createMock(GetImage::class);
-        $response = $stub->method('getById')
+        $response = $stub
+            ->method('getById')
             ->willReturn(AstrobinResponse::class);
 
+        self::assertInstanceOf(AstrobinResponse::class, $response);
     }
 
 
