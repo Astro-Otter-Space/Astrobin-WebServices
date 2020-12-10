@@ -12,27 +12,28 @@ use PHPUnit\Framework\TestCase;
  */
 class GetImageTest extends TestCase
 {
-
     private $stub;
 
+    /**
+     *
+     */
     public function setUp(): void
     {
         parent::setUp();
         BypassFinals::enable();
     }
 
-    /**
-     * Test by ID OK
-     */
     public function testGetImageById()
     {
-        $id = 'tiy8v8';
-        $stub = $this->createMock(GetImage::class);
-        $response = $stub
+        $mockContext = $this->createMock(GetImage::class)
             ->method('getById')
+            ->with('tiy8v8')
             ->willReturn(AstrobinResponse::class);
 
-        self::assertInstanceOf(AstrobinResponse::class, $response);
+        //$imageWs = new GetImage();
+        //$expectedObject = $imageWs->getById('tiy8v8');
+
+        //self::assertInstanceOf(AstrobinResponse::class, $mockContext);
     }
 
 
