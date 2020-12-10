@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)
+[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)
 # WebServices for Astrobin's API REST
 
 ## Table of contents
