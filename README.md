@@ -45,7 +45,7 @@ For update :
 >
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
 
-> `git clone git@github.com:HamHamFonFon/Astrobin-API-PHP.git`
+> `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
 
 * [OLD] If you want to add to your own composer.json project :
@@ -65,9 +65,6 @@ For update :
 
 ### Usage
 
-
-With Symfony, you can set WebService class as services :
-
 First, set your keys in .env file :
 ```yml
 ASTROBIN_API_KEY=PutHereYourOwnApiKey
@@ -75,11 +72,11 @@ ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 ```
 
 Exemple with Symfony 4:
-```
-use Astrobin\Exceptions\WsException;
-use Astrobin\Exceptions\WsResponseException;
-use Astrobin\Response\Image as AstrobinImage;
-use Astrobin\Services\GetImage;
+```php
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\Image as AstrobinImage;
+use AstrobinWs\Services\GetImage;
 
 class MyService
 {
@@ -102,7 +99,7 @@ class MyService
 
 ## WebServices
 
-The library expose 4 WebServices, each with these methods below.
+The library expose 3 WebServices, each with these methods below.
 
 ### GetImage :
 
