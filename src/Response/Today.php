@@ -1,17 +1,21 @@
 <?php
 
-namespace Astrobin\Response;
+declare(strict_types=1);
 
-use Astrobin\Response\Iterators\ImageIterator;
+namespace AstrobinWs\Response;
+
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**
  * Class Today
  * @package Astrobin\Response
  */
-class Today extends AbstractResponse implements \IteratorAggregate
+final class Today extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
     public $date;
+    public $image;
     public $resource_uri;
     public $listImages;
 
@@ -23,12 +27,11 @@ class Today extends AbstractResponse implements \IteratorAggregate
         return new ImageIterator($this->listImages);
     }
 
-
     /**
      * @param Image $image
      * @return void
      */
-    public function add(Image $image)
+    public function add(Image $image): void
     {
         $this->listImages[] = $image;
     }

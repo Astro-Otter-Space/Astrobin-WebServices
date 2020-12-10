@@ -1,14 +1,13 @@
 dist: trusty
 language: php
 php:
-  - '7.0'
-  - '7.1'
-  - '7.2'
+  - '7.3'
+  - '7.4'
   - nightly
 before_script: composer install
-#before_install: echo "extension = php_curl.dll" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 script:
-  - php ./vendor/bin/phpcs -p -n --standard=PSR2 src
-  - php ./vendor/bin/phpunit tests/WsServices/  --coverage-clover=coverage.xml
+  - php ./vendor/bin/phpcs -p -n --standard=PSR1 src
+  - php ./vendor/bin/phpcs -p -n --standard=PSR12 src
+  #- php ./vendor/bin/phpunit tests/  --coverage-clover=coverage.xml
 after_success:
   - bash <(curl -s https://codecov.io/bash)

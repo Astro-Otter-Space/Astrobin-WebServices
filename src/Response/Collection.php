@@ -1,15 +1,18 @@
 <?php
 
-namespace Astrobin\Response;
+declare(strict_types=1);
 
-use Astrobin\Response\Iterators\ImageIterator;
+namespace AstrobinWs\Response;
+
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**
  * Class Collection
  * @package Astrobin\Response
  */
-class Collection extends AbstractResponse implements \IteratorAggregate
+final class Collection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
     /** @var integer */
     public $id;
@@ -38,30 +41,32 @@ class Collection extends AbstractResponse implements \IteratorAggregate
     /**
      * @param Image $image
      */
-    public function add(Image $image)
+    public function add(Image $image): void
     {
         $this->listImages[] = $image;
     }
 
 
     /**
-     * @param $date_created
+     * @param string $dateCreated
+     *
      * @return $this
      */
-    public function setDateCreated($date_created)
+    public function setDateCreated(string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat('Y-m-d', $date_created);
+        $this->date_created = \DateTime::createFromFormat('Y-m-d', $dateCreated);
         return $this;
     }
 
 
     /**
-     * @param $date_updated
+     * @param string $dateUpdated
+     *
      * @return $this
      */
-    public function setDateUpdated($date_updated)
+    public function setDateUpdated(string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat('Y-m-d', $date_updated);
+        $this->date_updated = \DateTime::createFromFormat('Y-m-d', $dateUpdated);
         return $this;
     }
 }

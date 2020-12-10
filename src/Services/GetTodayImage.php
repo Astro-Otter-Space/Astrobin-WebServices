@@ -1,11 +1,18 @@
 <?php
 
-namespace Astrobin\Services;
+declare(strict_types=1);
 
-use Astrobin\AbstractWebService;
-use Astrobin\Exceptions\WsResponseException;
-use Astrobin\Response\Image;
-use Astrobin\Response\Today;
+namespace AstrobinWs\Services;
+
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\AbstractWebService;
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\Image;
+use AstrobinWs\Response\ListImages;
+use AstrobinWs\Response\ListToday;
+use AstrobinWs\Response\Today;
+use http\Client\Response;
 
 /**
  * Class getTodayImage
@@ -13,98 +20,109 @@ use Astrobin\Response\Today;
  */
 class GetTodayImage extends AbstractWebService implements WsInterface
 {
+    use WsAstrobinTrait;
 
-    const END_POINT = 'imageoftheday/';
+    private const END_POINT = 'imageoftheday';
 
-    const FORMAT_DATE_ASTROBIN = "Y-m-d";
+    public const FORMAT_DATE_ASTROBIN = "Y-m-d";
+
+    /**
+     * @return string
+     */
+    protected function getEndPoint(): string
+    {
+        return self::END_POINT;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getObjectEntity(): string
+    {
+        return Today::class;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getCollectionEntity(): ?string
+    {
+        return ListToday::class;
+    }
+
+    /**
+     * Method not allowed
+     *
+     * @param string|null $id
+     *
+     * @return AstrobinResponse|null
+     */
+    public function getById(?string $id): ?AstrobinResponse
+    {
+        return null;
+    }
 
 
     /**
-     * @param $offset
-     * @param $limit
-     * @return Today
+     * @return Today|AstrobinResponse|null
+     * @throws WsException
      * @throws WsResponseException
-     * @throws \Astrobin\Exceptions\WsException
+     * @throws \ReflectionException
+     * @throws \JsonException
+     */
+    public function getTodayImage(): ?AstrobinResponse
+    {
+        return $this->getDayImage(0, 1);
+    }
+
+    /**
+     * @param int|null $offset
+     * @param int|null $limit
+     *
+     * @return AstrobinResponse|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
      * @throws \ReflectionException
      */
-    public function getDayImage($offset = null, $limit = 1): Today
+    public function getDayImage(?int $offset, ?int $limit): ?AstrobinResponse
     {
-        $params = ['limit' => $limit];
-        if (isset($offset) && is_numeric($offset)) {
-            $params['offset'] = $offset;
+        if (is_null($limit)) {
+            $limit = 1;
+        }
+        if (is_null($offset)) {
+            $offset = parent::LIMIT_MAX;
         }
 
-        $astrobinToday = $this->callWs($params);
+        $params = [
+            'limit' => $limit,
+            'offset' => $offset
+        ];
+
+        $response = $this->get(null, $params);
+
+        /** @var Today|ListToday|AstrobinResponse $today */
+        $today = $this->buildResponse($response);
+        if (is_null($today)) {
+            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
+        }
 
         // For Image of the day
-        if (is_null($offset)) {
+        /*if (is_null($offset)) {
             $today = new \DateTime('now');
             // If it is not today, take yesterday image
-            $params['offset'] = (($today->format(self::FORMAT_DATE_ASTROBIN) === $astrobinToday->date)) ?: 1;
-        }
+            $params['offset'] = (($today->format(self::FORMAT_DATE_ASTROBIN) === $today->date)) ?: 1;
+        }*/
 
-        if (preg_match('/\/([\d]+)/', $astrobinToday->resource_uri, $matches)) {
-            $imageId = $matches[1];
-            $sndRawCall = $this->call(GetImage::END_POINT, parent::METHOD_GET, $imageId);
-
-            $image = new Image();
-            $image->fromObj($sndRawCall);
-
-            $astrobinToday->add($image);
-        }
-
-        return $astrobinToday;
-    }
-
-
-    /**
-     * @return Today
-     * @throws WsResponseException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \ReflectionException
-     */
-    public function getTodayDayImage(): Today
-    {
-        return $this->getDayImage();
-    }
-
-    /**
-     * @param array $params
-     * @return Today
-     * @throws WsResponseException
-     * @throws \Astrobin\Exceptions\WsException
-     * @throws \ReflectionException
-     */
-    public function callWs($params = []): Today
-    {
-        /** @var  $rawResp */
-        $rawResp = $this->call(self::END_POINT, parent::METHOD_GET, $params);
-        if (!is_object($rawResp)) {
-            throw new WsResponseException("Response from Astrobin is empty");
-        } else {
-            if (property_exists($rawResp, "objects") && property_exists($rawResp, "meta") && 0 < $rawResp->meta->total_count) {
-                return $this->responseWs($rawResp->objects);
-            } else {
-                return $this->responseWs([$rawResp]);
+        if ($today instanceof Today) {
+            $today = $this->getImagesFromResource($today);
+        } elseif ($today instanceof ListToday) {
+            foreach ($today->listToday as $day) {
+                $toDay = $this->getImagesFromResource($day);
+                $today->add($toDay);
             }
         }
-    }
 
-
-    /**
-     * @param array $objects
-     * @return Today|null $astrobinResponse
-     * @throws WsResponseException
-     * @throws \ReflectionException
-     */
-    public function responseWs($objects = []): Today
-    {
-        $astrobinResponse = null;
-        if (is_array($objects) && 0 < count($objects)) {
-            $astrobinResponse = new Today();
-            $astrobinResponse->fromObj($objects[0]);
-        }
-
-        return $astrobinResponse;
+        return $today;
     }
 }

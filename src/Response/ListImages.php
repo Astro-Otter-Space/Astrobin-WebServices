@@ -1,17 +1,19 @@
 <?php
 
-namespace Astrobin\Response;
+declare(strict_types=1);
 
-use Astrobin\Response\Iterators\ImageIterator;
+namespace AstrobinWs\Response;
+
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
 
 /**
  * Class ListImages
  * @package Astrobin\Response
  */
-class ListImages implements \IteratorAggregate
+final class ListImages implements \IteratorAggregate, AstrobinResponse
 {
-
     public $listImages = [];
     public $count = 0;
 
@@ -26,7 +28,7 @@ class ListImages implements \IteratorAggregate
     /**
      * @param Image $image
      */
-    public function add(Image $image)
+    public function add(Image $image): void
     {
         $this->count++;
         $this->listImages[] = $image;

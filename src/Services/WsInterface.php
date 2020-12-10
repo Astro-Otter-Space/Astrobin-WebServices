@@ -1,13 +1,17 @@
 <?php
 
-namespace Astrobin\Services;
+declare(strict_types=1);
+
+namespace AstrobinWs\Services;
+
+use AstrobinWs\Response\AstrobinResponse;
 
 /**
  * Interface WsInterface
+ *
  * @package Astrobin
  */
 interface WsInterface
 {
-    public function callWs();
-    public function responseWs();
+    public function getById(?string $id): ?AstrobinResponse;
 }

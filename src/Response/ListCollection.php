@@ -1,14 +1,17 @@
 <?php
 
-namespace Astrobin\Response;
+declare(strict_types=1);
 
-use Astrobin\Response\Iterators\CollectionIterator;
+namespace AstrobinWs\Response;
+
+use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\Iterators\CollectionIterator;
 
 /**
  * Class ListCollection
  * @package Astrobin\Response
  */
-class ListCollection extends AbstractResponse implements \IteratorAggregate
+final class ListCollection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
 
     public $listCollection;
@@ -24,7 +27,7 @@ class ListCollection extends AbstractResponse implements \IteratorAggregate
     /**
      * @param $collection
      */
-    public function add($collection)
+    public function add($collection): void
     {
         $this->listCollection[] = $collection;
     }

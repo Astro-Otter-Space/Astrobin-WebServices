@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-API-PHP) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-API-PHP/branch/master/graphs/badge.svg?branch=master)
-# Astrobin API for PHP
+[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)
+# WebServices for Astrobin's API REST
 
 ## Table of contents
 
@@ -11,47 +11,50 @@
    * [GetImage](#getimage)
    * [GetTodayImage](#gettodayimage)
    * [GetCollection](#getcollection)
-   * [GetLocation](#getlocation)
  * [Responses](#responses)
    * [Image](#image)
    * [ListImage](#listimage)
    * [Collection](#collection)
    * [ListCollection](#listcollection)
    * [Today](#today)
-   * [Location](#location)
  * [Running the tests](#running-the-tests)
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 1.0.1
-
-Caution : API currently in progress, this is not a final version.
+Version 2.0.0
 
 ## Requirements
-* PHP 7.0 min or superior
+* PHP 7.3 min or superior (oldest version of PHP is not supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
 
-
-Astrobin API is a PHP library made to retrieve astrophotography from [Astrobin](http://www.astrobin.com).
+Astrobin's WebServices is a PHP library for request Astrobin's API Rest and get amazing astrophotographies hosted on [Astrobin](http://www.astrobin.com).
+Please read API section in ["Terms of service"](https://welcome.astrobin.com/terms-of-service)
 
 ## Installing
 
-You can install this API in 3 different ways.
+You can install this package in 2 different ways.
 
+* Basic installation; just install package from composer :
+
+> `composer require hamhamfonfon/astrobin-ws`
+
+For update :
+> `composer update hamhamfonfon/astrobin-ws`
+>
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
 
 > `git clone git@github.com:HamHamFonFon/Astrobin-API-PHP.git`
 
 
-* If you want to add to your own composer.json project :
+* [OLD] If you want to add to your own composer.json project :
 
 ```json
     [...]
     "require" : {
         [...]
-        "hamhamfonfon/astrobin" : "dev-master"
+        "hamhamfonfon/astrobin-ws" : "dev-master"
     },
     "repositories" : [{
         "type" : "vcs",
@@ -59,12 +62,6 @@ You can install this API in 3 different ways.
     }],
     [...]
 ```
-
-Then run
-> `composer update hamhamfonfon/astrobin`
-
-* Soon, adding with composer from packagist.
-
 
 ### Usage
 
@@ -77,43 +74,31 @@ ASTROBIN_API_KEY=PutHereYourOwnApiKey
 ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 ```
 
-Symfony 2:
-
-```yml
-astrobin.webservice:
-    class: Astrobin\AbstractWebService
-    abstract: true
-# Images WS
-astrobin.webservice.getimage:
-    class: Astrobin\Services\GetImage
-    parent: astrobin.webservice
-# Collection WS
-astrobin.webservice.getcollection:
-    class: Astrobin\Services\GetLocation
-    parent: astrobin.webservice
-# Location WS
-astrobin.webservice.getlocation:
-    class: Astrobin\Services\GetLocation
-    parent: astrobin.webservice
-# Today WS
-astrobin.webservice.gettodayimage:
-    class: Astrobin\Services\GetTodayImage
-    parent: astrobin.webservice
+Exemple with Symfony 4:
 ```
+use Astrobin\Exceptions\WsException;
+use Astrobin\Exceptions\WsResponseException;
+use Astrobin\Response\Image as AstrobinImage;
+use Astrobin\Services\GetImage;
 
-Symfony 3 and more :
-WIP
+class MyService
+{
+    /** @var GetImage **/ 
+    private $astrobinImage;
 
-Symfony 4:
-WIP
+    public function __construct()
+    {
+        $this->astrobinImage = new GetImage();
+    }
 
-In your controller :
-> Exemple : i want to retrieve 5 photos from Orion Nebula (M42)
-```php
-$astrobinWs = $this->container->get('astrobin.webservice.getimage');
-$data = $astrobinWs->getImagesBySubject('m42', 5);
+    public function getOrionNebula(): ?AstrobinImage
+    {
+        $orion = $this->astrobinImage->getImageById('m42');
+      
+        return $orion;
+    }
+}
 ```
-
 
 ## WebServices
 
@@ -133,8 +118,8 @@ The library expose 4 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
-| `getDayImage()`| `$offset` , limit = 1| `Today` |
-| `getTodayDayImage()`|| `Today` |
+| `getDayImage()`| `$offset` , limit = 1| `ListToday` |
+| `getTodayImage()`|| `Today` |
 
 ### GetCollection :
 
@@ -142,13 +127,6 @@ The library expose 4 WebServices, each with these methods below.
 | ------------- | ------------------------------ |----------------------------- |
 | `getCollectionById()`| `$id`| `Collection` |
 | `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
-
-### GetLocation :
-*In progress...*
-
-| Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |
-| `getLocationById()`| `$id`| `Location` |
 
 
 ## Responses
@@ -163,6 +141,8 @@ The library expose 4 WebServices, each with these methods below.
 | `url_thumb`| URL of image , thumb size|
 | `url_regular`| URL of image|
 | `user`| Username|
+| `url_histogram` | URL to histogram |
+| `url_skyplot` | URL to skyplot |
 
 ![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
 
@@ -198,21 +178,22 @@ The library expose 4 WebServices, each with these methods below.
 | Parameter| Description |
 | ------------- | ------------------------------ |
 | `date`| Date of image       |
-| `resource_uri`| URI of image|
+| `image`| URI of image|
+| `resource_uri`| URI of today|
 | `listImages`| List of images|
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 
-### Location
-*In progress*
-
 ## Running the tests
 
 ```
-php ./vendor/bin/phpcs -p -n --standard=PSR2 src
+php ./vendor/bin/phpcs -p -n --standard=PSR12 src
 ```
 
-Due to problems dependencies between PHP 7.0, PhpUnit 6 and doctrine/instantiator explained (here)[https://github.com/sebastianbergmann/phpunit/issues/2823], if you want run PHP Unit test, run `composer install` with PHP 7.0
+Apply PHPCBF (fix and beautify PHPCS errors):
+```
+php ./vendor/bin/phpcbf src/path/to/file.php
+```
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>

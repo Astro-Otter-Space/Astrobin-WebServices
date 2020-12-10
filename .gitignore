@@ -3,3 +3,5 @@ vendor/*
 .idea/*
 .idea
 tests/git push
+.env
+.phpunit.*
