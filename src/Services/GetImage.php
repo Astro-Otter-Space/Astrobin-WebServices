@@ -100,8 +100,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::SUBJECTS_FILTER => $subjectId, ImageFilters::LIMIT => $limit];
-        $response = $this->get(null, $params);
-        return $this->buildResponse($response);
+        return $this->getAstrobinResponse($params);
     }
 
     /**
@@ -121,8 +120,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::TITLE_CONTAINS_FILTER => urlencode($title), ImageFilters::LIMIT => $limit];
-        $response = $this->get(null, $params);
-        return $this->buildResponse($response);
+        return $this->getAstrobinResponse($params);
     }
 
 
@@ -143,8 +141,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::DESC_CONTAINS_FILTER => urlencode($description), ImageFilters::LIMIT => $limit];
-        $response = $this->get(null, $params);
-        return $this->buildResponse($response);
+        return $this->getAstrobinResponse($params);
     }
 
 
@@ -167,9 +164,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::USER_FILTER => $userName, ImageFilters::LIMIT => $limit];
-        $response = $this->get(null, $params);
-
-        return $this->buildResponse($response);
+        return $this->getAstrobinResponse($params);
     }
 
 
@@ -210,11 +205,10 @@ class GetImage extends AbstractWebService implements WsInterface
         $params = [
             'uploaded__gte' => urlencode($dateFrom->format('Y-m-d 00:00:00')),
             'uploaded__lt' => urlencode($dateTo->format('Y-m-d H:i:s')),
-            'limit' => AbstractWebService::LIMIT_MAX
+            ImageFilters::LIMIT => AbstractWebService::LIMIT_MAX
         ];
 
-        $response = $this->get(null, $params);
-        return $this->buildResponse($response);
+        return $this->getAstrobinResponse($params);
     }
 
 
@@ -240,6 +234,20 @@ class GetImage extends AbstractWebService implements WsInterface
             return true === in_array($key, ImageFilters::getFilters(), true);
         }, ARRAY_FILTER_USE_KEY);
 
+        return $this->getAstrobinResponse($params);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return AstrobinResponse|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
+     * @throws \ReflectionException
+     */
+    private function getAstrobinResponse(array $params): ?AstrobinResponse
+    {
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
     }
