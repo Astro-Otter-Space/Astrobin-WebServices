@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response;
 
-use Exception;
-use Traversable;
-
 /**
  * Class ListToday
  * @package AstrobinWs\Response

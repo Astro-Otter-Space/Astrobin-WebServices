@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response;
 
-use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Iterators\CollectionIterator;
 
 /**
