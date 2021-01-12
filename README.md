@@ -21,7 +21,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.0.0
+Version 2.1.0
 
 ## Requirements
 * PHP 7.3 min or superior (oldest version of PHP is not supported)
@@ -110,6 +110,7 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesByDescription()`| `$description`  `$limit`| `ListImage`,`Image`|
 | `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
+| `getImageBy()`| `$filters` `$limit`| `ListImage`,`Image` |
 
 ### GetTodayImage :
 
