@@ -44,27 +44,23 @@ You can install this package in 2 different ways.
 
 > `composer require hamhamfonfon/astrobin-ws`
 
-For update :
+Update to a newest version :
 > `composer update hamhamfonfon/astrobin-ws`
->
+
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
 
 > `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
 
-* [OLD] If you want to add to your own composer.json project :
-
+* [DEPRECATED] If you want to add to your own composer.json project :
 ```json
-    [...]
-    "require" : {
-        [...]
-        "hamhamfonfon/astrobin-ws" : "dev-master"
+    "require": {
+        "hamhamfonfon/astrobin-ws": "dev-master"
     },
-    "repositories" : [{
-        "type" : "vcs",
-        "url" : "https://github.com/HamHamFonFon/Astrobin-API-PHP.git"
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/HamHamFonFon/Astrobin-WebServices.git"
     }],
-    [...]
 ```
 
 ### Usage
@@ -104,9 +100,9 @@ class MyImageService
     
     public function getImagesOfSiovene(): ?AstrobinResponse
     {
-        $listImages = $this->astrobinImage->getImagesByUser('siovene', 10);
+        $imagesBySiovene = $this->astrobinImage->getImagesByUser('siovene', 10);
         
-        return $listImages;
+        return $imagesBySiovene;
     }
     
     public function getImagesByManyFilters(): ?AstrobinResponse
@@ -139,6 +135,8 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 | `getImageBy()`| `$filters` `$limit`| `ListImage`,`Image` |
+Parameter `$id` must be a string
+
 
 List of filters could be used in `getImageBy()` :
 
@@ -168,6 +166,7 @@ List of filters could be used in `getImageBy()` :
 | `getCollectionById()`| `$id`| `Collection` |
 | `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
 
+Parameter `$limit` is mandatory and must be an integer.
 
 ## Responses
 
@@ -239,7 +238,7 @@ php ./vendor/bin/phpcbf src/path/to/file.php
 I accepts contributions, please fork the project and submit pull requests.
 
 ## Bugs and issues
-In case you find some bugs or have question about Astrobin-ws, open an issue and I will answer you as soon as possible.
+In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
