@@ -1,4 +1,8 @@
-[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices) [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)
+[![Build Status](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices.svg?branch=master)](https://travis-ci.org/HamHamFonFon/Astrobin-WebServices) 
+[![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)
+[![License](https://poser.pugx.org/hamhamfonfon/astrobin-ws/license)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
+[![Latest Stable Version](https://poser.pugx.org/hamhamfonfon/astrobin-ws/v/stable)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
+[![Total Downloads](https://poser.pugx.org/hamhamfonfon/astrobin-ws/downloads)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
 # WebServices for Astrobin's API REST
 
 ## Table of contents
@@ -230,6 +234,9 @@ Apply PHPCBF (fix and beautify PHPCS errors):
 ```
 php ./vendor/bin/phpcbf src/path/to/file.php
 ```
+
+## Bugs and issues
+
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
