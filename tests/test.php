@@ -34,6 +34,11 @@ $idOnlyNum = (string)341955;
 
 //$response = $imageWs->getImagesBySubject('m31', 1);
 
+$filters = [
+
+];
+$response = $imageWs->getImageBy($filters, 3);
+
 /**
  * TODAY
  */

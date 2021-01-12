@@ -235,8 +235,11 @@ Apply PHPCBF (fix and beautify PHPCS errors):
 php ./vendor/bin/phpcbf src/path/to/file.php
 ```
 
-## Bugs and issues
+## Contributes
+I accepts contributions, please fork the project and submit pull requests.
 
+## Bugs and issues
+In case you find some bugs or have question about Astrobin-ws, open an issue and I will answer you as soon as possible.
 
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
