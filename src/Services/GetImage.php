@@ -82,7 +82,7 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
-     * Return a collection of Image()
+     * Return a collection of Image() filtered by subject
      *
      * @param $subjectId
      * @param $limit
@@ -104,6 +104,27 @@ class GetImage extends AbstractWebService implements WsInterface
         return $this->buildResponse($response);
     }
 
+    /**
+     * @param string $title
+     * @param int $limit
+     *
+     * @return ListImages|Image|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
+     * @throws \ReflectionException
+     */
+    public function getImagesByTitle(string $title, int $limit): ?AstrobinResponse
+    {
+        if (parent::LIMIT_MAX < $limit) {
+            return null;
+        }
+
+        $params = [ImageFilters::TITLE_CONTAINS_FILTER => urlencode($title), ImageFilters::LIMIT => $limit];
+        $response = $this->get(null, $params);
+        return $this->buildResponse($response);
+    }
+
 
     /**
      * @param $description
@@ -121,7 +142,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::TITLE_CONTAINS_FILTER => urlencode($description), ImageFilters::LIMIT => $limit];
+        $params = [ImageFilters::DESC_CONTAINS_FILTER => urlencode($description), ImageFilters::LIMIT => $limit];
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
     }

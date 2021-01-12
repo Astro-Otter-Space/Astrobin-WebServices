@@ -10,5 +10,5 @@ namespace AstrobinWs\Filters;
  */
 final class UserFilters extends AbstractFilters
 {
-
+    public const USERNAME_FILTER = 'username';
 }
