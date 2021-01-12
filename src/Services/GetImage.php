@@ -22,7 +22,15 @@ class GetImage extends AbstractWebService implements WsInterface
     public const END_POINT = 'image';
 
     private static $authorizedFilters = [
-
+        'subjects',
+        'user',
+        'title__icontains',
+        'description__icontains',
+        '__startswith',
+        '__endswith',
+        '__contains',
+        '__istartswith',
+        '__iendswith'
     ];
 
     /**
@@ -219,7 +227,13 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImageBy(array $filters, int $limit): ?AstrobinResponse
     {
-        $params = [];
+        if (parent::LIMIT_MAX < $limit) {
+            return null;
+        }
+
+        $params = array_filter($filters, static function($key) {
+            return true === in_array($key, self::$authorizedFilters, true);
+        }, ARRAY_FILTER_USE_KEY);
 
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
