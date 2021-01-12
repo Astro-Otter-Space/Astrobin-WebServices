@@ -12,6 +12,7 @@ abstract class AbstractFilters
 {
     public const LIMIT = 'limit';
     public const OFFSET = 'offset';
+    public const DATE_FORMAT = 'Y-m-d';
 
     public static function getFilters(): array
     {

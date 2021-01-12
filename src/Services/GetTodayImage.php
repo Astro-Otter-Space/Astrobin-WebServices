@@ -9,11 +9,8 @@ use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\ListImages;
 use AstrobinWs\Response\ListToday;
 use AstrobinWs\Response\Today;
-use http\Client\Response;
 
 /**
  * Class getTodayImage
@@ -24,8 +21,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
     use WsAstrobinTrait;
 
     private const END_POINT = 'imageoftheday';
-
-    public const FORMAT_DATE_ASTROBIN = "Y-m-d";
 
     /**
      * @return string
