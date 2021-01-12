@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
+use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
@@ -95,8 +96,8 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         }
 
         $params = [
-            'limit' => $limit,
-            'offset' => $offset
+            ImageFilters::LIMIT => $limit,
+            ImageFilters::OFFSET => $offset
         ];
 
         $response = $this->get(null, $params);

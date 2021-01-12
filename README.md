@@ -75,7 +75,7 @@ Exemple with Symfony 4:
 ```php
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\Image as AstrobinImage;
+use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Services\GetImage;
 
 class MyService
@@ -87,12 +87,37 @@ class MyService
     {
         $this->astrobinImage = new GetImage();
     }
-
-    public function getOrionNebula(): ?AstrobinImage
+    
+    public function getImageById(): ?AstrobinResponse
     {
-        $orion = $this->astrobinImage->getImageById('m42');
-      
-        return $orion;
+        return $this->astrobinImage->getImageById('1234');
+    }
+
+    public function getOrionNebula(): ?AstrobinResponse
+    {
+        $orionNebula = $this->astrobinImage->getImagesBySubject('m42', 10);
+        // ...
+        return $orionNebula;
+    }
+    
+    public function getImagesOfSiovene(): ?AstrobinResponse
+    {
+        $listImages = $this->astrobinImage->getImagesByUser('siovene', 10);
+        
+        return $listImages;
+    }
+    
+    public function getImagesByManyFilters(): ?AstrobinResponse
+    {
+        $filters = [
+            'user' => 'toto',
+            'subjects' => 'm31',
+            'description__icontains' => 'wind'
+        ];
+]
+        $listImages = $this->astrobinImage->getImageBy($filters, 10);
+        
+        return $listImages;
     }
 }
 ```
@@ -111,6 +136,19 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 | `getImageBy()`| `$filters` `$limit`| `ListImage`,`Image` |
+
+List of filters could be used in `getImageBy()` :
+| Filter name | Comment| 
+| ------------- | ------------------------------ |
+| `subjects`| Used in `getImagesBySubject()` method, search by subject | 
+| `user`| Used in `getImagesByUser()` method, search by username |
+| `title__icontains`| Used in `getImagesByDescription()` method, search by case-insensitive, partial title |
+| `description__icontains`| Search by case-insensitive, partial description  |
+| `__startswith`| |
+| `__endswith`|  |
+| `__contains`| |
+| `__istartswith` | |
+| `__iendswith` | |
 
 ### GetTodayImage :
 

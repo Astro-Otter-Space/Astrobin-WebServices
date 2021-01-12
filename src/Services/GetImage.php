@@ -7,8 +7,8 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\Collection;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
 
@@ -20,18 +20,6 @@ use AstrobinWs\Response\ListImages;
 class GetImage extends AbstractWebService implements WsInterface
 {
     public const END_POINT = 'image';
-
-    private static $authorizedFilters = [
-        'subjects',
-        'user',
-        'title__icontains',
-        'description__icontains',
-        '__startswith',
-        '__endswith',
-        '__contains',
-        '__istartswith',
-        '__iendswith'
-    ];
 
     /**
      * @return string
@@ -111,7 +99,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = ['subjects' => $subjectId, 'limit' => $limit];
+        $params = [ImageFilters::SUBJECTS_FILTER => $subjectId, ImageFilters::LIMIT => $limit];
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
     }
@@ -133,7 +121,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = ['title__icontains' => urlencode($description), 'limit' => $limit];
+        $params = [ImageFilters::TITLE_CONTAINS_FILTER => urlencode($description), ImageFilters::LIMIT => $limit];
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
     }
@@ -157,7 +145,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = ['user' => $userName, 'limit' => $limit];
+        $params = [ImageFilters::USER_FILTER => $userName, ImageFilters::LIMIT => $limit];
         $response = $this->get(null, $params);
 
         return $this->buildResponse($response);
@@ -231,8 +219,10 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
+        var_dump(ImageFilters::getFilters());
+
         $params = array_filter($filters, static function($key) {
-            return true === in_array($key, self::$authorizedFilters, true);
+            return true === in_array($key, ImageFilters::getFilters(), true);
         }, ARRAY_FILTER_USE_KEY);
 
         $response = $this->get(null, $params);
