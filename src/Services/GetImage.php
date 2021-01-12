@@ -21,6 +21,10 @@ class GetImage extends AbstractWebService implements WsInterface
 {
     public const END_POINT = 'image';
 
+    private static $authorizedFilters = [
+
+    ];
+
     /**
      * @return string
      */
@@ -197,6 +201,25 @@ class GetImage extends AbstractWebService implements WsInterface
             'uploaded__lt' => urlencode($dateTo->format('Y-m-d H:i:s')),
             'limit' => AbstractWebService::LIMIT_MAX
         ];
+
+        $response = $this->get(null, $params);
+        return $this->buildResponse($response);
+    }
+
+
+    /**
+     * @param array $filters
+     * @param int $limit
+     *
+     * @return AstrobinResponse|null
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
+     * @throws \ReflectionException
+     */
+    public function getImageBy(array $filters, int $limit): ?AstrobinResponse
+    {
+        $params = [];
 
         $response = $this->get(null, $params);
         return $this->buildResponse($response);
