@@ -27,7 +27,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.1.0
+Version 2.2.0
 
 ## Requirements
 * PHP 7.3 min or superior (oldest version of PHP is not supported)
