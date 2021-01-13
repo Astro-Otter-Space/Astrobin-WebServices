@@ -230,7 +230,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
         var_dump(ImageFilters::getFilters());
 
-        $params = array_filter($filters, static function($key) {
+        $params = array_filter($filters, static function ($key) {
             return true === in_array($key, ImageFilters::getFilters(), true);
         }, ARRAY_FILTER_USE_KEY);
 
