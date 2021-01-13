@@ -35,9 +35,11 @@ $idOnlyNum = (string)341955;
 //$response = $imageWs->getImagesBySubject('m31', 1);
 
 $filters = [
-
+    'title__icontains' => 'm42',
+    'field_bad' => 'coucou'
 ];
 $response = $imageWs->getImageBy($filters, 3);
+var_dump($response);
 
 /**
  * TODAY
@@ -53,5 +55,5 @@ $listDays = $todayWs->getDayImage(0, 2);
  * Collection
  */
 $collectionWs = new \AstrobinWs\Services\GetCollection();
-$collection = $collectionWs->getById("655");
-var_dump($collection);
+//$collection = $collectionWs->getById("655");
+//var_dump($collection);
