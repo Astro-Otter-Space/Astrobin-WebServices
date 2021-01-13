@@ -22,6 +22,8 @@
    * [ListCollection](#listcollection)
    * [Today](#today)
  * [Running the tests](#running-the-tests)
+ * [Contributes](#contributes)
+ * [Bugs and issues](#bugs-and-issues)
  * [Authors](#authors)
  * [Licence](#licence)
 
