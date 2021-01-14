@@ -104,6 +104,8 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
+     * Get image|collection filtered by title term
+     *
      * @param string $title
      * @param int $limit
      *
@@ -125,6 +127,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
 
     /**
+     * Get image|collection filtered by description term
+     *
      * @param $description
      * @param $limit
      *
@@ -169,6 +173,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
 
     /**
+     * Get image filtered by range date
+     *
      * @param string|null $dateFromStr
      * @param string|null $dateToStr
      *
@@ -213,6 +219,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
 
     /**
+     * Get image/
      * @param array $filters
      * @param int $limit
      *

@@ -15,12 +15,14 @@
    * [GetImage](#getimage)
    * [GetTodayImage](#gettodayimage)
    * [GetCollection](#getcollection)
+   * [GetUser](#getuser)
  * [Responses](#responses)
    * [Image](#image)
    * [ListImage](#listimage)
    * [Collection](#collection)
    * [ListCollection](#listcollection)
    * [Today](#today)
+   * [User](#user)
  * [Running the tests](#running-the-tests)
  * [Contributes](#contributes)
  * [Bugs and issues](#bugs-and-issues)
@@ -130,6 +132,7 @@ The library expose 3 WebServices, each with these methods below.
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
+| `getById()`| `$id` | `Image` |
 | `getImageById()`| `$id` | `Image` |
 | `getImagesBySubject()`| `$subjectId`  `$limit`| `ListImage`,`Image`|
 | `getImagesByTitle()` | `$title` `$limit` | `ListImage`,`Image`|
@@ -137,8 +140,7 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 | `getImageBy()`| `$filters` `$limit`| `ListImage`,`Image` |
-Parameter `$id` must be a string
-
+`getImageById()` is an alias og `getById()` for retro-compatibility of version 1.0.0.
 
 List of filters could be used in `getImageBy()` :
 
@@ -165,10 +167,19 @@ List of filters could be used in `getImageBy()` :
 
 | Function name | Parameter| Response |
 | ------------- | ------------------------------ |----------------------------- |
+| `getById()`| `$id` | `Collection` |
 | `getCollectionById()`| `$id`| `Collection` |
 | `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
 
 Parameter `$limit` is mandatory and must be an integer.
+`getCollectionById()` is an alias of `getById()` for retro-compatibility of version 1.0.0.
+### GetUser
+
+| Function name | Parameter| Response |
+| ------------- | ------------------------------ |----------------------------- |
+| `getById()`| `$id`| `User` |
+
+/!\ For all webservices, Parameter `$id` must be a string
 
 ## Responses
 
@@ -224,6 +235,18 @@ Parameter `$limit` is mandatory and must be an integer.
 | `listImages`| List of images|
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
+
+### User
+| Parameter| Description |
+| ------------- | ------------------------------ |
+| `id`| |
+| `username`| |
+| `avatar`| |
+| `image_count`| |
+| `job`| |
+| `hobbies`| |
+| `language`| |
+| `website`| |
 
 ## Running the tests
 
