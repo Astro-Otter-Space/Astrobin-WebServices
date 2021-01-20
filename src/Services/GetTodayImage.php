@@ -61,7 +61,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image of today
-     *
+
      * @return Today|AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException

@@ -27,20 +27,22 @@ include __DIR__ . './../src/Response/User.php';
  */
 $imageWs = new \AstrobinWs\Services\GetImage();
 
-$idAlphaNum = 'tiy8v8';
-//$response = $imageWs->getById($idAlphaNum);
-//var_dump($response);
+$idAlphaNum = '3kkv6v';
+$response = $imageWs->getById($idAlphaNum);
+var_dump($response);
+die();
 
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
 
-//$response = $imageWs->getImagesBySubject('m31', 1);
+$response = $imageWs->getImagesBySubject('ic418', 10);
+var_dump($response);
 
 $filters = [
     'title__icontains' => 'm42',
     'field_bad' => 'coucou'
 ];
-$response = $imageWs->getImageBy($filters, 3);
+//$response = $imageWs->getImageBy($filters, 3);
 //var_dump($response);
 
 /**
@@ -50,7 +52,7 @@ $todayWs = new \AstrobinWs\Services\GetTodayImage();
 //$today = $todayWs->getTodayImage();
 //var_dump($today);
 
-$listDays = $todayWs->getDayImage(0, 2);
+//$listDays = $todayWs->getDayImage(0, 2);
 //var_dump($listDays);
 
 /**
@@ -64,5 +66,5 @@ $collectionWs = new \AstrobinWs\Services\GetCollection();
  * User
  */
 $userWs = new \AstrobinWs\Services\GetUser();
-$user = $userWs->getById((string)500);
-var_dump($user);
+//$user = $userWs->getById((string)500);
+//var_dump($user);

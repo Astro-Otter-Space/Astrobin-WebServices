@@ -8,6 +8,7 @@ use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\ImageFilters;
+use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
@@ -77,8 +78,15 @@ class GetImage extends AbstractWebService implements WsInterface
         if (is_null($id)) {
             throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
-        $response = $this->get($id, null);
-        return $this->buildResponse($response);
+
+        try {
+            $response = $this->get($id, null);
+            $astrobinResponse = $this->buildResponse($response);
+        } catch (WsException $e) {
+            $astrobinResponse = new AstrobinError($e->getMessage());
+        }
+
+        return $astrobinResponse;
     }
 
     /**
@@ -248,14 +256,18 @@ class GetImage extends AbstractWebService implements WsInterface
      * @param array $params
      *
      * @return AstrobinResponse|null
-     * @throws WsException
-     * @throws WsResponseException
      * @throws \JsonException
      * @throws \ReflectionException
      */
     private function getAstrobinResponse(array $params): ?AstrobinResponse
     {
-        $response = $this->get(null, $params);
-        return $this->buildResponse($response);
+        try {
+            $response = $this->get(null, $params);
+            $AstrobinResponse = $this->buildResponse($response);
+        } catch (WsException $e) {
+            $AstrobinResponse =  new AstrobinError($e->getMessage());
+        }
+
+        return $AstrobinResponse;
     }
 }
