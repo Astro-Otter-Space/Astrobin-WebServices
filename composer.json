@@ -12,7 +12,7 @@
     "Astrobin WebServices", "API", "astronomy", "Deep space objects"
   ],
   "support": {
-    "issues": "https://github.com/HamHamFonFon/Astrobin-API-PHP/issues"
+    "issues": "https://github.com/HamHamFonFon/Astrobin-WebServices/issues"
   },
   "require" : {
     "php": ">=7.3.0",
