@@ -6,6 +6,7 @@ namespace AstrobinWs\Services;
 
 use AstrobinWs\Filters\CollectionFilters;
 use AstrobinWs\Filters\ImageFilters;
+use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
@@ -84,7 +85,7 @@ class GetCollection extends AbstractWebService implements WsInterface
             return $this->getImagesFromResource($collection);
         }
 
-        return null;
+        return new AstrobinError(WsException::ERR_EMPTY);
     }
 
 

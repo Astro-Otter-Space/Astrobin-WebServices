@@ -6,6 +6,7 @@ namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Collection;
 use AstrobinWs\Response\Image;
@@ -13,6 +14,7 @@ use AstrobinWs\Response\ListCollection;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Response\Today;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Client\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -164,17 +166,17 @@ abstract class AbstractWebService
         }
 
         try {
-            /**
-             * @var ResponseInterface $responseGuzzle
-             */
+            /** @var ResponseInterface $responseGuzzle */
             $responseGuzzle = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $e) {
-            //throw
-            $responseGuzzle = null;
-//            throw new WsException($e->getMessage(), $e->getCode(), $e);
+            $msgErr = $e->getMessage();
         }
 
-        return $this->getResponse($responseGuzzle);
+        if ($responseGuzzle instanceof ResponseInterface) {
+            return $this->getResponse($responseGuzzle);
+        }
+
+        throw new WsException($msgErr, 500, null);
     }
 
 
@@ -184,7 +186,7 @@ abstract class AbstractWebService
      * @param ResponseInterface $response
      *
      * @return mixed|null
-     * @throws WsException
+     * @throws WsException|\JsonException
      */
     public function getResponse(ResponseInterface $response): string
     {
@@ -201,13 +203,18 @@ abstract class AbstractWebService
             throw new WsException(WsException::ERR_READABLE, 500, null);
         }
 
-        if (0 === $body->getSize()) {
+        if (is_null($body->getSize()) || 0 === $body->getSize()) {
             throw new WsException(sprintf(WsException::ERR_EMPTY, $this->getEndPoint()), 500, null);
         }
 
         $contents = $body->getContents();
         if (false === strpos($contents, '{', 0)) {
             throw new WsException(sprintf(WsException::ERR_JSON, (string)$body), 500, null);
+        }
+
+        $jsonContent = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
+        if (0 === $jsonContent->meta->total_count) {
+            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
         return $contents;
@@ -244,6 +251,10 @@ abstract class AbstractWebService
     protected function buildResponse(string $response): ?AstrobinResponse
     {
         $astrobinResponse = null;
+        if (is_null($response)) {
+            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
+        }
+
         $object = $this->deserialize($response);
 
         /** @var Image|Today|Collection|AstrobinResponse $entity */
