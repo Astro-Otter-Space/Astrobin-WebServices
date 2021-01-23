@@ -27,9 +27,14 @@ include __DIR__ . './../src/Response/User.php';
  */
 $imageWs = new \AstrobinWs\Services\GetImage();
 
-$idAlphaNum = '3kkv6v';
-$response = $imageWs->getById($idAlphaNum);
-var_dump($response);
+$idAlphaNum = '8p7u7d';
+try {
+    $response = $imageWs->getImageById($idAlphaNum);
+    var_dump($response);
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+}
+
 die();
 
 $idOnlyNum = (string)341955;

@@ -213,7 +213,7 @@ abstract class AbstractWebService
         }
 
         $jsonContent = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
-        if (0 === $jsonContent->meta->total_count) {
+        if (property_exists($jsonContent, 'meta') && 0 === $jsonContent->meta->total_count) {
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
