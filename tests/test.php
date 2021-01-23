@@ -29,19 +29,18 @@ $imageWs = new \AstrobinWs\Services\GetImage();
 
 $idAlphaNum = '8p7u7d';
 try {
-    $response = $imageWs->getImageById($idAlphaNum);
-    var_dump($response);
+    //$response = $imageWs->getImageById($idAlphaNum);
+    //var_dump($response);
 } catch (Exception $e) {
-    var_dump($e->getMessage());
+    //var_dump($e->getMessage());
 }
-
-die();
 
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
 
-$response = $imageWs->getImagesBySubject('ic418', 10);
+$response = $imageWs->getImagesBySubject('stdr1', 3);
 var_dump($response);
+die();
 
 $filters = [
     'title__icontains' => 'm42',

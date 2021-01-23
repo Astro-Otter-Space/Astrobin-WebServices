@@ -165,6 +165,7 @@ abstract class AbstractWebService
             $options['body'] = $body;
         }
 
+        $responseGuzzle = null;
         try {
             /** @var ResponseInterface $responseGuzzle */
             $responseGuzzle = $this->client->request($method, $endPoint, $options);
