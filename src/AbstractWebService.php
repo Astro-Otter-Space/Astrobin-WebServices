@@ -6,7 +6,6 @@ namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Collection;
 use AstrobinWs\Response\Image;
@@ -14,9 +13,7 @@ use AstrobinWs\Response\ListCollection;
 use AstrobinWs\Response\ListImages;
 use AstrobinWs\Response\Today;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
-use http\Client\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -46,11 +43,14 @@ abstract class AbstractWebService
 
     /**
      * AbstractWebService constructor.
+     *
+     * @param string|null $apiKey
+     * @param string|null $apiSecret
      */
-    public function __construct()
+    public function __construct(?string $apiKey, ?string $apiSecret)
     {
-        $this->apiKey = getenv('ASTROBIN_API_KEY');
-        $this->apiSecret = getenv('ASTROBIN_API_SECRET');
+        $this->apiKey = $apiKey ?? getenv('ASTROBIN_API_KEY');
+        $this->apiSecret = $apiSecret ??getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }

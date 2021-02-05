@@ -29,7 +29,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.2.5
+Version 2.3.0
 
 ## Requirements
 * PHP 7.3 min or superior (oldest version of PHP is not supported)
@@ -75,7 +75,27 @@ ASTROBIN_API_KEY=PutHereYourOwnApiKey
 ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 ```
 
-Exemple with Symfony 4:
+Example without framework:
+```php 
+$imageWs = new GetImage($astrobinApiKey, $astrobinApiSecret);
+$astrobinImage = $imageWs->getById('soMeId');
+```
+
+Example with Symfony 4/Symfony 5:
+```yml
+parameters:
+   astrobinApiKey: '%env(ASTROBIN_API_KEY)%'
+   astrobinApiSecret: '%env(ASTROBIN_API_SECRET)%'
+   
+   # default configuration for services in *this* file
+   _defaults:
+      autowire: true      # Automatically injects dependencies in your services.
+      autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+      bind:
+         $astrobinApiKey: '%astrobinApiKey%'
+         $astrobinApiSecret: '%astrobinApiSecret%'    
+```
+
 ```php
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Services\GetImage;
@@ -85,9 +105,14 @@ class MyImageService
     /** @var GetImage **/ 
     private $astrobinImage;
 
-    public function __construct()
+    /**
+     * MyImageService constructor.
+     * @param string|null $astrobinApiKey
+     * @param string|null $astrobinApiSecret
+    */
+    public function __construct(?string $astrobinApiKey, ?string $astrobinApiSecret)
     {
-        $this->astrobinImage = new GetImage();
+        $this->astrobinImage = new GetImage($astrobinApiKey, $astrobinApiSecret);
     }
     
     public function getImageById(): ?AstrobinResponse
@@ -123,6 +148,8 @@ class MyImageService
     }
 }
 ```
+
+If you're working without framework, you can create the instance of your class withoutarguments if they are as env variables:
 
 ## WebServices
 
