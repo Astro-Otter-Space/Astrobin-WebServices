@@ -49,12 +49,11 @@ abstract class AbstractWebService
      */
     public function __construct()
     {
-        $this->apiKey = getenv('ASTROBIN_API_KEY') ?? null;
-        $this->apiSecret = getenv('ASTROBIN_API_SECRET') ?? null;
+        $this->apiKey = getenv('ASTROBIN_API_KEY');
+        $this->apiSecret = getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
-
 
     /**
      * Get Guzzle Instance
@@ -136,7 +135,7 @@ abstract class AbstractWebService
      */
     private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
-        if (is_null($this->apiKey) || is_null($this->apiSecret)) {
+        if (!$this->apiKey || !$this->apiSecret) {
             throw new WsException(WsException::KEYS_ERROR, 500, null);
         }
 
