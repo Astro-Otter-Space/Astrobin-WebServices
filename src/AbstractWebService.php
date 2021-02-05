@@ -49,8 +49,8 @@ abstract class AbstractWebService
      */
     public function __construct()
     {
-        $this->apiKey = getenv('ASTROBIN_API_KEY');
-        $this->apiSecret = getenv('ASTROBIN_API_SECRET');
+        $this->apiKey = getenv('ASTROBIN_API_KEY') ?? null;
+        $this->apiSecret = getenv('ASTROBIN_API_SECRET') ?? null;
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
