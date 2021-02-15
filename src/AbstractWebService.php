@@ -50,7 +50,7 @@ abstract class AbstractWebService
     public function __construct(?string $apiKey, ?string $apiSecret)
     {
         $this->apiKey = $apiKey ?? getenv('ASTROBIN_API_KEY');
-        $this->apiSecret = $apiSecret ??getenv('ASTROBIN_API_SECRET');
+        $this->apiSecret = $apiSecret ?? getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
