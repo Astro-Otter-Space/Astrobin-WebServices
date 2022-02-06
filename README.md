@@ -29,7 +29,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.3.1
+Version 2.3.2
 
 ## Requirements
 * PHP 7.3 min or superior (oldest version of PHP is not supported)
@@ -202,10 +202,10 @@ Parameter `$limit` is mandatory and must be an integer.
 `getCollectionById()` is an alias of `getById()` for retro-compatibility of version 1.0.0.
 ### GetUser
 
-| Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |
-| `getById()`| `$id`| `User` |
-
+| Function name    | Parameter   | Response |
+|------------------|-------------|----------------------------- |
+| `getById()`      | `$id`       | `User` |
+| `getByUername()` | `$username` | `User` |
 /!\ For all webservices, Parameter `$id` must be a string
 
 ## Responses
@@ -264,16 +264,17 @@ Parameter `$limit` is mandatory and must be an integer.
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 
 ### User
-| Parameter| Description |
-| ------------- | ------------------------------ |
-| `id`| |
-| `username`| |
-| `avatar`| |
-| `image_count`| |
-| `job`| |
-| `hobbies`| |
-| `language`| |
-| `website`| |
+| Parameter     | Description |
+|---------------| ------------------------------ |
+| `id`          | |
+| `username`    | |
+| `avatar`      | |
+| `about`       | |
+| `image_count` | |
+| `job`         | |
+| `hobbies`     | |
+| `language`    | |
+| `website`     | |
 
 ## Running the tests
 

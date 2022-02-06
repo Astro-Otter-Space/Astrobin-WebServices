@@ -34,9 +34,6 @@ abstract class AbstractResponse
     {
         $listNotFields = ['listImages'];
 
-        /**
-         * @var \ReflectionClass $reflector
-         */
         $reflector = new \ReflectionClass($this);
         foreach ($reflector->getProperties() as $property) {
             if (in_array($property->getName(), $listNotFields)) {

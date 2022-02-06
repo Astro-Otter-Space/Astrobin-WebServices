@@ -15,6 +15,8 @@ final class User extends AbstractResponse implements AstrobinResponse
     /** @var string */
     public $username;
     /** @var string */
+    public $about;
+    /** @var string */
     public $avatar;
     /** @var int */
     public $image_count;
