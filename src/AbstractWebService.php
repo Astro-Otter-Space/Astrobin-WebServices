@@ -27,11 +27,11 @@ abstract class AbstractWebService
     public const LIMIT_MAX = 20;
     public const TIMEOUT = 30;
 
-    protected $timeout;
-    private $apiKey;
-    private $apiSecret;
+    protected int $timeout;
+    private string $apiKey;
+    private string $apiSecret;
 
-    protected static $headers = [
+    protected static array $headers = [
         'Accept' => GuzzleSingleton::APPLICATION_JSON,
         'Content-Type' => GuzzleSingleton::APPLICATION_JSON
     ];
@@ -39,7 +39,7 @@ abstract class AbstractWebService
     /**
      * @var Client
      */
-    private $client;
+    private Client $client;
 
     /**
      * AbstractWebService constructor.
@@ -119,7 +119,7 @@ abstract class AbstractWebService
      */
     protected function post(string $id, ?array $queryParams, ?array $body): ?string
     {
-        $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
+        return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
     }
 
     /**
@@ -146,12 +146,7 @@ abstract class AbstractWebService
             $options['headers'] = self::$headers;
         }
 
-        $astrobinParams = [
-            'api_key' => $this->apiKey,
-            'api_secret' => $this->apiSecret,
-            'format' => 'json'
-        ];
-
+        $astrobinParams = ['api_key' => $this->apiKey, 'api_secret' => $this->apiSecret, 'format' => 'json'];
         if (is_null($queryParams)) {
             $queryParams = [];
         }
@@ -160,13 +155,12 @@ abstract class AbstractWebService
             'query' => array_filter(array_merge($astrobinParams, $queryParams))
         ];
 
-        if (!is_null($body) && !empty($body)) {
+        if (!empty($body)) {
             $options['body'] = $body;
         }
 
         $responseGuzzle = null;
         try {
-            /** @var ResponseInterface $responseGuzzle */
             $responseGuzzle = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $e) {
             $msgErr = $e->getMessage();
@@ -194,11 +188,7 @@ abstract class AbstractWebService
             throw new WsException(sprintf(WsException::GUZZLE_RESPONSE, $response->getReasonPhrase()), 500, null);
         }
 
-        /**
-         * @var StreamInterface $body
-        */
         $body = $response->getBody();
-
         if (false === $body->isReadable()) {
             throw new WsException(WsException::ERR_READABLE, 500, null);
         }
@@ -232,7 +222,10 @@ abstract class AbstractWebService
     protected function deserialize(string $contents): \stdClass
     {
         $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
-        if (property_exists($responseJson, "objects") && property_exists($responseJson, "meta") && 0 === $responseJson->meta->total_count) {
+        if (property_exists($responseJson, "objects")
+            && property_exists($responseJson, "meta")
+            && 0 === $responseJson->meta->total_count
+        ) {
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
@@ -250,17 +243,12 @@ abstract class AbstractWebService
      */
     protected function buildResponse(string $response): ?AstrobinResponse
     {
-        $astrobinResponse = null;
-        if (is_null($response)) {
-            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
-        }
-
         $object = $this->deserialize($response);
 
         /** @var Image|Today|Collection|AstrobinResponse $entity */
         $entity = $this->getObjectEntity();
 
-        /** @var ListImages|ListCollection|ListImages|AstrobinResponse $collectionEntity */
+        /** @var ListImages|ListCollection|AstrobinResponse $collectionEntity */
         $collectionEntity = $this->getCollectionEntity();
 
         if (property_exists($object, "objects") && 0 < count($object->objects)) {

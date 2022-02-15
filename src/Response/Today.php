@@ -15,7 +15,7 @@ final class Today extends AbstractResponse implements \IteratorAggregate, Astrob
 {
     public $date;
     public $image;
-    public $resource_uri;
+    public string $resource_uri;
     public $listImages;
 
     /**

@@ -15,9 +15,10 @@ abstract class AbstractResponse
 
     /**
      * Convert stdClass from WS to an array
+     *
      * @param \stdClass $obj
+     *
      * @throws WsResponseException
-     * @throws \ReflectionException
      */
     public function fromObj(\stdClass $obj): void
     {

@@ -8,7 +8,6 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Image;
-use AstrobinWs\Response\Today;
 
 /**
  * Trait WsAstrobinTrait

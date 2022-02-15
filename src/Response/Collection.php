@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response;
 
+use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\CollectionFilters;
 use AstrobinWs\Response\Iterators\ImageIterator;
 use Traversable;
@@ -14,21 +15,14 @@ use Traversable;
  */
 final class Collection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
-    /** @var integer */
-    public $id;
-    /** @var string */
-    public $name;
-    /** @var string */
-    public $description;
-    /** @var string */
-    public $user;
-    /** @var \DateTime */
-    public $date_created;
-    /** @var \DateTime */
-    public $date_updated;
+    public int $id;
+    public string $name;
+    public string $description;
+    public string $user;
+    public \DateTime $date_created;
+    public \DateTime $date_updated;
     public $images;
-    /** @var array */
-    public $listImages;
+    public array $listImages;
 
     /**
      * @return ImageIterator|Traversable
@@ -46,7 +40,6 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
         $this->listImages[] = $image;
     }
 
-
     /**
      * @param string $dateCreated
      *
@@ -54,10 +47,9 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
      */
     public function setDateCreated(string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat(CollectionFilters::DATE_FORMAT, $dateCreated);
+        $this->date_created = \DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateCreated);
         return $this;
     }
-
 
     /**
      * @param string $dateUpdated
@@ -66,7 +58,7 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
      */
     public function setDateUpdated(string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat(CollectionFilters::DATE_FORMAT, $dateUpdated);
+        $this->date_updated = \DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateUpdated);
         return $this;
     }
 }

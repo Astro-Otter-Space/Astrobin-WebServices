@@ -10,8 +10,7 @@ namespace AstrobinWs\Response;
  */
 final class AstrobinError implements AstrobinResponse
 {
-    /** @var string|null */
-    public $message;
+    public ?string $message;
 
     /**
      * AstrobinError constructor.

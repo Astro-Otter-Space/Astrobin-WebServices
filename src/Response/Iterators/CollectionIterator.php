@@ -10,18 +10,16 @@ namespace AstrobinWs\Response\Iterators;
  */
 class CollectionIterator implements \Iterator
 {
-    /** @var array  */
-    private $var = [];
+    private array $var;
 
     /**
      * CollectionIterator constructor.
-     * @param $array
+     *
+     * @param array $array
      */
     public function __construct(array $array)
     {
-        if (is_array($array)) {
-            $this->var = $array;
-        }
+        $this->var = $array;
     }
 
     /**
@@ -53,7 +51,7 @@ class CollectionIterator implements \Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $key = key($this->var);
         return !is_null($key) && false !== $key;
