@@ -11,19 +11,17 @@ namespace AstrobinWs\Response\Iterators;
 final class ImageIterator implements \Iterator
 {
     /** @var array  */
-    private $var = [];
+    private array $var;
 
     /**
      * ImageIterator constructor.
-     * @param $array
+     *
+     * @param array $array
      */
     public function __construct(array $array)
     {
-        if (is_array($array)) {
-            $this->var = $array;
-        }
+        $this->var = $array;
     }
-
 
     /**
      * @return mixed
@@ -42,7 +40,7 @@ final class ImageIterator implements \Iterator
     }
 
     /**
-     * @return int|mixed|null|string
+     * @return int|string|null
      */
     public function key()
     {

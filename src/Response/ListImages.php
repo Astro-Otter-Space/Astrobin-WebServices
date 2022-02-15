@@ -13,8 +13,8 @@ use Traversable;
  */
 final class ListImages implements \IteratorAggregate, AstrobinResponse
 {
-    public $listImages = [];
-    public $count = 0;
+    public array $listImages = [];
+    public int $count = 0;
 
     /**
      * @return ImageIterator|Traversable
