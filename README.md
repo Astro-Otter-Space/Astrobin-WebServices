@@ -29,10 +29,10 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.3.2
+Version 2.4.0
 
 ## Requirements
-* PHP 7.3 min or superior (oldest version of PHP is not supported)
+* PHP 7.4 min or superior (oldest version of PHP 7.3 is not supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
@@ -55,17 +55,8 @@ Update to a newest version :
 
 > `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
-
-* [DEPRECATED] If you want to add to your own composer.json project :
-```json
-    "require": {
-        "hamhamfonfon/astrobin-ws": "dev-master"
-    },
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/HamHamFonFon/Astrobin-WebServices.git"
-    }],
-```
+If you're using PHP 7.3 (oldest version are not supported), you can still use version 2.3 :
+> `composer require hamhamfonfon/astrobin-ws:2.3`
 
 ### Usage
 
@@ -78,7 +69,7 @@ ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 Example without framework:
 ```php 
 $imageWs = new GetImage($astrobinApiKey, $astrobinApiSecret);
-$astrobinImage = $imageWs->getById('soMeId');
+$astrobinImage = $imageWs->getById('astrobinImageId');
 ```
 
 Example with Symfony 4/Symfony 5:
@@ -100,10 +91,9 @@ parameters:
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Services\GetImage;
 
-class MyImageService
+final class MyImageService
 {
-    /** @var GetImage **/ 
-    private $astrobinImage;
+    private GetImage $astrobinImage;
 
     /**
      * MyImageService constructor.
