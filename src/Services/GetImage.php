@@ -236,9 +236,11 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = array_filter($filters, static function ($key) {
-            return true === in_array($key, array_values(ImageFilters::getFilters()), true);
-        }, ARRAY_FILTER_USE_KEY);
+//        $params = array_filter($filters, static function ($key) {
+//            return true === in_array($key, array_values(ImageFilters::getFilters()), true);
+//        }, ARRAY_FILTER_USE_KEY);
+
+        $params = array_filter($filters, fn($key) => true === in_array($key, array_values(ImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
 
         $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
 
