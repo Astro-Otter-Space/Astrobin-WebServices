@@ -16,7 +16,6 @@ abstract class AbstractFilters
 
     public static function getFilters(): array
     {
-        $reflexionClass = new \ReflectionClass(static::class);
-        return $reflexionClass->getConstants();
+        return (new \ReflectionClass(static::class))->getConstants();
     }
 }
