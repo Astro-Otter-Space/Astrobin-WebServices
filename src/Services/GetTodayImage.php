@@ -95,8 +95,8 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         }
 
         $params = [
-            AbstractFilters::LIMIT => $limit,
-            AbstractFilters::OFFSET => $offset
+            AbstractFilters::OFFSET => $offset,
+            AbstractFilters::LIMIT => $limit
         ];
 
         $response = $this->get(null, $params);

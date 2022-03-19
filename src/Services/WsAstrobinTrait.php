@@ -48,7 +48,7 @@ trait WsAstrobinTrait
     }
 
     /**
-     * @param $imageId
+     * @param string $imageId
      *
      * @return AstrobinResponse|null
      * @throws WsException
@@ -56,9 +56,9 @@ trait WsAstrobinTrait
      * @throws \JsonException
      * @throws \ReflectionException
      */
-    private function getWsImage($imageId): ?AstrobinResponse
+    private function getWsImage(string $imageId): ?AstrobinResponse
     {
-        $imageWs = new GetImage();
+        $imageWs = new GetImage($this->getApiKey(), $this->getApiSecret());
         /** @var Image|AstrobinResponse $image */
         return $imageWs->getById($imageId);
     }

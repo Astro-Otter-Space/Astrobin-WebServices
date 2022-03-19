@@ -17,12 +17,12 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
 {
     public int $id;
     public string $name;
-    public string $description;
+    public ?string $description;
     public string $user;
-    public \DateTime $date_created;
-    public \DateTime $date_updated;
-    public $images;
-    public array $listImages;
+    public string $date_created;
+    public string $date_updated;
+    public ?array $images;
+    public ?array $listImages;
 
     /**
      * @return ImageIterator|Traversable

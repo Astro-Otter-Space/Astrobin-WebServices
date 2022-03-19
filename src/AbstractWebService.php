@@ -28,8 +28,8 @@ abstract class AbstractWebService
     public const TIMEOUT = 30;
 
     protected int $timeout;
-    private string $apiKey;
-    private string $apiSecret;
+    protected string $apiKey;
+    protected string $apiSecret;
 
     protected static array $headers = [
         'Accept' => GuzzleSingleton::APPLICATION_JSON,
@@ -54,6 +54,23 @@ abstract class AbstractWebService
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
+
+    /**
+     * @return string
+     */
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiSecret(): string
+    {
+        return $this->apiSecret;
+    }
+
 
     /**
      * Get Guzzle Instance
