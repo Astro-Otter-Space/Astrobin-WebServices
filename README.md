@@ -32,7 +32,7 @@
 Version 2.4.0
 
 ## Requirements
-* PHP 7.4 min or superior (oldest version of PHP 7.3 is not supported)
+* PHP 7.4 min or superior (oldest versions of PHP 7.3 are not supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
