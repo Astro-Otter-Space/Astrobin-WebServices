@@ -1,7 +1,6 @@
 dist: trusty
 language: php
 php:
-  - '7.3'
   - '7.4'
   - nightly
 before_script: composer install
