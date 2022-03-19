@@ -222,7 +222,8 @@ abstract class AbstractWebService
     protected function deserialize(string $contents): \stdClass
     {
         $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
-        if (property_exists($responseJson, "objects")
+        if (
+            property_exists($responseJson, "objects")
             && property_exists($responseJson, "meta")
             && 0 === $responseJson->meta->total_count
         ) {
