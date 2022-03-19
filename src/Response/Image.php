@@ -10,7 +10,7 @@ namespace AstrobinWs\Response;
  */
 final class Image extends AbstractResponse implements AstrobinResponse
 {
-    public string $title;
+    public ?string $title;
     public ?array $subjects;
     public ?string $description;
     public ?string $uploaded;
