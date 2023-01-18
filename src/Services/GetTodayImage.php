@@ -107,13 +107,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
-        // For Image of the day
-        /*if (is_null($offset)) {
-            $today = new \DateTime('now');
-            // If it is not today, take yesterday image
-            $params['offset'] = (($today->format(self::FORMAT_DATE_ASTROBIN) === $today->date)) ?: 1;
-        }*/
-
         if ($today instanceof Today) {
             $today = $this->getImagesFromResource($today);
         } elseif ($today instanceof ListToday) {

@@ -13,7 +13,7 @@ use AstrobinWs\Response\Iterators\CollectionIterator;
 final class ListCollection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
 
-    public $listCollection;
+    public array $listCollection;
 
     /**
      * @return CollectionIterator|\Traversable

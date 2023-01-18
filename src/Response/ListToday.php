@@ -10,7 +10,7 @@ namespace AstrobinWs\Response;
  */
 class ListToday extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
-    public $listToday;
+    public array $listToday;
     public int $count = 0;
 
     /**

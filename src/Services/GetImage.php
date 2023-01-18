@@ -208,7 +208,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         if (array_sum($dateFrom->getLastErrors())) {
-            throw new WsException(WsException::ERR_DATE . print_r($dateFrom->getLastErrors()), 500, null);
+            throw new WsException(WsException::ERR_DATE . print_r($dateFrom->getLastErrors(), true), 500, null);
         }
 
         $params = [

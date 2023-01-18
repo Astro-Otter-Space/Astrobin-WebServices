@@ -29,7 +29,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.4.4
+Version 2.4.6
 
 ## Requirements
 * PHP 7.4 min or superior (oldest versions of PHP 7.3 are not supported)
@@ -72,7 +72,7 @@ $imageWs = new GetImage($astrobinApiKey, $astrobinApiSecret);
 $astrobinImage = $imageWs->getById('astrobinImageId');
 ```
 
-Example with Symfony 4/Symfony 5:
+Example with Symfony 4 and more:
 ```yml
 parameters:
    astrobinApiKey: '%env(ASTROBIN_API_KEY)%'
@@ -278,7 +278,7 @@ php ./vendor/bin/phpcbf src/path/to/file.php
 ```
 
 ## Contributes
-I accepts contributions, please fork the project and submit pull requests.
+I accept contributions, please fork the project and submit pull requests.
 
 ## Bugs and issues
 In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
