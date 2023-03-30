@@ -67,7 +67,7 @@ class GetUser extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $response = $this->get(null, [UserFilters::USERNAME_FILTER => $username, [AbstractFilters::LIMIT => $limit]]);
+        $response = $this->get(null, [UserFilters::USERNAME_FILTER->value => $username, [AbstractFilters::LIMIT => $limit]]);
         return $this->buildResponse($response);
     }
 }

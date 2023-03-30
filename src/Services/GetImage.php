@@ -8,6 +8,7 @@ use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Filters\ConstImageFilters;
 use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
@@ -82,7 +83,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::SUBJECTS_FILTER => $subjectId, AbstractFilters::LIMIT => $limit];
+        $params = [ImageFilters::SUBJECTS_FILTER->value => $subjectId, AbstractFilters::LIMIT => $limit];
         return $this->getAstrobinResponse($params);
     }
 
@@ -97,7 +98,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::TITLE_CONTAINS_FILTER => urlencode($title), AbstractFilters::LIMIT => $limit];
+        $params = [ImageFilters::TITLE_CONTAINS_FILTER->value => urlencode($title), AbstractFilters::LIMIT => $limit];
         return $this->getAstrobinResponse($params);
     }
 
@@ -113,7 +114,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::DESC_CONTAINS_FILTER => urlencode($description), AbstractFilters::LIMIT => $limit];
+        $params = [ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description), AbstractFilters::LIMIT => $limit];
         return $this->getAstrobinResponse($params);
     }
 
@@ -128,7 +129,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::USER_FILTER => $userName, AbstractFilters::LIMIT => $limit];
+        $params = [ImageFilters::USER_FILTER->value => $userName, AbstractFilters::LIMIT => $limit];
         return $this->getAstrobinResponse($params);
     }
 
@@ -184,12 +185,12 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = array_filter($filters, static fn($key) => true === in_array($key, array_values(ImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
+        $params = array_filter($filters, static fn($key) => true === in_array($key, array_values(ConstImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
         $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
 
         return $this->getAstrobinResponse($params);
     }
-    
+
     private function getAstrobinResponse(array $params): ?AstrobinResponse
     {
         try {

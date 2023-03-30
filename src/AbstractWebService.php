@@ -28,8 +28,6 @@ abstract class AbstractWebService
     final public const TIMEOUT = 30;
 
     protected int $timeout;
-    protected string $apiKey;
-    protected string $apiSecret;
 
     protected static array $headers = [
         'Accept' => GuzzleSingleton::APPLICATION_JSON,
@@ -44,10 +42,11 @@ abstract class AbstractWebService
     /**
      * AbstractWebService constructor.
      */
-    public function __construct(?string $apiKey, ?string $apiSecret)
+    public function __construct(
+        protected ?string $apiKey,
+        protected ?string $apiSecret
+    )
     {
-        $apiKey ?? getenv('ASTROBIN_API_KEY');
-        $apiSecret ?? getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
@@ -94,6 +93,10 @@ abstract class AbstractWebService
     }
 
 
+    /**
+     * @throws WsException
+     * @throws \JsonException
+     */
     protected function get(?string $id, ?array $queryParams): ?string
     {
         return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
@@ -104,7 +107,10 @@ abstract class AbstractWebService
      */
     protected function post(string $id, ?array $queryParams, ?array $body): ?string
     {
-        return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
+        try {
+            return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
+        } catch (WsException|\JsonException $e) {
+        }
     }
 
     /**
@@ -138,7 +144,7 @@ abstract class AbstractWebService
             $options['body'] = $body;
         }
 
-        $responseGuzzle = null;
+        $responseGuzzle = $msgErr = null;
         try {
             $responseGuzzle = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $e) {
