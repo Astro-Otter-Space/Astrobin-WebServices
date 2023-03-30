@@ -21,9 +21,6 @@ class ListToday extends AbstractResponse implements \IteratorAggregate, Astrobin
         return new \ArrayIterator($this->listToday);
     }
 
-    /**
-     * @param Today $today
-     */
     public function add(Today $today): void
     {
         $this->count++;

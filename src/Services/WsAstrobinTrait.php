@@ -17,9 +17,6 @@ trait WsAstrobinTrait
 {
 
     /**
-     * @param AstrobinResponse $entity
-     *
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
@@ -28,7 +25,7 @@ trait WsAstrobinTrait
     protected function getImagesFromResource(AstrobinResponse $entity): ?AstrobinResponse
     {
         if (property_exists($entity, 'image')) {
-            $imageId = substr($entity->image, strrpos($entity->image, '/') + 1);
+            $imageId = substr((string) $entity->image, strrpos((string) $entity->image, '/') + 1);
             $image = $this->getWsImage($imageId);
 
             if ($image instanceof AstrobinResponse) {
@@ -36,7 +33,7 @@ trait WsAstrobinTrait
             }
         } elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
             foreach ($entity->images as $imageUri) {
-                $imageId = substr($imageUri, strrpos($imageUri, '/') + 1);
+                $imageId = substr((string) $imageUri, strrpos((string )$imageUri, '/') + 1);
                 $image = $this->getWsImage($imageId);
                 if ($image instanceof AstrobinResponse) {
                     $entity->add($image);
@@ -48,9 +45,6 @@ trait WsAstrobinTrait
     }
 
     /**
-     * @param string $imageId
-     *
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException

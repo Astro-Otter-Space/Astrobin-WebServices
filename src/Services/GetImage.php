@@ -21,27 +21,18 @@ use AstrobinWs\Response\ListImages;
  */
 class GetImage extends AbstractWebService implements WsInterface
 {
-    public const END_POINT = 'image';
+    final public const END_POINT = 'image';
 
-    /**
-     * @return string
-     */
     protected function getEndPoint(): string
     {
         return self::END_POINT;
     }
 
-    /**
-     * @return string
-     */
     protected function getObjectEntity(): string
     {
         return Image::class;
     }
 
-    /**
-     * @return string
-     */
     protected function getCollectionEntity(): string
     {
         return ListImages::class;
@@ -49,10 +40,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Only for retro-compatibility with version 1.x
-     *
-     * @param string $id
-     *
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
@@ -65,14 +52,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Id of image can be a string or an int
-     *
-     * @param string|null $id
-     *
-     * @return AstrobinResponse
      * @throws WsException
      * @throws WsResponseException
-     * @throws \ReflectionException
-     * @throws \JsonException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -92,11 +73,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Return a collection of Image() filtered by subject
-     *
-     * @param string $subjectId
-     * @param int $limit
-     *
-     * @return ListImages|Image|null
      * @throws \JsonException
      * @throws \ReflectionException
      */
@@ -112,13 +88,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image|collection filtered by title term
-     *
-     * @param string $title
-     * @param int $limit
-     *
-     * @return ListImages|Image|null
-     * @throws WsException
-     * @throws WsResponseException
      * @throws \JsonException
      * @throws \ReflectionException
      */
@@ -135,11 +104,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image|collection filtered by description term
-     *
-     * @param string $description
-     * @param int $limit
-     *
-     * @return ListImages|Image|null
      * @throws \JsonException
      * @throws \ReflectionException
      */
@@ -153,14 +117,8 @@ class GetImage extends AbstractWebService implements WsInterface
         return $this->getAstrobinResponse($params);
     }
 
-
     /**
      * Return an Collection per user name
-     *
-     * @param string $userName
-     * @param int $limit
-     *
-     * @return ListImages|Image|null
      * @throws \JsonException
      * @throws \ReflectionException
      */
@@ -177,11 +135,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image filtered by range date
-     *
-     * @param string|null $dateFromStr
-     * @param string|null $dateToStr
-     *
-     * @return ListImages|Image|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
@@ -220,13 +173,8 @@ class GetImage extends AbstractWebService implements WsInterface
         return $this->getAstrobinResponse($params);
     }
 
-
     /**
      * Get image/
-     * @param array $filters
-     * @param int $limit
-     *
-     * @return AstrobinResponse|null
      * @throws \JsonException
      * @throws \ReflectionException
      */
@@ -236,24 +184,12 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-//        $params = array_filter($filters, static function ($key) {
-//            return true === in_array($key, array_values(ImageFilters::getFilters()), true);
-//        }, ARRAY_FILTER_USE_KEY);
-
-        $params = array_filter($filters, fn($key) => true === in_array($key, array_values(ImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
-
+        $params = array_filter($filters, static fn($key) => true === in_array($key, array_values(ImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
         $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
 
         return $this->getAstrobinResponse($params);
     }
-
-    /**
-     * @param array $params
-     *
-     * @return AstrobinResponse|null
-     * @throws \JsonException
-     * @throws \ReflectionException
-     */
+    
     private function getAstrobinResponse(array $params): ?AstrobinResponse
     {
         try {

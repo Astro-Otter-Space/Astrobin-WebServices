@@ -4,37 +4,30 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response\Iterators;
 
+
+use ReturnTypeWillChange;
+
 /**
  * Class ImageIterator
  * @package Astrobin\Response
  */
 final class ImageIterator implements \Iterator
 {
-    /** @var array  */
-    private array $var;
 
     /**
      * ImageIterator constructor.
-     *
-     * @param array $array
      */
-    public function __construct(array $array)
+    public function __construct(private array $var)
     {
-        $this->var = $array;
     }
 
-    /**
-     * @return mixed
-     */
-    public function current()
+    public function current(): mixed
     {
         return current($this->var);
     }
 
-    /**
-     * @return mixed
-     */
-    public function next()
+
+    public function next(): mixed
     {
         return next($this->var);
     }
@@ -42,7 +35,7 @@ final class ImageIterator implements \Iterator
     /**
      * @return int|string|null
      */
-    public function key()
+    public function key(): mixed
     {
         return key($this->var);
     }
@@ -61,7 +54,7 @@ final class ImageIterator implements \Iterator
     /**
      * @return mixed
      */
-    public function rewind()
+    public function rewind(): mixed
     {
         return reset($this->var);
     }

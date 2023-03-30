@@ -10,9 +10,9 @@ namespace AstrobinWs\Filters;
  */
 abstract class AbstractFilters
 {
-    public const LIMIT = 'limit';
-    public const OFFSET = 'offset';
-    public const DATE_FORMAT = 'Y-m-d';
+    final public const LIMIT = 'limit';
+    final public const OFFSET = 'offset';
+    final public const DATE_FORMAT = 'Y-m-d';
 
     public static function getFilters(): array
     {

@@ -24,8 +24,8 @@ use Psr\Http\Message\StreamInterface;
  */
 abstract class AbstractWebService
 {
-    public const LIMIT_MAX = 20;
-    public const TIMEOUT = 30;
+    final public const LIMIT_MAX = 20;
+    final public const TIMEOUT = 30;
 
     protected int $timeout;
     protected string $apiKey;
@@ -43,34 +43,24 @@ abstract class AbstractWebService
 
     /**
      * AbstractWebService constructor.
-     *
-     * @param string|null $apiKey
-     * @param string|null $apiSecret
      */
     public function __construct(?string $apiKey, ?string $apiSecret)
     {
-        $this->apiKey = $apiKey ?? getenv('ASTROBIN_API_KEY');
-        $this->apiSecret = $apiSecret ?? getenv('ASTROBIN_API_SECRET');
+        $apiKey ?? getenv('ASTROBIN_API_KEY');
+        $apiSecret ?? getenv('ASTROBIN_API_SECRET');
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
 
-    /**
-     * @return string
-     */
     public function getApiKey(): string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @return string
-     */
     public function getApiSecret(): string
     {
         return $this->apiSecret;
     }
-
 
     /**
      * Get Guzzle Instance
@@ -87,37 +77,23 @@ abstract class AbstractWebService
 
     /**
      * Get Instance of response object Entity
-     *
-     * @return string
      */
     abstract protected function getObjectEntity(): ?string;
 
     /**
      * Get instance of response collection entity
-     * @return string
      */
     abstract protected function getCollectionEntity(): ?string;
 
     /**
      * Build EndPoint
-     *
-     * @param string|null $param
-     *
-     * @return string
      */
     private function buildEndpoint(?string $param): string
     {
         return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : sprintf('/api/v1/%s', $this->getEndPoint());
     }
 
-    /**
-     * @param string|null $id
-     * @param array|null $queryParams
-     *
-     * @return \stdClass|null
-     * @throws WsException
-     * @throws \JsonException
-     */
+
     protected function get(?string $id, ?array $queryParams): ?string
     {
         return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
@@ -125,14 +101,6 @@ abstract class AbstractWebService
 
     /**
      * NOT USED, just for example
-     *
-     * @param string $id
-     * @param array|null $queryParams
-     * @param array|null $body
-     *
-     * @return \stdClass|null
-     * @throws WsException
-     * @throws \JsonException
      */
     protected function post(string $id, ?array $queryParams, ?array $body): ?string
     {
@@ -140,18 +108,12 @@ abstract class AbstractWebService
     }
 
     /**
-     * @param string|null $id
-     * @param array|null $body
-     * @param array|null $queryParams
-     * @param array|null $headers
-     * @param string $method
-     *
-     * @return \stdClass|null
-     * @throws WsException
-     * @throws \JsonException
+     * Build guzzle client request
+     * @throws WsException|\JsonException
      */
     private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
     {
+        $options = [];
         if (!$this->apiKey || !$this->apiSecret) {
             throw new WsException(WsException::KEYS_ERROR, 500, null);
         }
@@ -193,10 +155,6 @@ abstract class AbstractWebService
 
     /**
      * Check response and jsondecode object
-     *
-     * @param ResponseInterface $response
-     *
-     * @return mixed|null
      * @throws WsException|\JsonException
      */
     public function getResponse(ResponseInterface $response): string
@@ -215,7 +173,7 @@ abstract class AbstractWebService
         }
 
         $contents = $body->getContents();
-        if (false === strpos($contents, '{', 0)) {
+        if (!str_contains($contents, '{')) {
             throw new WsException(sprintf(WsException::ERR_JSON, (string)$body), 500, null);
         }
 
@@ -229,12 +187,6 @@ abstract class AbstractWebService
 
     /**
      * Convert string into Json
-     *
-     * @param string $contents
-     *
-     * @return \stdClass
-     * @throws \JsonException
-     * @throws WsResponseException
      */
     protected function deserialize(string $contents): \stdClass
     {
@@ -252,12 +204,6 @@ abstract class AbstractWebService
 
     /**
      * Build response from WebService Astrobin
-     *
-     * @param string $response
-     *
-     * @return AstrobinResponse
-     * @throws WsResponseException
-     * @throws \ReflectionException|\JsonException
      */
     protected function buildResponse(string $response): ?AstrobinResponse
     {
@@ -269,9 +215,9 @@ abstract class AbstractWebService
         /** @var ListImages|ListCollection|AstrobinResponse $collectionEntity */
         $collectionEntity = $this->getCollectionEntity();
 
-        if (property_exists($object, "objects") && 0 < count($object->objects)) {
+        if (property_exists($object, "objects") && 0 < (is_countable($object->objects) ? count($object->objects) : 0)) {
             $listObjects = $object->objects;
-            if (1 < count($listObjects)) {
+            if (1 < (is_countable($listObjects) ? count($listObjects) : 0)) {
                 $astrobinResponse = new $collectionEntity();
                 foreach ($listObjects as $object) {
                     $entity = new $entity();

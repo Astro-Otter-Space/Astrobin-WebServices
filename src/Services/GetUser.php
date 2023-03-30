@@ -7,6 +7,7 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\UserFilters;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\User;
@@ -46,14 +47,6 @@ class GetUser extends AbstractWebService implements WsInterface
 
     /**
      * Get user by id
-     *
-     * @param string|null $id
-     *
-     * @return AstrobinResponse|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -61,18 +54,8 @@ class GetUser extends AbstractWebService implements WsInterface
         return $this->buildResponse($response);
     }
 
-
     /**
      * Get user by username
-     *
-     * @param string $username
-     * @param int $limit
-     *
-     * @return AstrobinResponse|null
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getByUsername(string $username, int $limit): ?AstrobinResponse
     {
@@ -84,7 +67,7 @@ class GetUser extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $response = $this->get(null, [UserFilters::USERNAME_FILTER => $username, [UserFilters::LIMIT => $limit]]);
+        $response = $this->get(null, [UserFilters::USERNAME_FILTER => $username, [AbstractFilters::LIMIT => $limit]]);
         return $this->buildResponse($response);
     }
 }

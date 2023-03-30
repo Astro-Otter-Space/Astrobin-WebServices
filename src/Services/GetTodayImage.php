@@ -22,25 +22,17 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     private const END_POINT = 'imageoftheday';
 
-    /**
-     * @return string
-     */
     protected function getEndPoint(): string
     {
         return self::END_POINT;
     }
 
-    /**
-     * @return string
-     */
     protected function getObjectEntity(): string
     {
         return Today::class;
     }
 
-    /**
-     * @return string|null
-     */
+
     protected function getCollectionEntity(): ?string
     {
         return ListToday::class;
@@ -48,10 +40,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * Method not allowed
-     *
-     * @param string|null $id
-     *
-     * @return AstrobinResponse|null
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -61,8 +49,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image of today
-
-     * @return Today|AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \ReflectionException
@@ -75,11 +61,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image of specific day
-     *
-     * @param int|null $offset
-     * @param int|null $limit
-     *
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException

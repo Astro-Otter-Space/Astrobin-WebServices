@@ -11,7 +11,7 @@ use Throwable;
  *
  * @package Astrobin\Exceptions
  */
-class WsException extends \Exception
+class WsException extends \Exception implements \Stringable
 {
     public const KEYS_ERROR = 'API key or API secret are null';
 
@@ -33,10 +33,6 @@ class WsException extends \Exception
 
     /**
      * WsException constructor.
-     *
-     * @param string $message
-     * @param int $code
-     * @param \Exception|null $previous
      */
     public function __construct(string $message, int $code, ?\Exception $previous)
     {
@@ -48,6 +44,6 @@ class WsException extends \Exception
      */
     public function __toString(): string
     {
-        return __CLASS__ . "[{$this->getCode()}]: {$this->getMessage()}\n";
+        return self::class . "[{$this->getCode()}]: {$this->getMessage()}\n";
     }
 }
