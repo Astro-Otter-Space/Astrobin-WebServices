@@ -11,6 +11,8 @@ services:
     env_file:
       - .env.local
       - .env
+    environment:
+      - TERM=xterm-color
     volumes:
       - "./docker/php/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-stack-custom.ini"
       - .:/var/www
