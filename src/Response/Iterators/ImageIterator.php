@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response\Iterators;
 
-
-use ReturnTypeWillChange;
-
 /**
  * Class ImageIterator
  * @package Astrobin\Response
  */
 final class ImageIterator implements \Iterator
 {
-
     /**
      * ImageIterator constructor.
      */

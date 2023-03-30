@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response\Iterators;
 
-use ReturnTypeWillChange;
-
 /**
  * Class CollectionIterator
  * @package Astrobin\Response\Iterators
  */
 class CollectionIterator implements \Iterator
 {
-
     /**
      * CollectionIterator constructor.
      */

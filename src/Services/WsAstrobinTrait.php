@@ -15,7 +15,6 @@ use AstrobinWs\Response\Image;
  */
 trait WsAstrobinTrait
 {
-
     /**
      * @throws WsException
      * @throws WsResponseException
@@ -33,7 +32,7 @@ trait WsAstrobinTrait
             }
         } elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
             foreach ($entity->images as $imageUri) {
-                $imageId = substr((string) $imageUri, strrpos((string )$imageUri, '/') + 1);
+                $imageId = substr((string) $imageUri, strrpos((string)$imageUri, '/') + 1);
                 $image = $this->getWsImage($imageId);
                 if ($image instanceof AstrobinResponse) {
                     $entity->add($image);
@@ -53,7 +52,6 @@ trait WsAstrobinTrait
     private function getWsImage(string $imageId): ?AstrobinResponse
     {
         $imageWs = new GetImage($this->getApiKey(), $this->getApiSecret());
-        /** @var Image|AstrobinResponse $image */
         return $imageWs->getById($imageId);
     }
 }

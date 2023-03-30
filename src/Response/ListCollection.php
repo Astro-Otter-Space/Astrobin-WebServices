@@ -12,7 +12,6 @@ use AstrobinWs\Response\Iterators\CollectionIterator;
  */
 final class ListCollection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
-
     public array $listCollection;
 
     /**

@@ -10,7 +10,6 @@ namespace AstrobinWs\Response;
  */
 final class AstrobinError implements AstrobinResponse
 {
-
     /**
      * AstrobinError constructor.
      */

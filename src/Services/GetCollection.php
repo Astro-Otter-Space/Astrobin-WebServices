@@ -6,7 +6,6 @@ namespace AstrobinWs\Services;
 
 use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\CollectionFilters;
-use AstrobinWs\Filters\ConstImageFilters;
 use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;

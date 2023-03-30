@@ -18,7 +18,6 @@ use AstrobinWs\Response\User;
  */
 class GetUser extends AbstractWebService implements WsInterface
 {
-
     private const END_POINT = 'userprofile';
 
     /**
@@ -67,7 +66,10 @@ class GetUser extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $response = $this->get(null, [UserFilters::USERNAME_FILTER->value => $username, [AbstractFilters::LIMIT => $limit]]);
+        try {
+            $response = $this->get(null, [UserFilters::USERNAME_FILTER->value => $username, [AbstractFilters::LIMIT => $limit]]);
+        } catch (WsException | \JsonException $e) {
+        }
         return $this->buildResponse($response);
     }
 }
