@@ -68,11 +68,16 @@ ASTROBIN_API_SECRET=PutHereYourOwnApiSecret
 
 Example without framework:
 ```php 
+# Get variables
+$astrobinApiKey = getenv('ASTROBIN_API_KEY');
+$astrobinApiSecret = getenv('ASTROBIN_API_SECRET')
+
+# Get data from Astrobin
 $imageWs = new GetImage($astrobinApiKey, $astrobinApiSecret);
 $astrobinImage = $imageWs->getById('astrobinImageId');
 ```
 
-Example with Symfony 4 and more:
+Example with Symfony:
 ```yml
 parameters:
    astrobinApiKey: '%env(ASTROBIN_API_KEY)%'
