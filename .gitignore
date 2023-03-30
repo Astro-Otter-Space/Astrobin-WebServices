@@ -5,3 +5,4 @@ vendor/*
 tests/git push
 .env
 .phpunit.*
+rector.php

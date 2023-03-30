@@ -29,10 +29,6 @@ RUN pecl install apcu && docker-php-ext-enable apcu
 # Zip
 RUN docker-php-ext-install zip
 
-# Composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN composer self-update
-
 # User
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
@@ -42,8 +38,14 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Workdir
 USER $USERNAME
+
+# Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN composer self-update
+
+# Workdir
+COPY . .
 WORKDIR /var/www
 CMD composer install ; php-fpm
 EXPOSE 9000
