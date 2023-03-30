@@ -29,10 +29,10 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.4.6
+Version 2.5.0
 
 ## Requirements
-* PHP 7.4 min or superior (oldest versions of PHP 7.3 are not supported)
+* PHP 8.1 min or superior (oldest versions of PHP 8.1 are not supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction

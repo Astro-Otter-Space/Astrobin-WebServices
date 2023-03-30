@@ -1,31 +1,16 @@
 version: '3.4'
 
 services:
-
   php-astrobin-ws:
-    image: kaliop/php-fpm:stretch
-    hostname: php
     container_name: php_astrobin_ws
     build:
-      context: ./src/Docker/php
+      context: ./docker/php
+      args:
+        USER_UID: ${SITE_UID:-1000}
+        USER_GID: ${SITE_GID:-1000}
     env_file:
-      - .env
       - .env.local
+      - .env
     volumes:
-      - "./src/Docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
-      - "./src/Docker/php/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-stack-custom.ini"
-      - .:/var/www/html:rw,cached
-    environment:
-      - SSH_AUTH_SOCK=/ssh-agent
-      - TERM=xterm-color
-    networks:
-      astrobinws_net:
-        ipv4_address: 172.110.0.2
-
-networks:
-  astrobinws_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.110.0.0/24
+      - "./docker/php/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-stack-custom.ini"
+      - .:/var/www
