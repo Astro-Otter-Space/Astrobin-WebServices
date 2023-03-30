@@ -8,7 +8,7 @@ namespace AstrobinWs\Filters;
  * Class CollectionFilters
  * @package AstrobinWs\Filters
  */
-final class CollectionFilters extends AbstractFilters
+enum CollectionFilters: string
 {
-    public const USER_FILTER = 'user';
+    case USER_FILTER = 'user';
 }
