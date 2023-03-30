@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use AstrobinWs\Response\Image;
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 #Exception
@@ -22,27 +24,31 @@ include __DIR__ . './../src/Response/ListImages.php';
 include __DIR__ . './../src/Response/Image.php';
 include __DIR__ . './../src/Response/User.php';
 
-$apiKey = null;
-$apiSecret = null;
+$astrobinApiKey = getenv('ASTROBIN_API_KEY');
+$astrobinApiSecret = getenv('ASTROBIN_API_SECRET');
 
 /**
  * IMAGE
  */
-$imageWs = new \AstrobinWs\Services\GetImage($apiKey, $apiSecret);
+$imageWs = new \AstrobinWs\Services\GetImage($astrobinApiKey, $astrobinApiSecret);
 
-$idAlphaNum = '8p7u7d';
-try {
-    //$response = $imageWs->getImageById($idAlphaNum);
-    //var_dump($response);
-} catch (Exception $e) {
-    //var_dump($e->getMessage());
-}
+//$idAlphaNum = '8p7u7d';
+//try {
+//    /** @var Image $response */
+//    $response = $imageWs->getImageById($idAlphaNum);
+//    var_dump($response->url_hd);
+//} catch (Exception $e) {
+//    var_dump($e->getMessage());
+//}
 
 $idOnlyNum = (string)341955;
 //$response = $imageWs->getById($idOnlyNum);
 
-//$response = $imageWs->getImagesBySubject('m42', 3);
-//var_dump($response);
+$response = $imageWs->getImagesBySubject('m42', 3);
+/** @var Image $image */
+foreach ($response->getIterator() as $image) {
+    var_dump($image->title);
+}
 
 $filters = [
     'title__icontains' => 'm42',
@@ -54,7 +60,7 @@ $filters = [
 /**
  * TODAY
  */
-$todayWs = new \AstrobinWs\Services\GetTodayImage($apiKey, $apiSecret);
+//$todayWs = new \AstrobinWs\Services\GetTodayImage($astrobinApiKey, $astrobinApiSecret);
 //$today = $todayWs->getTodayImage();
 //var_dump($today);
 
