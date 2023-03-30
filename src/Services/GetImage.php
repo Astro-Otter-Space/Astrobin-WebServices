@@ -143,14 +143,7 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
-        if (is_null($dateToStr)) {
-            /** @var \DateTimeInterface $dateTo */
-            $dateTo = new \DateTime('now');
-        } else {
-            /** @var \DateTimeInterface $dateTo */
-            $dateTo = new \DateTime($dateToStr);
-        }
-
+        $dateTo = is_null($dateToStr) ? new \DateTime('now') : new \DateTime($dateToStr);
         if (false === strtotime($dateFromStr)) {
             throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
@@ -185,7 +178,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = array_filter($filters, static fn($key) => true === in_array($key, array_values(ConstImageFilters::getFilters()), true), ARRAY_FILTER_USE_KEY);
+        $params = array_filter($filters, static fn($key) => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
         $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
 
         return $this->getAstrobinResponse($params);

@@ -27,7 +27,7 @@ abstract class AbstractWebService
     final public const LIMIT_MAX = 20;
     final public const TIMEOUT = 30;
 
-    protected int $timeout;
+    protected int $timeout = self::TIMEOUT;
 
     protected static array $headers = [
         'Accept' => GuzzleSingleton::APPLICATION_JSON,
@@ -46,7 +46,6 @@ abstract class AbstractWebService
         protected ?string $apiKey,
         protected ?string $apiSecret
     ) {
-        $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
 
@@ -88,7 +87,7 @@ abstract class AbstractWebService
      */
     private function buildEndpoint(?string $param): string
     {
-        return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : sprintf('/api/v1/%s', $this->getEndPoint());
+        return (is_null($param)) ? sprintf('/api/v1/%s', $this->getEndPoint()) : sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param);
     }
 
     /**
@@ -107,7 +106,7 @@ abstract class AbstractWebService
     {
         try {
             return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
-        } catch (WsException | \JsonException $e) {
+        } catch (WsException | \JsonException) {
         }
     }
 
@@ -128,11 +127,7 @@ abstract class AbstractWebService
         }
 
         $endPoint = $this->buildEndpoint($id);
-        if (!is_null($headers)) {
-            $options['headers'] = array_merge(self::$headers, $headers);
-        } else {
-            $options['headers'] = self::$headers;
-        }
+        $options['headers'] = is_null($headers) ? self::$headers : array_merge(self::$headers, $headers);
 
         $astrobinParams = ['api_key' => $this->apiKey, 'api_secret' => $this->apiSecret, 'format' => 'json'];
         if (is_null($queryParams)) {
@@ -173,7 +168,7 @@ abstract class AbstractWebService
         }
 
         $body = $response->getBody();
-        if (false === $body->isReadable()) {
+        if (!$body->isReadable()) {
             throw new WsException(WsException::ERR_READABLE, 500, null);
         }
 
