@@ -23,7 +23,7 @@ class ListToday extends AbstractResponse implements \IteratorAggregate, Astrobin
 
     public function add(Today $today): void
     {
-        $this->count++;
+        ++$this->count;
         $this->listToday[] = $today;
     }
 }
