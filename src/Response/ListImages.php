@@ -24,9 +24,6 @@ final class ListImages implements \IteratorAggregate, AstrobinResponse
         return new ImageIterator($this->listImages);
     }
 
-    /**
-     * @param Image $image
-     */
     public function add(Image $image): void
     {
         $this->count++;

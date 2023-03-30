@@ -15,9 +15,6 @@ abstract class AbstractResponse
 
     /**
      * Convert stdClass from WS to an array
-     *
-     * @param \stdClass $obj
-     *
      * @throws WsResponseException
      */
     public function fromObj(\stdClass $obj): void
@@ -28,7 +25,6 @@ abstract class AbstractResponse
 
     /**
      * Build properties of class based on WS response
-     * @param array $objArr
      * @throws WsResponseException
      */
     private function fromArray(array $objArr): void
@@ -44,7 +40,7 @@ abstract class AbstractResponse
             }
             if (!array_key_exists($property->getName(), $objArr)) {
                 throw new WsResponseException(
-                    sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), get_class($this)),
+                    sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), static::class),
                     500,
                     null
                 );

@@ -13,24 +13,19 @@ use GuzzleHttp\Client;
  */
 class GuzzleSingleton
 {
-    public const ASTROBIN_URL = 'https://www.astrobin.com';
-    public const TIMEOUT = '0';
+    final public const ASTROBIN_URL = 'https://www.astrobin.com';
+    final public const TIMEOUT = '0';
 
-    public const APPLICATION_JSON = 'application/json';
+    final public const APPLICATION_JSON = 'application/json';
 
-    public const METHOD_GET = 'GET';
-    public const METHOD_POST = 'POST';
-    public const METHOD_PUT = 'PUT';
+    final public const METHOD_GET = 'GET';
+    final public const METHOD_POST = 'POST';
+    final public const METHOD_PUT = 'PUT';
 
-    /**
-     * @var Client
-     */
-    private static $_instance = null;
+    private static ?Client $_instance = null;
 
     /**
      * Build Client instance
-     *
-     * @return Client
      */
     public static function getInstance(): Client
     {

@@ -12,11 +12,11 @@ final class User extends AbstractResponse implements AstrobinResponse
 {
     public int $id;
     public string $username;
-    public ?string $about;
-    public ?string $avatar;
-    public ?int $image_count;
-    public ?string $job;
-    public ?string $hobbies;
-    public ?string $language;
-    public ?string $website;
+    public ?string $about = null;
+    public ?string $avatar = null;
+    public ?int $image_count = null;
+    public ?string $job = null;
+    public ?string $hobbies = null;
+    public ?string $language = null;
+    public ?string $website = null;
 }

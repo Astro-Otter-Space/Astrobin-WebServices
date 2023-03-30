@@ -52,12 +52,10 @@ class GetCollection extends AbstractWebService implements WsInterface
 
     /**
      * Only for retro-compatibility with version 1.x
-     *
-     * @param $id
-     *
-     * @return AstrobinResponse
      * @throws WsException
-     * @throws \ReflectionException|\JsonException
+     * @throws WsResponseException
+     * @throws \JsonException
+     * @throws \ReflectionException
      */
     public function getCollectionById($id): ?AstrobinResponse
     {
@@ -66,8 +64,7 @@ class GetCollection extends AbstractWebService implements WsInterface
 
     /**
      * @param string|null $id
-     *
-     * @return AstrobinResponse
+     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
@@ -91,9 +88,6 @@ class GetCollection extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param string|null $username
-     * @param int|null $limit
-     *
      * @return ListCollection|null
      * @throws WsException
      * @throws \ReflectionException
