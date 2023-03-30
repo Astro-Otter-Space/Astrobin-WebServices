@@ -1,7 +1,7 @@
 {
   "name" : "hamhamfonfon/astrobin-ws",
   "license": "MIT",
-  "version": "2.4.6",
+  "version": "2.5.0",
   "description" : "Astrobin WebServices for PHP projects",
   "type" : "library",
   "authors" : [{
@@ -16,12 +16,12 @@
   },
   "config": {
     "platform": {
-      "php": "7.4"
+      "php": "8.1"
     }
   },
   "require" : {
-    "php": ">=7.4.0",
-    "guzzlehttp/guzzle": "^7.4",
+    "php": ">=8.1.0",
+    "guzzlehttp/guzzle": "^7.5",
     "ext-ctype": "*",
     "ext-json": "*"
   },
@@ -35,8 +35,7 @@
   },
   "target-dir" : "",
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.2",
-    "phpunit/phpunit": "^9.3",
+    "squizlabs/php_codesniffer": "3.*",
     "dg/bypass-finals": "^1.3"
   }
 }
