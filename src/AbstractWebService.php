@@ -45,8 +45,7 @@ abstract class AbstractWebService
     public function __construct(
         protected ?string $apiKey,
         protected ?string $apiSecret
-    )
-    {
+    ) {
         $this->timeout = self::TIMEOUT;
         $this->buildFactory();
     }
@@ -92,7 +91,6 @@ abstract class AbstractWebService
         return (!is_null($param)) ? sprintf('/api/v1/%s/%s', $this->getEndPoint(), $param) : sprintf('/api/v1/%s', $this->getEndPoint());
     }
 
-
     /**
      * @throws WsException
      * @throws \JsonException
@@ -109,16 +107,21 @@ abstract class AbstractWebService
     {
         try {
             return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
-        } catch (WsException|\JsonException $e) {
+        } catch (WsException | \JsonException $e) {
         }
     }
 
     /**
      * Build guzzle client request
-     * @throws WsException|\JsonException
+     * @throws WsException | \JsonException
      */
-    private function buildRequest(?string $id, ?array $body, ?array $queryParams, ?array $headers, string $method): ?string
-    {
+    private function buildRequest(
+        ?string $id,
+        ?array $body,
+        ?array $queryParams,
+        ?array $headers,
+        string $method
+    ): ?string {
         $options = [];
         if (!$this->apiKey || !$this->apiSecret) {
             throw new WsException(WsException::KEYS_ERROR, 500, null);
@@ -214,11 +217,7 @@ abstract class AbstractWebService
     protected function buildResponse(string $response): ?AstrobinResponse
     {
         $object = $this->deserialize($response);
-
-        /** @var Image|Today|Collection|AstrobinResponse $entity */
         $entity = $this->getObjectEntity();
-
-        /** @var ListImages|ListCollection|AstrobinResponse $collectionEntity */
         $collectionEntity = $this->getCollectionEntity();
 
         if (property_exists($object, "objects") && 0 < (is_countable($object->objects) ? count($object->objects) : 0)) {

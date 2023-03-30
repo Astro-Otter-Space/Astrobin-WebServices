@@ -12,7 +12,6 @@ use AstrobinWs\Exceptions\WsResponseException;
  */
 abstract class AbstractResponse
 {
-
     /**
      * Convert stdClass from WS to an array
      * @throws WsResponseException

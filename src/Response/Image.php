@@ -22,10 +22,6 @@ final class Image extends AbstractResponse implements AstrobinResponse
     public ?string $url_histogram = null;
     public ?string $url_skyplot = null;
 
-
-    /**
-     * @return bool|\DateTime
-     */
     public function getUploaded(): \DateTime
     {
         /** @var \DateTime $uploadedFormat */

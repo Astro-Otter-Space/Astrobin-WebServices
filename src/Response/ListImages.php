@@ -16,9 +16,6 @@ final class ListImages implements \IteratorAggregate, AstrobinResponse
     public array $listImages = [];
     public int $count = 0;
 
-    /**
-     * @return ImageIterator|Traversable
-     */
     public function getIterator(): ImageIterator
     {
         return new ImageIterator($this->listImages);

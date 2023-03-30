@@ -23,7 +23,6 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
     public ?array $images;
     public ?array $listImages;
 
-
     public function getIterator(): ImageIterator
     {
         return new ImageIterator($this->listImages);

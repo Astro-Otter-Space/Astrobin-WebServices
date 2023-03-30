@@ -19,7 +19,6 @@ final class Today extends AbstractResponse implements \IteratorAggregate, Astrob
     public string $resource_uri;
     public array $listImages;
 
-
     public function getIterator(): ImageIterator
     {
         return new ImageIterator($this->listImages);
