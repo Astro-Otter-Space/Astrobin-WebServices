@@ -16,6 +16,8 @@ RUN apt-get update && \
     openssl \
     libicu-dev \
     zlib1g-dev \
+    libzip-dev \
+    unzip \
     libc-client-dev
 
 # OPCache + APCu
@@ -24,8 +26,12 @@ RUN docker-php-ext-configure opcache --enable-opcache \
 
 RUN pecl install apcu && docker-php-ext-enable apcu
 
+# Zip
+RUN docker-php-ext-install zip
+
 # Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN composer self-update
 
 # User
 RUN groupadd --gid $USER_GID $USERNAME \
