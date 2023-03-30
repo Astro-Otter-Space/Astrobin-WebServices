@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AstrobinWs\Response;
 
 use AstrobinWs\Response\Iterators\ImageIterator;
-use Traversable;
 
 /**
  * Class ListImages

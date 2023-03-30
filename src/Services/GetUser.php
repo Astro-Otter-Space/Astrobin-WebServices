@@ -58,6 +58,7 @@ class GetUser extends AbstractWebService implements WsInterface
      */
     public function getByUsername(string $username, int $limit): ?AstrobinResponse
     {
+        $response = null;
         if (empty($username)) {
             return null;
         }
@@ -68,7 +69,7 @@ class GetUser extends AbstractWebService implements WsInterface
 
         try {
             $response = $this->get(null, [UserFilters::USERNAME_FILTER->value => $username, [AbstractFilters::LIMIT => $limit]]);
-        } catch (WsException | \JsonException $e) {
+        } catch (WsException | \JsonException) {
         }
         return $this->buildResponse($response);
     }
