@@ -37,6 +37,7 @@ abstract class AbstractResponse
                 $property->setValue($this, null);
                 continue;
             }
+
             if (!array_key_exists($property->getName(), $objArr)) {
                 throw new WsResponseException(
                     sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), static::class),

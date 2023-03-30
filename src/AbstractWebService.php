@@ -145,8 +145,8 @@ abstract class AbstractWebService
         $responseGuzzle = $msgErr = null;
         try {
             $responseGuzzle = $this->client->request($method, $endPoint, $options);
-        } catch (GuzzleException $e) {
-            $msgErr = $e->getMessage();
+        } catch (GuzzleException $guzzleException) {
+            $msgErr = $guzzleException->getMessage();
         }
 
         if ($responseGuzzle instanceof ResponseInterface) {

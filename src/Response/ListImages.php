@@ -22,7 +22,7 @@ final class ListImages implements \IteratorAggregate, AstrobinResponse
 
     public function add(Image $image): void
     {
-        $this->count++;
+        ++$this->count;
         $this->listImages[] = $image;
     }
 }

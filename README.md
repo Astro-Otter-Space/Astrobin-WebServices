@@ -70,7 +70,7 @@ Example without framework:
 ```php 
 # Get variables
 $astrobinApiKey = getenv('ASTROBIN_API_KEY');
-$astrobinApiSecret = getenv('ASTROBIN_API_SECRET')
+$astrobinApiSecret = getenv('ASTROBIN_API_SECRET');
 
 # Get data from Astrobin
 $imageWs = new GetImage($astrobinApiKey, $astrobinApiSecret);
@@ -271,8 +271,29 @@ Parameter `$limit` is mandatory and must be an integer.
 | `language`    | |
 | `website`     | |
 
-## Running the tests
+## Contributes
+I accept contributions, please fork the project and submit pull requests.
 
+## Bugs and issues
+In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
+
+### Install package for debugging
+#### Run docker
+```bash 
+docker-compose build --no-cache
+docker-compose up -d
+docker exec -ti php_astrobin_ws bash
+```
+
+#### Run Rector
+```bash
+# Init
+./vendor/bin/rector init
+
+# Run
+./vendor/bin/rector process src --dry-run
+```
+#### Run PHP CodeSnifer
 ```
 php ./vendor/bin/phpcs -p -n --standard=PSR12 src
 ```
@@ -282,22 +303,8 @@ Apply PHPCBF (fix and beautify PHPCS errors):
 php ./vendor/bin/phpcbf src/path/to/file.php
 ```
 
-## Contributes
-I accept contributions, please fork the project and submit pull requests.
-
-## Bugs and issues
-In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
-
-### Install package for debugging
-Run docker : 
-```bash 
-docker-compose build --no-cache
-docker-compose up -d
-```
-
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
 
 ## Licence
-
 This project is licensed under the MIT License - see the LICENSE.md file for details
