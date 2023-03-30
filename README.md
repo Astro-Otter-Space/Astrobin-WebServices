@@ -283,6 +283,13 @@ I accept contributions, please fork the project and submit pull requests.
 ## Bugs and issues
 In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
 
+### Install package for debugging
+Run docker : 
+```bash 
+docker-compose build --no-cache
+docker-compose up -d
+```
+
 ## Authors
 Stéphane Méaudre  - <balistik.fonfon@gmail.com>
 

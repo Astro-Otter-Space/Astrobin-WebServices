@@ -6,8 +6,8 @@ services:
     build:
       context: ./docker/php
       args:
-        USER_UID: ${SITE_UID:-1000}
-        USER_GID: ${SITE_GID:-1000}
+        USER_UID: ${SITE_UID}
+        USER_GID: ${SITE_GID}
     env_file:
       - .env.local
       - .env
