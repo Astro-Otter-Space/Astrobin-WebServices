@@ -278,11 +278,24 @@ I accept contributions, please fork the project and submit pull requests.
 In case you find some bugs or have question about Astrobin-WebServices, open an issue and I will answer you as soon as possible.
 
 ### Install package for debugging
+#### Retrieve code-source
+Clone repository from GitHub
+```bash
+git clone git@github.com:HamHamFonFon/Astrobin-WebServices.git
+```
+
 #### Run docker
+Build, compile and up docker container
 ```bash 
 docker-compose build --no-cache
 docker-compose up -d
 docker exec -ti php_astrobin_ws bash
+```
+
+#### Installation
+Instrall dependencies
+```bash
+composer install
 ```
 
 #### Run Rector
