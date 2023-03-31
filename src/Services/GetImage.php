@@ -8,12 +8,14 @@ use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\AbstractFilters;
-use AstrobinWs\Filters\ConstImageFilters;
 use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListImages;
+use DateTime;
+use JsonException;
+use ReflectionException;
 
 /**
  * Class GetImage
@@ -42,9 +44,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * Only for retro-compatibility with version 1.x
      * @throws WsException
-     * @throws WsResponseException
-     * @throws \JsonException
-     * @throws \ReflectionException
+     * @throws WsResponseException|JsonException
      */
     public function getImageById(string $id): ?AstrobinResponse
     {
@@ -54,7 +54,7 @@ class GetImage extends AbstractWebService implements WsInterface
     /**
      * Id of image can be a string or an int
      * @throws WsException
-     * @throws WsResponseException
+     * @throws WsResponseException|JsonException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -74,8 +74,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Return a collection of Image() filtered by subject
-     * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getImagesBySubject(string $subjectId, int $limit): ?AstrobinResponse
     {
@@ -89,8 +87,6 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image|collection filtered by title term
-     * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getImagesByTitle(string $title, int $limit): ?AstrobinResponse
     {
@@ -105,8 +101,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image|collection filtered by description term
-     * @throws \JsonException
-     * @throws \ReflectionException
+     * @throws JsonException
+     * @throws ReflectionException
      */
     public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
     {
@@ -120,8 +116,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Return an Collection per user name
-     * @throws \JsonException
-     * @throws \ReflectionException
+     * @throws JsonException
+     * @throws ReflectionException
      */
     public function getImagesByUser(string $userName, int $limit): ?AstrobinResponse
     {
@@ -138,18 +134,18 @@ class GetImage extends AbstractWebService implements WsInterface
      * Get image filtered by range date
      * @throws WsException
      * @throws WsResponseException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws \Exception
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
-        $dateTo = is_null($dateToStr) ? new \DateTime('now') : new \DateTime($dateToStr);
+        $dateTo = is_null($dateToStr) ? new DateTime('now') : new DateTime($dateToStr);
         if (false === strtotime($dateFromStr)) {
             throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
 
         /** @var \DateTimeInterface $dateFrom */
-        $dateFrom = \DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateFromStr);
+        $dateFrom = DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateFromStr);
         if ($dateFromStr !== $dateFrom->format(AbstractFilters::DATE_FORMAT)) {
             throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
@@ -169,8 +165,8 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image/
-     * @throws \JsonException
-     * @throws \ReflectionException
+     * @throws JsonException
+     * @throws ReflectionException
      */
     public function getImageBy(array $filters, int $limit): ?AstrobinResponse
     {
@@ -189,7 +185,7 @@ class GetImage extends AbstractWebService implements WsInterface
         try {
             $response = $this->get(null, $params);
             $AstrobinResponse = $this->buildResponse($response);
-        } catch (WsException $e) {
+        } catch (WsException | JsonException $e) {
             $AstrobinResponse =  new AstrobinError($e->getMessage());
         }
 

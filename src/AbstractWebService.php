@@ -6,16 +6,13 @@ namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\Collection;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\ListCollection;
-use AstrobinWs\Response\ListImages;
-use AstrobinWs\Response\Today;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
+use stdClass;
 
 /**
  * Class AstrobinWebService
@@ -92,7 +89,7 @@ abstract class AbstractWebService
 
     /**
      * @throws WsException
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function get(?string $id, ?array $queryParams): ?string
     {
@@ -106,13 +103,14 @@ abstract class AbstractWebService
     {
         try {
             return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
-        } catch (WsException | \JsonException) {
+        } catch (WsException | JsonException) {
         }
+        return null;
     }
 
     /**
      * Build guzzle client request
-     * @throws WsException | \JsonException
+     * @throws WsException | JsonException
      */
     private function buildRequest(
         ?string $id,
@@ -159,7 +157,7 @@ abstract class AbstractWebService
 
     /**
      * Check response and jsondecode object
-     * @throws WsException|\JsonException
+     * @throws WsException|JsonException
      */
     public function getResponse(ResponseInterface $response): string
     {
@@ -191,8 +189,10 @@ abstract class AbstractWebService
 
     /**
      * Convert string into Json
+     * @throws JsonException
+     * @throws WsResponseException
      */
-    protected function deserialize(string $contents): \stdClass
+    protected function deserialize(string $contents): stdClass
     {
         $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
         if (
@@ -211,7 +211,12 @@ abstract class AbstractWebService
      */
     protected function buildResponse(string $response): ?AstrobinResponse
     {
-        $object = $this->deserialize($response);
+        try {
+            $object = $this->deserialize($response);
+        } catch (WsResponseException | JsonException $e) {
+            return new AstrobinError($e->getMessage());
+        }
+
         $entity = $this->getObjectEntity();
         $collectionEntity = $this->getCollectionEntity();
 
