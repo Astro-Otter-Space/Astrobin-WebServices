@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Response\Image;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
