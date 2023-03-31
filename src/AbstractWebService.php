@@ -207,6 +207,7 @@ abstract class AbstractWebService
     }
 
     /**
+     * @todo get out this method and put it in factory response class
      * Build response from WebService Astrobin
      */
     protected function buildResponse(string $response): ?AstrobinResponse
