@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php">
+    <phpunit bootstrap="tests/bootstrap.php">
     <testsuites>
-        <testsuite name="Astrobin API Test Suite">
-            <directory suffix=".php">./tests/</directory>
+        <testsuite name="Abstract Test Suite">
+            <directory suffix=".php">./tests/Webservice</directory>
+        </testsuite>
+<!--        <testsuite name="Astrobin responses Test Suite">-->
+<!--        https://blog.cloudflare.com/using-guzzle-and-phpunit-for-rest-api-testing/-->
+<!--            <directory suffix=".php">./tests/Response</directory>-->
+<!--        </testsuite>-->
+        <testsuite name="Astrobin WS Test Suite">
+            <directory suffix=".php">./tests/Services</directory>
         </testsuite>
     </testsuites>
 </phpunit>
