@@ -1,7 +1,6 @@
 {
   "name" : "hamhamfonfon/astrobin-ws",
   "license": "MIT",
-  "version": "2.5.0",
   "description" : "Astrobin WebServices for PHP projects",
   "type" : "library",
   "authors" : [{
