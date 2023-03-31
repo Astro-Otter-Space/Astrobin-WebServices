@@ -9,7 +9,6 @@ services:
         USER_UID: ${SITE_UID}
         USER_GID: ${SITE_GID}
     env_file:
-      - .env.local
       - .env
     environment:
       - TERM=xterm-color
