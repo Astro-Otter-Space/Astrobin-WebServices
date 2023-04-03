@@ -97,8 +97,6 @@ class GetImageTest extends TestCase
         $this->assertNotEmpty($response->url_hd);
         $this->assertNotEmpty($response->url_regular);
         $this->assertNotEmpty($response->url_thumb);
-
-
     }
 
     /**
@@ -137,12 +135,31 @@ class GetImageTest extends TestCase
             $this->assertStringContainsString($username, $response->user);
             $respIterator->next();
         }
-
     }
 
-    public function testGetImagesByDescription()
+    public function testGetImagesByDescription(): void
     {
+        /**
+         * test bad limit
+         */
+        $description = "Andromeda galaxy";
+        $badLimit = 9999999;
+        $badLimitResponse = $this->astrobinWs->getImagesByDescription($description, $badLimit);
+        $this->assertNull($badLimitResponse);
 
+        /**
+         * Test description
+         */
+        $limit = random_int(2, 6);
+        $response = $this->astrobinWs->getImagesByDescription($description, $limit);
+        $this->assertLessThanOrEqual($limit, $response->count);
+        $respIterator = $response->getIterator();
+        while($respIterator->valid()) {
+            $response = $respIterator->current();
+            $this->assertInstanceOf(Image::class, $response);
+            $this->assertStringContainsString(strtolower($description), strtolower($response->description));
+            $respIterator->next();
+        }
     }
 
     /**
