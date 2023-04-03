@@ -140,15 +140,15 @@ abstract class AbstractWebService
             $options['body'] = $body;
         }
 
-        $responseGuzzle = $msgErr = null;
+        $guzzleResponse = $msgErr = null;
         try {
-            $responseGuzzle = $this->client->request($method, $endPoint, $options);
+            $guzzleResponse = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $guzzleException) {
             $msgErr = $guzzleException->getMessage();
         }
 
-        if ($responseGuzzle instanceof ResponseInterface) {
-            return $this->getResponse($responseGuzzle);
+        if ($guzzleResponse instanceof ResponseInterface) {
+            return $this->checkGuzzleResponse($guzzleResponse);
         }
 
         throw new WsException($msgErr, 500, null);
@@ -159,7 +159,7 @@ abstract class AbstractWebService
      * Check response and jsondecode object
      * @throws WsException|JsonException
      */
-    public function getResponse(ResponseInterface $response): string
+    public function checkGuzzleResponse(ResponseInterface $response): string
     {
         if (200 !== $response->getStatusCode()) {
             throw new WsException(sprintf(WsException::GUZZLE_RESPONSE, $response->getReasonPhrase()), 500, null);
