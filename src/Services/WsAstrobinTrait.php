@@ -51,7 +51,6 @@ trait WsAstrobinTrait
      */
     private function getWsImage(string $imageId): ?AstrobinResponse
     {
-        $imageWs = new GetImage($this->getApiKey(), $this->getApiSecret());
-        return $imageWs->getById($imageId);
+        return (new GetImage($this->getApiKey(), $this->getApiSecret()))->getById($imageId);
     }
 }
