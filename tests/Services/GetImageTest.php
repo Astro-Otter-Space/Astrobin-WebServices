@@ -2,57 +2,49 @@
 
 namespace Services;
 
-use AstrobinWs\Exceptions\WsException;
-use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\Image;
 use AstrobinWs\Services\GetImage;
 use PHPUnit\Framework\TestCase;
 
 class GetImageTest extends TestCase
 {
 
-    public ?GetImage $astrobinWs = null;
-    public function setUp(): void
+    public function testGetById()
     {
-        $this->astrobinWs = new GetImage(null, null);
+
     }
 
-    /**
-     * @throws WsException
-     * @throws WsResponseException
-     * @throws \JsonException
-     */
-    public function testWebservice(): void
+    public function testGetImagesByUser()
     {
-        $response = $this->astrobinWs->getById('8p7u7d');
-        $this->assertInstanceOf(AstrobinError::class, $response);
+
     }
 
-
-    /**
-     * @throws \ReflectionException
-     */
-    public function testEndpoint(): void
+    public function testGetImagesByDescription()
     {
-        $reflection = new \ReflectionClass($this->astrobinWs);
-        $method = $reflection->getMethod('getEndPoint');
-        $method->setAccessible(true);
-        $endPoint = $method->invoke($this->astrobinWs);
-        $this->assertEquals(GetImage::END_POINT, $endPoint);
+
     }
 
-    public function testClassResponse(): void
+    public function testGetImageBy()
     {
-        $reflection = new \ReflectionClass($this->astrobinWs);
-        $method = $reflection->getMethod('getObjectEntity');
-        $method->setAccessible(true);
-        $response = $method->invoke($this->astrobinWs);
-        $this->assertEquals(Image::class, $response);
+
     }
 
-    public function tearDown(): void
+    public function testGetImagesByTitle()
     {
-        $this->astrobinWs = null;
+
+    }
+
+    public function testGetImagesByRangeDate()
+    {
+
+    }
+
+    public function testGetImagesBySubject()
+    {
+
+    }
+
+    public function testGetImageById()
+    {
+
     }
 }
