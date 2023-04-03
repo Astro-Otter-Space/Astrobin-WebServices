@@ -36,4 +36,7 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run test suite
+      env:
+        ASTROBIN_API_KEY: ${{ secrets.ASTROBIN_API_KEY }}
+        ASTROBIN_API_SECRET: ${{ secrets.ASTROBIN_API_SECRET }}
       run: composer test
