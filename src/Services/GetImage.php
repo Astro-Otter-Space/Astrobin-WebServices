@@ -42,6 +42,8 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
+     * @deprecated
+     *
      * Only for retro-compatibility with version 1.x
      * @throws WsException
      * @throws WsResponseException|JsonException
