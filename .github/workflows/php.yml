@@ -44,5 +44,5 @@ jobs:
         ASTROBIN_API_SECRET: ${{ secrets.ASTROBIN_API_SECRET }}
       run: composer phpunit
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+#    - name: Upload coverage reports to Codecov
+#      uses: codecov/codecov-action@v3
