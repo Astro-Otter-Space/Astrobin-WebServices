@@ -57,17 +57,17 @@ class GetUserTest extends TestCase
         $badResponse = $this->astrobinWs->getById($imageId);
         $this->assertInstanceOf(AstrobinError::class, $badResponse);
 
-        $userId = 'siovene';
+        $userId = (string)random_int(1, 9999);
         $response = $this->astrobinWs->getById($userId);
-        var_dump($response);
         $this->assertInstanceOf(AstrobinResponse::class, $response);
         $this->assertInstanceOf(User::class, $response);
+        $this->assertEquals($userId, $response->id);
     }
 
     public function testGetByUsername(): void
     {
         $user = 'siovene';
-        $response = $this->astrobinWs->getByUsername($user);
+        $response = $this->astrobinWs->getByUsername($user, 1);
         $this->assertInstanceOf(AstrobinResponse::class, $response);
         $this->assertInstanceOf(User::class, $response);
         $this->assertEquals($user, $response->username);
