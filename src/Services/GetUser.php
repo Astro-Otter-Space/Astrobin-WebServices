@@ -9,6 +9,7 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\UserFilters;
+use AstrobinWs\Response\AstrobinError;
 use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\Response\User;
 
@@ -18,7 +19,7 @@ use AstrobinWs\Response\User;
  */
 class GetUser extends AbstractWebService implements WsInterface
 {
-    private const END_POINT = 'userprofile';
+    final public const END_POINT = 'userprofile';
 
     /**
      * @inheritDoc
@@ -46,11 +47,21 @@ class GetUser extends AbstractWebService implements WsInterface
 
     /**
      * Get user by id
+     * @throws WsResponseException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
-        $response = $this->get($id, null);
-        return $this->buildResponse($response);
+        if (is_null($id)) {
+            throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
+        }
+
+        try {
+            $response = $this->get($id, null);
+            $astrobinResponse = $this->buildResponse($response);
+        } catch (WsException | \JsonException $e) {
+            $astrobinResponse = new AstrobinError($e->getMessage());
+        }
+        return $astrobinResponse;
     }
 
     /**

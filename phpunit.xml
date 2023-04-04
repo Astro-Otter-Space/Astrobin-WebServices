@@ -1,12 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-    <phpunit bootstrap="tests/bootstrap.php">
+<?xml
+    version="1.0"
+    encoding="UTF-8"
+?>
+    <phpunit
+        bootstrap="tests/bootstrap.php"
+    >
     <testsuites>
-<!--        <testsuite name="Astrobin responses Test Suite">-->
-<!--        https://blog.cloudflare.com/using-guzzle-and-phpunit-for-rest-api-testing/-->
-<!--            <directory suffix=".php">./tests/Response</directory>-->
-<!--        </testsuite>-->
         <testsuite name="Astrobin WS Test Suite">
             <directory suffix=".php">./tests/Services</directory>
         </testsuite>
     </testsuites>
+<!--    <coverage-->
+<!--        cacheDirectory=".phpunit.cache/code-coverage"-->
+<!--        processUncoveredFiles="true"-->
+<!--    >-->
+<!--        <include>-->
+<!--            <directory suffix=".php">calculator</directory>-->
+<!--        </include>-->
+<!--    </coverage>-->
 </phpunit>
