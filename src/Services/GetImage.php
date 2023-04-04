@@ -84,7 +84,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::SUBJECTS_FILTER->value => $subjectId, AbstractFilters::LIMIT => $limit];
-        return $this->getAstrobinResponse($params);
+        return $this->sendRequestAndBuildResponse($params);
     }
 
     /**
@@ -97,29 +97,27 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::TITLE_CONTAINS_FILTER->value => urlencode($title), AbstractFilters::LIMIT => $limit];
-        return $this->getAstrobinResponse($params);
+        return $this->sendRequestAndBuildResponse($params);
     }
 
-
     /**
+     * TEMPORALLY SUSPENDED DU TO API ERROR
      * Get image|collection filtered by description term
      * @throws JsonException
      * @throws ReflectionException
      */
-    public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
+    /*public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
 
         $params = [ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description), AbstractFilters::LIMIT => $limit];
-        return $this->getAstrobinResponse($params);
-    }
+        return $this->sendRequestAndBuildResponse($params);
+    }*/
 
     /**
-     * Return an Collection per user name
-     * @throws JsonException
-     * @throws ReflectionException
+     * Return a Collection per username
      */
     public function getImagesByUser(string $userName, int $limit): ?AstrobinResponse
     {
@@ -128,7 +126,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::USER_FILTER->value => $userName, AbstractFilters::LIMIT => $limit];
-        return $this->getAstrobinResponse($params);
+        return $this->sendRequestAndBuildResponse($params);
     }
 
 
@@ -141,9 +139,8 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
-        $dateTo = is_null($dateToStr) ? new DateTime('now') : new DateTime($dateToStr);
         if (false === strtotime($dateFromStr)) {
-            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
+            throw new WsResponseException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
 
         /** @var \DateTimeInterface $dateFrom */
@@ -151,6 +148,8 @@ class GetImage extends AbstractWebService implements WsInterface
         if ($dateFromStr !== $dateFrom->format(AbstractFilters::DATE_FORMAT)) {
             throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
+
+        $dateTo = is_null($dateToStr) ? new DateTime('now') : new DateTime($dateToStr);
 
         if (array_sum($dateFrom->getLastErrors())) {
             throw new WsException(WsException::ERR_DATE . print_r($dateFrom->getLastErrors(), true), 500, null);
@@ -162,7 +161,7 @@ class GetImage extends AbstractWebService implements WsInterface
             AbstractFilters::LIMIT => AbstractWebService::LIMIT_MAX
         ];
 
-        return $this->getAstrobinResponse($params);
+        return $this->sendRequestAndBuildResponse($params);
     }
 
     /**
@@ -179,15 +178,23 @@ class GetImage extends AbstractWebService implements WsInterface
         $params = array_filter($filters, static fn($key) => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
         $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
 
-        return $this->getAstrobinResponse($params);
+        return $this->sendRequestAndBuildResponse($params);
     }
 
-    private function getAstrobinResponse(array $params): ?AstrobinResponse
+    private function sendRequestAndBuildResponse(array $params): ?AstrobinResponse
     {
         try {
             $response = $this->get(null, $params);
-            $AstrobinResponse = $this->buildResponse($response);
+            if (is_null($response)) {
+                return new AstrobinError(WsException::ERR_EMPTY);
+            }
         } catch (WsException | JsonException $e) {
+            return new AstrobinError($e->getMessage());
+        }
+
+        try {
+            $AstrobinResponse = $this->buildResponse($response);
+        } catch (JsonException $e) {
             $AstrobinResponse =  new AstrobinError($e->getMessage());
         }
 
