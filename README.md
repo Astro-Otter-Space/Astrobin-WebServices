@@ -1,8 +1,8 @@
-[![Build Status](https://github.com/HamHamFonFon/Astrobin-WebServices/actions/workflows/php.yml/badge.svg)]
+![Build Status](https://github.com/HamHamFonFon/Astrobin-WebServices/actions/workflows/php.yml/badge.svg)
 [![codecov.io](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/HamHamFonFon/Astrobin-WebServices/branch/master/graphs/badge.svg?branch=master)
-[![License](https://poser.pugx.org/hamhamfonfon/astrobin-ws/license)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
 [![Latest Stable Version](https://poser.pugx.org/hamhamfonfon/astrobin-ws/v)](//packagist.org/packages/hamhamfonfon/astrobin-ws)
 [![Total Downloads](https://poser.pugx.org/hamhamfonfon/astrobin-ws/downloads)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
+[![License](https://poser.pugx.org/hamhamfonfon/astrobin-ws/license)](https://packagist.org/packages/hamhamfonfon/astrobin-ws)
 # WebServices for Astrobin's API REST
 
 ## Table of contents
