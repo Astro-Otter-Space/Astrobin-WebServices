@@ -101,12 +101,11 @@ class GetImage extends AbstractWebService implements WsInterface
     }
 
     /**
-     * TEMPORALLY SUSPENDED DU TO API ERROR
      * Get image|collection filtered by description term
      * @throws JsonException
      * @throws ReflectionException
      */
-    /*public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
+    public function getImagesByDescription(string $description, int $limit): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             return null;
@@ -114,7 +113,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
         $params = [ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description), AbstractFilters::LIMIT => $limit];
         return $this->sendRequestAndBuildResponse($params);
-    }*/
+    }
 
     /**
      * Return a Collection per username
