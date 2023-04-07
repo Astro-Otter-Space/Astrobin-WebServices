@@ -20,7 +20,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
-    private const END_POINT = 'imageoftheday';
+    final public const END_POINT = 'imageoftheday';
 
     protected function getEndPoint(): string
     {

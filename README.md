@@ -249,12 +249,12 @@ Parameter `$limit` is mandatory and must be an integer.
 ![](https://image.noelshack.com/fichiers/2018/18/2/1525189056-listcollection.png)
 
 ### Today
-| Parameter| Description |
-| ------------- | ------------------------------ |
-| `date`| Date of image       |
-| `image`| URI of image|
-| `resource_uri`| URI of today|
-| `listImages`| List of images|
+| Parameter| Description                                |
+| ------------- |--------------------------------------------|
+| `date`| Date of image (Y-m-d format)               |
+| `image`| URI of selected image                      |
+| `resource_uri`| URI of today image                         |
+| `listImages`| List of images (instances of Image::class) |
 
 ![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 

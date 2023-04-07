@@ -13,11 +13,14 @@ use Traversable;
  */
 final class Today extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
-    public $date;
-
-    public Image $image;
+    public string $date;
+    /**
+     * Path of image, not Image instance
+     * @var string
+     */
+    public string $image;
     public string $resource_uri;
-    public array $listImages;
+    public ?array $listImages;
 
     public function getIterator(): ImageIterator
     {
