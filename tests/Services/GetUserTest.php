@@ -3,11 +3,9 @@
 namespace Services;
 
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\User;
-use AstrobinWs\Services\GetImage;
+use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\User;
 use AstrobinWs\Services\GetUser;
 use PHPUnit\Framework\TestCase;
 

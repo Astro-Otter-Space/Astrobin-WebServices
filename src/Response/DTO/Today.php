@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AstrobinWs\Response;
+namespace AstrobinWs\Response\DTO;
 
+use AstrobinWs\Response\AbstractResponse;
 use AstrobinWs\Response\Iterators\ImageIterator;
-use Traversable;
 
 /**
  * Class Today

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
-use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\DTO\AstrobinResponse;
 
 /**
  * Interface WsInterface

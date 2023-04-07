@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AstrobinWs\Response;
+namespace AstrobinWs\Response\DTO;
 
 interface AstrobinResponse
 {

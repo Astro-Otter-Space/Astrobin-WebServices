@@ -6,8 +6,9 @@ namespace AstrobinWs;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\AstrobinResponse;
+use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\EntityFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
@@ -184,61 +185,32 @@ abstract class AbstractWebService
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
-        return $contents;
-    }
-
-    /**
-     * Convert string into Json
-     * @throws JsonException
-     * @throws WsResponseException
-     */
-    protected function deserialize(string $contents): stdClass
-    {
-        $responseJson = json_decode($contents, false, 512, JSON_THROW_ON_ERROR);
         if (
-            property_exists($responseJson, "objects")
-            && property_exists($responseJson, "meta")
-            && 0 === $responseJson->meta->total_count
+            property_exists($jsonContent, "objects")
+            && property_exists($jsonContent, "meta")
+            && 0 === $jsonContent->meta->total_count
         ) {
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
-        return $responseJson;
+        return $contents;
     }
 
+
     /**
+     * @throws JsonException
      * @todo get out this method and put it in factory response class
      * Build response from WebService Astrobin
      */
-    protected function buildResponse(string $response): ?AstrobinResponse
+    protected function buildResponse(string $guzzleResponse): ?AstrobinResponse
     {
-        try {
-            $object = $this->deserialize($response);
-        } catch (WsResponseException | JsonException $e) {
-            return new AstrobinError($e->getMessage());
-        }
-
         $entity = $this->getObjectEntity();
         $collectionEntity = $this->getCollectionEntity();
 
-        if (property_exists($object, "objects") && 0 < (is_countable($object->objects) ? count($object->objects) : 0)) {
-            $listObjects = $object->objects;
-            if (1 < (is_countable($listObjects) ? count($listObjects) : 0)) {
-                $astrobinResponse = new $collectionEntity();
-                foreach ($listObjects as $object) {
-                    $entity = new $entity();
-                    $entity->fromObj($object);
-                    $astrobinResponse->add($entity);
-                }
-            } else {
-                $astrobinResponse = new $entity();
-                $astrobinResponse->fromObj(reset($listObjects));
-            }
-        } else {
-            $astrobinResponse = new $entity();
-            $astrobinResponse->fromObj($object);
-        }
-
-        return $astrobinResponse;
+        $entityFactory = new EntityFactory($guzzleResponse);
+        return $entityFactory
+            ->setEntity($entity)
+            ->setCollectionEntity($collectionEntity)
+            ->buildResponse();
     }
 }
