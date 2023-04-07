@@ -48,15 +48,20 @@ You can install this package in 2 different ways.
 
 > `composer require hamhamfonfon/astrobin-ws`
 
-Update to a newest version :
+Update to the newest version :
 > `composer update hamhamfonfon/astrobin-ws`
 
 * If you just want to make some issues, make some simple tests etc, juste clone the repository
 
 > `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
-If you're using PHP 7.3 (oldest version are not supported), you can still use version 2.3 :
+If you're using old PHP versions:
+- PHP 7.4 | 8.0
+> `composer require hamhamfonfon/astrobin-ws:2.4`
+- PHP 7.3
 > `composer require hamhamfonfon/astrobin-ws:2.3`
+
+Caution, these versions are not maintained anymore. Only 2.5.* is maintained and got new features.
 
 ### Usage
 
@@ -144,7 +149,7 @@ final class MyImageService
 }
 ```
 
-If you're working without framework, you can create the instance of your class withoutarguments if they are as env variables:
+If you're working without framework, you can create the instance of your class without arguments if they are as env variables:
 
 ## WebServices
 
@@ -218,14 +223,11 @@ Parameter `$limit` is mandatory and must be an integer.
 | `url_histogram` | URL to histogram |
 | `url_skyplot` | URL to skyplot |
 
-![](https://image.noelshack.com/fichiers/2018/17/5/1524854105-image.png)
-
 ### ListImage
 | Parameter| Description |
 | ------------- | ------------------------------ |
 | `listImages`      | List of images       |
 
-![](https://image.noelshack.com/fichiers/2018/18/1/1525117490-list-images.png)
 
 ### Collection
 | Parameter| Description |
@@ -239,14 +241,10 @@ Parameter `$limit` is mandatory and must be an integer.
 | `images`| Path of WS Image|
 | `listImages`| Path of WS Image|
 
-![](https://image.noelshack.com/fichiers/2018/18/2/1525187691-collection.png)
-
 ### ListCollection
 | Parameter| Description |
 | ------------- | ------------------------------ |
 | `listCollection`| List of collection with list of images|
-
-![](https://image.noelshack.com/fichiers/2018/18/2/1525189056-listcollection.png)
 
 ### Today
 | Parameter| Description                                |
@@ -255,8 +253,6 @@ Parameter `$limit` is mandatory and must be an integer.
 | `image`| URI of selected image                      |
 | `resource_uri`| URI of today image                         |
 | `listImages`| List of images (instances of Image::class) |
-
-![](https://image.noelshack.com/fichiers/2018/18/1/1525117371-today.png)
 
 ### User
 | Parameter     | Description |
@@ -317,7 +313,7 @@ php ./vendor/bin/phpcbf src/path/to/file.php
 ```
 
 ## Authors
-Stéphane Méaudre  - <balistik.fonfon@gmail.com>
+Stéphane Méaudre  - <balistik.fonfon@gmail.com> - 2023
 
 ## Licence
 This project is licensed under the MIT License - see the LICENSE.md file for details
