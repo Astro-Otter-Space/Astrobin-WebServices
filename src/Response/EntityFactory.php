@@ -6,10 +6,10 @@ use AstrobinWs\Response\DTO\AstrobinResponse;
 
 final class EntityFactory
 {
-    private mixed $rawResponse;
+    private readonly mixed $rawResponse;
 
-    private ?string $entity;
-    private ?string $collectionEntity;
+    private ?string $entity = null;
+    private ?string $collectionEntity = null;
 
     /**
      * @throws \JsonException
@@ -19,20 +19,12 @@ final class EntityFactory
         $this->rawResponse = json_decode($this->guzzleResponse,false, 512, JSON_THROW_ON_ERROR);
     }
 
-    /**
-     * @param string|null $entity
-     * @return EntityFactory
-     */
     public function setEntity(?string $entity): self
     {
         $this->entity = $entity;
         return $this;
     }
-
-    /**
-     * @param string|null $collectionEntity
-     * @return EntityFactory
-     */
+    
     public function setCollectionEntity(?string $collectionEntity): self
     {
         $this->collectionEntity = $collectionEntity;
@@ -41,7 +33,6 @@ final class EntityFactory
 
     /**
      * @TODO : use Symfony serializer component
-     * @return AstrobinResponse
      */
     public function buildResponse(): AstrobinResponse
     {
