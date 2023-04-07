@@ -9,9 +9,9 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\UserFilters;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\User;
+use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\User;
 
 /**
  * Class GetUser

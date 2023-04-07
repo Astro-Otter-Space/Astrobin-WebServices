@@ -4,10 +4,9 @@ namespace Services;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\ListToday;
-use AstrobinWs\Response\Today;
-use AstrobinWs\Services\GetImage;
+use AstrobinWs\Response\DTO\Image;
+use AstrobinWs\Response\DTO\ListToday;
+use AstrobinWs\Response\DTO\Today;
 use AstrobinWs\Services\GetTodayImage;
 use Exception;
 use JsonException;

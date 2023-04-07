@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
-use AstrobinWs\Filters\AbstractFilters;
-use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\ListToday;
-use AstrobinWs\Response\Today;
+use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\ListToday;
+use AstrobinWs\Response\DTO\Today;
 
 /**
  * Class getTodayImage

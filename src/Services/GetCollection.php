@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Services;
 
-use AstrobinWs\Filters\AbstractFilters;
-use AstrobinWs\Filters\CollectionFilters;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\AstrobinResponse;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\Collection;
-use AstrobinWs\Response\ListCollection;
+use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Filters\CollectionFilters;
+use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\Collection;
+use AstrobinWs\Response\DTO\ListCollection;
 
 /**
  * Class GetCollection

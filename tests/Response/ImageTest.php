@@ -2,7 +2,7 @@
 
 namespace Response;
 
-use AstrobinWs\Response\Image;
+use AstrobinWs\Response\DTO\Image;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 use function responses\sort;

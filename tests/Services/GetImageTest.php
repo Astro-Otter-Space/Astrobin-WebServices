@@ -5,10 +5,10 @@ namespace Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Response\AstrobinError;
-use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Response\Image;
-use AstrobinWs\Response\ListImages;
+use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\Image;
+use AstrobinWs\Response\DTO\ListImages;
 use AstrobinWs\Services\GetImage;
 use PHPUnit\Framework\TestCase;
 

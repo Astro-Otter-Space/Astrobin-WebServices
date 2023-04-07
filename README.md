@@ -98,8 +98,7 @@ parameters:
 ```
 
 ```php
-use AstrobinWs\Response\AstrobinResponse;
-use AstrobinWs\Services\GetImage;
+use AstrobinWs\Response\DTO\AstrobinResponse;use AstrobinWs\Services\GetImage;
 
 final class MyImageService
 {
