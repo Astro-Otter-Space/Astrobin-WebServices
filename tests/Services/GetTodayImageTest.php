@@ -2,12 +2,17 @@
 
 namespace Services;
 
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\Image;
 use AstrobinWs\Response\ListToday;
 use AstrobinWs\Response\Today;
 use AstrobinWs\Services\GetImage;
 use AstrobinWs\Services\GetTodayImage;
+use Exception;
+use JsonException;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 class GetTodayImageTest extends TestCase
 {
@@ -51,11 +56,34 @@ class GetTodayImageTest extends TestCase
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(ListToday::class, $response);
     }
-//
-//    public function testGetDayImage()
-//    {
-//
-//    }
+
+    /**
+     * @throws WsResponseException
+     * @throws ReflectionException
+     * @throws WsException
+     * @throws JsonException
+     * @throws Exception
+     */
+    public function testGetDayImage(): void
+    {
+        $limit = random_int(2, 6);
+        $now = new \DateTime('now');
+        $startDay = clone $now;
+        $startDay = $startDay->sub(New \DateInterval(sprintf('P%sD', $limit-1)));
+        $interval = new \DateInterval('P1D');
+
+        $listDates = array_map(static function(\DateTime $date) {
+            return $date->format('Y-m-d');
+        }, iterator_to_array((new \DatePeriod($startDay, $interval, $limit-1))->getIterator()));
+
+        $response = $this->astrobinWs->getDayImage(0, $limit);
+        $this->assertInstanceOf(ListToday::class, $response);
+        $this->assertCount($limit, $response->listToday);
+        /** @var Today $today */
+        foreach ($response->listToday as $today) {
+            $this->assertContains($today->date, $listDates);
+        }
+    }
 
     public function testGetTodayImage(): void
     {

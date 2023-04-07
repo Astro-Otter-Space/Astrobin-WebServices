@@ -76,8 +76,9 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         }
 
         $params = [
-            AbstractFilters::OFFSET => $offset,
-            AbstractFilters::LIMIT => $limit
+            AbstractFilters::LIMIT => $limit,
+            AbstractFilters::OFFSET => $offset
+
         ];
 
         $response = $this->get(null, $params);
@@ -91,9 +92,9 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         if ($today instanceof Today) {
             $today = $this->getImagesFromResource($today);
         } elseif ($today instanceof ListToday) {
+            /** @var Today $day */
             foreach ($today->listToday as $day) {
-                $toDay = $this->getImagesFromResource($day);
-                $today->add($toDay);
+                $this->getImagesFromResource($day);
             }
         }
 
