@@ -24,7 +24,7 @@ final class EntityFactory
         $this->entity = $entity;
         return $this;
     }
-    
+
     public function setCollectionEntity(?string $collectionEntity): self
     {
         $this->collectionEntity = $collectionEntity;
