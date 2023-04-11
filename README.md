@@ -32,7 +32,7 @@
 Version 2.5.0
 
 ## Requirements
-* PHP 8.1 min or superior (oldest versions of PHP 8.1 are not supported)
+* PHP 8.1 min or superior (oldest versions are no longer supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
