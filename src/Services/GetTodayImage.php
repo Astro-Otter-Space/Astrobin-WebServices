@@ -7,7 +7,7 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\ListToday;
 use AstrobinWs\Response\DTO\Today;
@@ -76,9 +76,8 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         }
 
         $params = [
-            AbstractFilters::LIMIT => $limit,
-            AbstractFilters::OFFSET => $offset
-
+            QueryFilters::LIMIT->value => $limit,
+            QueryFilters::OFFSET->value => $offset
         ];
 
         $response = $this->get(null, $params);

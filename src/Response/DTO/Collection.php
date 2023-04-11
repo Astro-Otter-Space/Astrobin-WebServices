@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AstrobinWs\Response\DTO;
 
-use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\AbstractResponse;
 use AstrobinWs\Response\Iterators\ImageIterator;
 
@@ -37,13 +37,13 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
 
     public function setDateCreated(string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateCreated);
+        $this->date_created = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateCreated);
         return $this;
     }
 
     public function setDateUpdated(string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateUpdated);
+        $this->date_updated = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateUpdated);
         return $this;
     }
 }

@@ -7,7 +7,7 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Filters\AbstractFilters;
+use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Filters\UserFilters;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
@@ -66,6 +66,7 @@ class GetUser extends AbstractWebService implements WsInterface
 
     /**
      * Get user by username
+     * @throws \JsonException
      */
     public function getByUsername(string $username, int $limit): ?AstrobinResponse
     {
@@ -79,7 +80,10 @@ class GetUser extends AbstractWebService implements WsInterface
         }
 
         try {
-            $response = $this->get(null, [UserFilters::USERNAME_FILTER->value => $username, [AbstractFilters::LIMIT => $limit]]);
+            $response = $this->get(null, [
+                UserFilters::USERNAME_FILTER->value => $username,
+                QueryFilters::LIMIT->value => $limit
+            ]);
         } catch (WsException | \JsonException) {
         }
         return $this->buildResponse($response);

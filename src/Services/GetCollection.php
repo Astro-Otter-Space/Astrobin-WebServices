@@ -7,8 +7,8 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\CollectionFilters;
+use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Collection;
@@ -97,7 +97,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
         }
-        $params = [CollectionFilters::USER_FILTER->value => $username, AbstractFilters::LIMIT => $limit];
+        $params = [CollectionFilters::USER_FILTER->value => $username, QueryFilters::LIMIT->value => $limit];
         /** @var ListCollection $astrobinListCollection */
         $response = $this->get(null, $params);
 

@@ -7,8 +7,8 @@ namespace AstrobinWs\Services;
 use AstrobinWs\AbstractWebService;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
-use AstrobinWs\Filters\AbstractFilters;
 use AstrobinWs\Filters\ImageFilters;
+use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Image;
@@ -16,6 +16,7 @@ use AstrobinWs\Response\DTO\ListImages;
 use AstrobinWs\Response\EntityFactory;
 use DateTime;
 use JsonException;
+use MongoDB\Driver\Query;
 use ReflectionException;
 
 /**
@@ -84,7 +85,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::SUBJECTS_FILTER->value => $subjectId, AbstractFilters::LIMIT => $limit];
+        $params = [ImageFilters::SUBJECTS_FILTER->value => $subjectId, QueryFilters::LIMIT->value => $limit];
         return $this->sendRequestAndBuildResponse($params);
     }
 
@@ -97,7 +98,10 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::TITLE_CONTAINS_FILTER->value => urlencode($title), AbstractFilters::LIMIT => $limit];
+        $params = [
+            ImageFilters::TITLE_CONTAINS_FILTER->value => urlencode($title),
+            QueryFilters::LIMIT->value => $limit
+        ];
         return $this->sendRequestAndBuildResponse($params);
     }
 
@@ -112,7 +116,10 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description), AbstractFilters::LIMIT => $limit];
+        $params = [
+            ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description),
+            QueryFilters::LIMIT->value => $limit
+        ];
         return $this->sendRequestAndBuildResponse($params);
     }
 
@@ -125,7 +132,10 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = [ImageFilters::USER_FILTER->value => $userName, AbstractFilters::LIMIT => $limit];
+        $params = [
+            ImageFilters::USER_FILTER->value => $userName,
+            QueryFilters::LIMIT->value => $limit
+        ];
         return $this->sendRequestAndBuildResponse($params);
     }
 
@@ -144,8 +154,8 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         /** @var \DateTimeInterface $dateFrom */
-        $dateFrom = DateTime::createFromFormat(AbstractFilters::DATE_FORMAT, $dateFromStr);
-        if ($dateFromStr !== $dateFrom->format(AbstractFilters::DATE_FORMAT)) {
+        $dateFrom = DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateFromStr);
+        if ($dateFromStr !== $dateFrom->format(QueryFilters::DATE_FORMAT->value)) {
             throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
         }
 
@@ -158,7 +168,7 @@ class GetImage extends AbstractWebService implements WsInterface
         $params = [
             'uploaded__gte' => urlencode($dateFrom->format('Y-m-d 00:00:00')),
             'uploaded__lt' => urlencode($dateTo->format('Y-m-d H:i:s')),
-            AbstractFilters::LIMIT => AbstractWebService::LIMIT_MAX
+            QueryFilters::LIMIT->value => AbstractWebService::LIMIT_MAX
         ];
 
         return $this->sendRequestAndBuildResponse($params);
@@ -176,7 +186,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = array_filter($filters, static fn($key) => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
-        $params = array_merge($params, [AbstractFilters::LIMIT => $limit]);
+        $params = array_merge($params, [QueryFilters::LIMIT->value => $limit]);
 
         return $this->sendRequestAndBuildResponse($params);
     }
