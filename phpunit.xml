@@ -9,6 +9,9 @@
         <testsuite name="Astrobin WS Test Suite">
             <directory suffix=".php">./tests/Services</directory>
         </testsuite>
+        <testsuite name="Enums Test Suite">
+            <directory suffix=".php">./tests/Filters</directory>
+        </testsuite>
     </testsuites>
 <!--    <coverage-->
 <!--        cacheDirectory=".phpunit.cache/code-coverage"-->
