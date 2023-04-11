@@ -10,5 +10,7 @@ namespace AstrobinWs\Filters;
  */
 enum CollectionFilters: string
 {
+    use EnumToArray;
+
     case USER_FILTER = 'user';
 }
