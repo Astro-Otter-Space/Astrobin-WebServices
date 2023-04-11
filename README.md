@@ -61,7 +61,7 @@ If you're using old PHP versions:
 - PHP 7.3
 > `composer require hamhamfonfon/astrobin-ws:2.3`
 
-Caution, these versions are not maintained anymore. Only 2.5.* is maintained and got new features.
+Caution, these versions are not maintained anymore. Only 2.5.* will be maintained and will have new features.
 
 ### Usage
 
@@ -148,8 +148,6 @@ final class MyImageService
 }
 ```
 
-If you're working without framework, you can create the instance of your class without arguments if they are as env variables:
-
 ## WebServices
 
 The library expose 3 WebServices, each with these methods below.
@@ -166,9 +164,9 @@ The library expose 3 WebServices, each with these methods below.
 | `getImagesByUser()`| `$userName`  `$limit`| `ListImage`,`Image` |
 | `getImagesByRangeDate()`| `$dateFromStr` (ex: 2018-04-01), `$dateToStr` (2018-04-31 or null) | `ListImage`,`Image` |
 | `getImageBy()`| `$filters` `$limit`| `ListImage`,`Image` |
-`getImageById()` is an alias og `getById()` for retro-compatibility of version 1.0.0.
+`getImageById()` is an alias of `getById()` for version 1.0.0. retro-compatibility.
 
-List of filters could be used in `getImageBy()` :
+List of filters that can be used in `getImageBy()` :
 
 | Filter name | Comment| 
 | ------------- | ------------------------------ |
@@ -205,7 +203,7 @@ Parameter `$limit` is mandatory and must be an integer.
 |------------------|-------------|----------------------------- |
 | `getById()`      | `$id`       | `User` |
 | `getByUername()` | `$username` | `User` |
-/!\ For all webservices, Parameter `$id` must be a string
+/!\ For all webservices, parameter `$id` must be a string and not an integer or float.
 
 ## Responses
 
@@ -288,7 +286,7 @@ docker exec -ti php_astrobin_ws bash
 ```
 
 #### Installation
-Instrall dependencies
+Install dependencies
 ```bash
 composer install
 ```
