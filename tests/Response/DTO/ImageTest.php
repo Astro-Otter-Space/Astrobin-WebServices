@@ -1,6 +1,6 @@
 <?php
 
-namespace Response;
+namespace Response\DTO;
 
 use AstrobinWs\Response\DTO\Image;
 use DG\BypassFinals;
