@@ -19,6 +19,8 @@ use AstrobinWs\Response\DTO\User;
  */
 class GetUser extends AbstractWebService implements WsInterface
 {
+    use WsAstrobinTrait;
+
     final public const END_POINT = 'userprofile';
 
     /**
@@ -48,6 +50,7 @@ class GetUser extends AbstractWebService implements WsInterface
     /**
      * Get user by id
      * @throws WsResponseException
+     * @throws \JsonException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
@@ -55,13 +58,7 @@ class GetUser extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
 
-        try {
-            $response = $this->get($id, null);
-            $astrobinResponse = $this->buildResponse($response);
-        } catch (WsException | \JsonException $e) {
-            $astrobinResponse = new AstrobinError($e->getMessage());
-        }
-        return $astrobinResponse;
+        return $this->sendRequestAndBuildResponse($id, null);
     }
 
     /**
@@ -70,22 +67,14 @@ class GetUser extends AbstractWebService implements WsInterface
      */
     public function getByUsername(string $username, int $limit): ?AstrobinResponse
     {
-        $response = null;
-        if (empty($username)) {
+        if (empty($username) || (parent::LIMIT_MAX < $limit)) {
             return null;
         }
 
-        if (parent::LIMIT_MAX < $limit) {
-            return null;
-        }
-
-        try {
-            $response = $this->get(null, [
-                UserFilters::USERNAME_FILTER->value => $username,
-                QueryFilters::LIMIT->value => $limit
-            ]);
-        } catch (WsException | \JsonException) {
-        }
-        return $this->buildResponse($response);
+        $params = [
+            UserFilters::USERNAME_FILTER->value => $username,
+            QueryFilters::LIMIT->value => $limit
+        ];
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 }

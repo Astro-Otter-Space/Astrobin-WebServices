@@ -46,7 +46,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         return null;
     }
 
-
     /**
      * Get image of today
      * @throws WsException
@@ -80,10 +79,7 @@ class GetTodayImage extends AbstractWebService implements WsInterface
             QueryFilters::OFFSET->value => $offset
         ];
 
-        $response = $this->get(null, $params);
-
-        /** @var Today|ListToday|AstrobinResponse $today */
-        $today = $this->buildResponse($response);
+        $today = $this->sendRequestAndBuildResponse(null, $params);
         if (is_null($today)) {
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }

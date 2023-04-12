@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use AstrobinWs\Filters\ImageFilters;
-use AstrobinWs\Response\Image;
+use AstrobinWs\Response\DTO\Today;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -19,51 +18,44 @@ include __DIR__ . './../src/Services/GetImage.php';
 include __DIR__ . './../src/Services/GetUser.php';
 
 # Response
-include __DIR__ . './../src/Response/AstrobinResponse.php';
+include __DIR__ . './../src/Response/DTO/AstrobinResponse.php';
 include __DIR__ . './../src/Response/AbstractResponse.php';
-include __DIR__ . './../src/Response/ListImages.php';
-include __DIR__ . './../src/Response/Image.php';
-include __DIR__ . './../src/Response/User.php';
+include __DIR__ . './../src/Response/DTO/ListImages.php';
+include __DIR__ . './../src/Response/DTO/Image.php';
+include __DIR__ . './../src/Response/DTO/User.php';
 
 $astrobinApiKey = getenv('ASTROBIN_API_KEY');
 $astrobinApiSecret = getenv('ASTROBIN_API_SECRET');
 
-/**
- * IMAGE
- */
 $imageWs = new \AstrobinWs\Services\GetImage($astrobinApiKey, $astrobinApiSecret);
-
-//$idAlphaNum = '8p7u7d';
-//try {
-//    /** @var Image $response */
-//    $response = $imageWs->getImageById($idAlphaNum);
-//    var_dump($response->url_hd);
-//} catch (Exception $e) {
-//    var_dump($e->getMessage());
-//}
-
-$idOnlyNum = (string)341955;
-//$response = $imageWs->getById($idOnlyNum);
-
-$response = $imageWs->getImagesBySubject('m42', 3);
-/** @var Image $image */
-foreach ($response->getIterator() as $image) {
-    var_dump($image->title);
-}
-
-$filters = [
-    'title__icontains' => 'm42',
-    'field_bad' => 'coucou'
-];
-//$response = $imageWs->getImageBy($filters, 3);
-//var_dump($response);
-
+//$response = $imageWs->getById('8p7u7d');
+$response = $imageWs->getImagesByUser('siovene', 3);
+echo '<pre>'; var_dump($response);
 /**
  * TODAY
  */
 //$todayWs = new \AstrobinWs\Services\GetTodayImage($astrobinApiKey, $astrobinApiSecret);
-//$today = $todayWs->getTodayImage();
-//var_dump($today);
+//$limit = random_int(2, 6);
+//echo "NB Days : " . $limit . PHP_EOL;
+//$interval = $limit-1;
+//$now = new \DateTime('now');
+//$startDay = clone $now;
+//$startDay = $startDay->sub(new \DateInterval(sprintf('P%sD', $limit-1)));
+//
+//var_dump(sprintf('From %s to %s ',$startDay->format('Y-M-d'), $now->format('Y-m-d')));
+//$interval = new \DateInterval('P1D');
+//
+//$listDates = array_map(static function(\DateTime $date) {
+//    return $date->format('Y-m-d');
+//}, iterator_to_array((new \DatePeriod($startDay, $interval, $limit-1))->getIterator()));
+//echo '<pre>'; print_r($listDates);
+//$listDays = $todayWs->getDayImage(0, $limit);
+///** @var Today $day */
+//foreach ($listDays as $day) {
+//    var_dump($day->date);
+//}
+//
+//unset($now, $startDay);
 
 //$listDays = $todayWs->getDayImage(1, 2);
 //var_dump(iterator_count($listDays));
@@ -71,13 +63,13 @@ $filters = [
 /**
  * Collection
  */
-//$collectionWs = new \AstrobinWs\Services\GetCollection($apiKey, $apiSecret);
+//$collectionWs = new \AstrobinWs\Services\GetCollection($astrobinApiKey, $apiSecret);
 //$collection = $collectionWs->getById("655");
 //var_dump($collection);
 
-/**
- * User
- */
-//$userWs = new \AstrobinWs\Services\GetUser($apiKey, $apiSecret);
-//$user = $userWs->getById((string)500);
+///**
+// * User
+// */
+//$userWs = new \AstrobinWs\Services\GetUser($astrobinApiKey, $astrobinApiSecret);
+//$user = $userWs->getById('BadId');
 //var_dump($user);
