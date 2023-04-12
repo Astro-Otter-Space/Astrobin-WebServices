@@ -65,11 +65,12 @@ class GetTodayImage extends AbstractWebService implements WsInterface
      */
     public function getDayImage(?int $offset, ?int $limit): ?AstrobinResponse
     {
+        if (is_null($offset)) {
+            $offset = 0;
+        }
+
         if (is_null($limit)) {
             $limit = 1;
-        }
-        if (is_null($offset)) {
-            $offset = parent::LIMIT_MAX;
         }
 
         $params = [

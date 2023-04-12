@@ -65,6 +65,9 @@ class GetTodayImageTest extends TestCase
      */
     public function testGetDayImage(): void
     {
+        /**
+         * Test with limit random and offset at 0
+         */
         $limit = random_int(2, 6);
         $now = new \DateTime('now');
         $startDay = clone $now;
@@ -82,6 +85,14 @@ class GetTodayImageTest extends TestCase
         foreach ($response->listToday as $today) {
             $this->assertContains($today->date, $listDates);
         }
+
+        /**
+         * Test with offset and limit null
+         */
+        $response = $this->astrobinWs->getDayImage(null, null);
+        $this->assertInstanceOf(Today::class, $response);
+        $this->assertEquals($response->date, (new \DateTime())->format('Y-m-d'));
+
     }
 
     public function testGetTodayImage(): void
