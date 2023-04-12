@@ -3,6 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
   backupGlobals="false"
+  backupStaticAttributes="false"
   backupStaticProperties="false"
   bootstrap="tests/bootstrap.php"
   cacheDirectory=".phpunit.cache"
@@ -11,14 +12,6 @@
   processIsolation="false"
   stopOnFailure="false"
 >
-  <testsuites>
-    <testsuite name="Astrobin WS Test Suite">
-      <directory suffix=".php">./tests/Services</directory>
-    </testsuite>
-    <testsuite name="Enums Test Suite">
-      <directory suffix=".php">./tests/Filters</directory>
-    </testsuite>
-  </testsuites>
   <coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
     <include>
       <directory suffix=".php">./src</directory>
@@ -27,8 +20,13 @@
       <directory>./docker</directory>
       <directory suffix=".php">./vendor</directory>
     </exclude>
-    <report>
-      <xml outputDirectory="xml-coverage"/>
-    </report>
   </coverage>
+  <testsuites>
+    <testsuite name="Astrobin WS Test Suite">
+      <directory suffix=".php">./tests/Services</directory>
+    </testsuite>
+    <testsuite name="Enums Test Suite">
+      <directory suffix=".php">./tests/Filters</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
