@@ -273,6 +273,15 @@ class GetImageTest extends TestCase
         $this->assertInstanceOf(Image::class, $goodResponse);
     }
 
+    public function testGetImageBy(): void
+    {
+        $response = $this->astrobinWs->getImageBy([], 9999);
+        $this->assertNull($response);
+
+        $response = $this->astrobinWs->getImageBy([], 5);
+        $this->assertCount(5, $response);
+    }
+
     public function tearDown(): void
     {
         $this->astrobinWs = null;
