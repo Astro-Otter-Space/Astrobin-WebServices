@@ -64,7 +64,22 @@ class GetUserTest extends TestCase
 
     public function testGetByUsername(): void
     {
+        /**
+         * Test with empty username
+         */
+        $response = $this->astrobinWs->getByUsername('', 1);
+        $this->assertNull($response);
+
+        /**
+         * Test with limit too high
+         */
         $user = 'siovene';
+        $response = $this->astrobinWs->getByUsername($user, 999999999);
+        $this->assertNull($response);
+
+        /**
+         * Test OK
+         */
         $response = $this->astrobinWs->getByUsername($user, 1);
         $this->assertInstanceOf(AstrobinResponse::class, $response);
         $this->assertInstanceOf(User::class, $response);
