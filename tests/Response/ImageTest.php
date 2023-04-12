@@ -5,12 +5,9 @@ namespace Response;
 use AstrobinWs\Response\DTO\Image;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
-use function responses\sort;
 
 class ImageTest extends TestCase
 {
-    public Image $image;
-
     public static array $expectedProperties = [
         'description',
         'subjects',
@@ -30,11 +27,11 @@ class ImageTest extends TestCase
         BypassFinals::enable();
     }
 
-    public function testProperties(): void
+    public function testPropertiesExist(): void
     {
         $reflexion = new \ReflectionClass((new Image()));
         $props = array_map(static fn(\ReflectionProperty $prop) => $prop->getName(), $reflexion->getProperties());
         sort($props);
-        $this->assertEquals($props, self::$expectedProperties);
+        $this->assertEquals(self::$expectedProperties, $props);
     }
 }
