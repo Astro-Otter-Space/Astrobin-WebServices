@@ -4,6 +4,7 @@ namespace Services;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Image;
 use AstrobinWs\Response\DTO\ListToday;
 use AstrobinWs\Response\DTO\Today;
@@ -93,6 +94,11 @@ class GetTodayImageTest extends TestCase
         $this->assertInstanceOf(Today::class, $response);
         $this->assertEquals($response->date, (new \DateTime())->format('Y-m-d'));
 
+        /**
+         * Test if Today is null
+         */
+        $emptyResponse = $this->astrobinWs->getDayImage(-1, -5);
+        $this->assertInstanceOf(AstrobinError::class, $emptyResponse);
     }
 
     public function testGetTodayImage(): void

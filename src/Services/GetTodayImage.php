@@ -79,9 +79,6 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         ];
 
         $today = $this->sendRequestAndBuildResponse(null, $params);
-        if (is_null($today)) {
-            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
-        }
 
         if ($today instanceof Today) {
             $today = $this->getImagesFromResource($today);
