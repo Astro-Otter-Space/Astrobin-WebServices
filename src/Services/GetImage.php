@@ -128,10 +128,6 @@ class GetImage extends AbstractWebService implements WsInterface
      */
     public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
     {
-        if (false === strtotime($dateFromStr)) {
-            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
-        }
-
         /** @var \DateTimeInterface $dateFrom */
         $dateFrom = DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateFromStr);
         if (!$dateFrom) {
