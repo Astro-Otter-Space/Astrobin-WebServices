@@ -2,6 +2,8 @@
 
 namespace Services;
 
+use AstrobinWs\Exceptions\WsException;
+use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection;
 use AstrobinWs\Response\DTO\Image;
@@ -44,10 +46,18 @@ class GetCollectionTest extends TestCase
         $this->assertEquals(Collection::class, $response);
     }
 
+    /**
+     * @throws WsResponseException
+     * @throws \ReflectionException
+     * @throws WsException
+     * @throws \JsonException
+     */
     public function testNullableKey(): void
     {
+        $this->expectException(WsException::class);
+        $this->expectExceptionCode(500);
+        $this->expectExceptionMessage(WsException::KEYS_ERROR);
         $badResponse = $this->badAstrobinWs->getById(1);
-        $this->assertInstanceOf(AstrobinError::class, $badResponse);
     }
 
 //    public function testGetListCollectionByUser(): void

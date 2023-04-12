@@ -13,7 +13,6 @@ use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Image;
 use AstrobinWs\Response\DTO\ListImages;
-use AstrobinWs\Response\EntityFactory;
 use DateTime;
 use JsonException;
 use ReflectionException;
@@ -40,18 +39,6 @@ class GetImage extends AbstractWebService implements WsInterface
     protected function getCollectionEntity(): string
     {
         return ListImages::class;
-    }
-
-    /**
-     * @deprecated
-     *
-     * Only for retro-compatibility with version 1.x
-     * @throws WsException
-     * @throws WsResponseException|JsonException
-     */
-    public function getImageById(string $id): ?AstrobinResponse
-    {
-        return $this->getById($id);
     }
 
     /**
