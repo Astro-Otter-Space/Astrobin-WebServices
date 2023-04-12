@@ -97,17 +97,6 @@ abstract class AbstractWebService
         return $this->buildRequest($id, null, $queryParams, null, GuzzleSingleton::METHOD_GET);
     }
 
-    /**
-     * NOT USED, just for example
-     */
-    protected function post(string $id, ?array $queryParams, ?array $body): ?string
-    {
-        try {
-            return $this->buildRequest($id, $body, $queryParams, null, GuzzleSingleton::METHOD_POST);
-        } catch (WsException | JsonException) {
-        }
-        return null;
-    }
 
     /**
      * Build guzzle client request

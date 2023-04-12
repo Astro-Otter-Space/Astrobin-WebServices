@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AstrobinWs\Services;
 
 use AstrobinWs\AbstractWebService;
@@ -9,7 +7,6 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\ImageFilters;
 use AstrobinWs\Filters\QueryFilters;
-use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Image;
 use AstrobinWs\Response\DTO\ListImages;
@@ -24,6 +21,8 @@ use ReflectionException;
  */
 class GetImage extends AbstractWebService implements WsInterface
 {
+    use WsAstrobinTrait;
+
     final public const END_POINT = 'image';
 
     protected function getEndPoint(): string
@@ -52,14 +51,7 @@ class GetImage extends AbstractWebService implements WsInterface
             throw new WsResponseException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
 
-        try {
-            $response = $this->get($id, null);
-            $astrobinResponse = $this->buildResponse($response);
-        } catch (WsException $e) {
-            $astrobinResponse = new AstrobinError($e->getMessage());
-        }
-
-        return $astrobinResponse;
+        return $this->sendRequestAndBuildResponse($id, null);
     }
 
     /**
@@ -72,7 +64,7 @@ class GetImage extends AbstractWebService implements WsInterface
         }
 
         $params = [ImageFilters::SUBJECTS_FILTER->value => $subjectId, QueryFilters::LIMIT->value => $limit];
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
     /**
@@ -88,7 +80,7 @@ class GetImage extends AbstractWebService implements WsInterface
             ImageFilters::TITLE_CONTAINS_FILTER->value => urlencode($title),
             QueryFilters::LIMIT->value => $limit
         ];
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
     /**
@@ -106,7 +98,7 @@ class GetImage extends AbstractWebService implements WsInterface
             ImageFilters::DESC_CONTAINS_FILTER->value => urlencode($description),
             QueryFilters::LIMIT->value => $limit
         ];
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
     /**
@@ -122,7 +114,7 @@ class GetImage extends AbstractWebService implements WsInterface
             ImageFilters::USER_FILTER->value => $userName,
             QueryFilters::LIMIT->value => $limit
         ];
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
 
@@ -157,7 +149,7 @@ class GetImage extends AbstractWebService implements WsInterface
             QueryFilters::LIMIT->value => AbstractWebService::LIMIT_MAX
         ];
 
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
     /**
@@ -174,26 +166,7 @@ class GetImage extends AbstractWebService implements WsInterface
         $params = array_filter($filters, static fn($key) => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
         $params = array_merge($params, [QueryFilters::LIMIT->value => $limit]);
 
-        return $this->sendRequestAndBuildResponse($params);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 
-    private function sendRequestAndBuildResponse(array $params): ?AstrobinResponse
-    {
-        try {
-            $response = $this->get(null, $params);
-            if (is_null($response)) {
-                return new AstrobinError(WsException::ERR_EMPTY);
-            }
-        } catch (WsException | JsonException $e) {
-            return new AstrobinError($e->getMessage());
-        }
-
-        try {
-            $AstrobinResponse = $this->buildResponse($response);
-        } catch (JsonException $e) {
-            $AstrobinResponse =  new AstrobinError($e->getMessage());
-        }
-
-        return $AstrobinResponse;
-    }
 }

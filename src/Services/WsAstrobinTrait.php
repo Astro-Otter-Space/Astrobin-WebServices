@@ -6,6 +6,7 @@ namespace AstrobinWs\Services;
 
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
+use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 
 /**
@@ -51,5 +52,26 @@ trait WsAstrobinTrait
     private function getWsImage(string $imageId): ?AstrobinResponse
     {
         return (new GetImage($this->getApiKey(), $this->getApiSecret()))->getById($imageId);
+    }
+
+    /**
+     * @param string|null $id
+     * @param array|null $params
+     * @return AstrobinResponse|null
+     * @throws \JsonException
+     */
+    protected function sendRequestAndBuildResponse(?string $id, ?array $params): ?AstrobinResponse
+    {
+        try {
+            $response = $this->get($id, $params);
+            if (is_null($response)) {
+                return new AstrobinError(WsException::ERR_EMPTY);
+            }
+            $AstrobinResponse = $this->buildResponse($response);
+        } catch (WsException | JsonException $e) {
+            $AstrobinResponse = new AstrobinError($e->getMessage());
+        }
+
+        return $AstrobinResponse;
     }
 }

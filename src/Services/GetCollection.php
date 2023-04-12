@@ -77,7 +77,6 @@ class GetCollection extends AbstractWebService implements WsInterface
     /**
      * @return ListCollection|null
      * @throws WsException
-     * @throws \ReflectionException
      * @throws \JsonException
      */
     public function getListCollectionByUser(?string $username, ?int $limit): ?AstrobinResponse
