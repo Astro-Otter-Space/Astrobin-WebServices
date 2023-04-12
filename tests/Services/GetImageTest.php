@@ -34,7 +34,7 @@ class GetImageTest extends TestCase
      * @throws WsResponseException
      * @throws \JsonException
      */
-    public function testGetImageWs(): void
+    public function testNullableKeys(): void
     {
         $response = $this->badAstrobinWs->getById('8p7u7d');
         $this->assertInstanceOf(AstrobinError::class, $response);

@@ -65,12 +65,11 @@ class GetCollectionTest extends TestCase
      * @throws WsException
      * @throws \JsonException
      */
-    public function testNullableKey(): void
+    public function testNullableKeys(): void
     {
-        $this->expectException(WsException::class);
-        $this->expectExceptionCode(500);
-        $this->expectExceptionMessage(WsException::KEYS_ERROR);
-        $badResponse = $this->badAstrobinWs->getById(1);
+        $badResponse = $this->badAstrobinWs->getById('1');
+        $this->assertInstanceOf(AstrobinError::class, $badResponse);
+        $this->assertEquals(WsException::KEYS_ERROR, $badResponse->getMessage());
     }
 
     /**
@@ -86,6 +85,9 @@ class GetCollectionTest extends TestCase
 
         $response = $this->astrobinWs->getById('a');
         $this->assertInstanceOf(AstrobinError::class, $response);
+
+        $reponse = $this->astrobinWs->getById('1');
+        $this->assertInstanceOf(Collection::class, $reponse);
     }
 
 //    public function testGetListCollectionByUser(): void

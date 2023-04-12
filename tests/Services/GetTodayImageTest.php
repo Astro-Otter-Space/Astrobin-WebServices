@@ -47,7 +47,6 @@ class GetTodayImageTest extends TestCase
         $this->assertEquals(Today::class, $response);
     }
 
-
     public function testGetCollectionEntity(): void
     {
         $reflection = new \ReflectionClass($this->astrobinWs);
@@ -55,6 +54,13 @@ class GetTodayImageTest extends TestCase
         $method->setAccessible(true);
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(ListToday::class, $response);
+    }
+
+    public function testNullableKeys(): void
+    {
+        $response = $this->badAstrobinWs->getTodayImage();
+        $this->assertInstanceOf(AstrobinError::class, $response);
+        $this->assertEquals(WsException::KEYS_ERROR, $response->getMessage());
     }
 
     /**
