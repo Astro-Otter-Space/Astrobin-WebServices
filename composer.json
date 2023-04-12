@@ -34,7 +34,7 @@
   },
   "scripts": {
     "phpunit": "vendor/bin/phpunit",
-    "phpunit-coverage": "vendor/bin/phpunit --coverage-clover coverage.xml ."
+    "phpunit-coverage": "vendor/bin/phpunit --coverage-clover coverage.xml"
   },
   "target-dir" : "",
   "require-dev": {
