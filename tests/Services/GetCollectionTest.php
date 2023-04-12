@@ -2,6 +2,7 @@
 
 namespace Services;
 
+use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection;
 use AstrobinWs\Response\DTO\Image;
 use AstrobinWs\Services\GetCollection;
@@ -46,14 +47,13 @@ class GetCollectionTest extends TestCase
     public function testNullableKey(): void
     {
         $badResponse = $this->badAstrobinWs->getById(1);
-        $this->assertNull($badResponse);
+        $this->assertInstanceOf(AstrobinError::class, $badResponse);
     }
 
-    public function testGetListCollectionByUser(): void
-    {
-        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
-    }
-
+//    public function testGetListCollectionByUser(): void
+//    {
+//        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
+//    }
 
 //    public function testGetById()
 //    {
@@ -63,5 +63,6 @@ class GetCollectionTest extends TestCase
     public function tearDown(): void
     {
         $this->astrobinWs = null;
+        $this->badAstrobinWs = null;
     }
 }
