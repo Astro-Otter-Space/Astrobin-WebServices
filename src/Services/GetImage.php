@@ -103,6 +103,7 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Return a Collection per username
+     * @throws JsonException
      */
     public function getImagesByUser(string $userName, int $limit): ?AstrobinResponse
     {
@@ -134,7 +135,7 @@ class GetImage extends AbstractWebService implements WsInterface
         /** @var \DateTimeInterface $dateFrom */
         $dateFrom = DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateFromStr);
         if (!$dateFrom) {
-            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFromStr), 500, null);
+            throw new WsException(sprintf(WsException::ERR_DATE_FORMAT, $dateFrom), 500, null);
         }
 
         if (array_sum($dateFrom->getLastErrors())) {
