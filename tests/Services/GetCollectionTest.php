@@ -7,6 +7,7 @@ use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection;
 use AstrobinWs\Response\DTO\Image;
+use AstrobinWs\Response\DTO\ListCollection;
 use AstrobinWs\Services\GetCollection;
 use AstrobinWs\Services\GetImage;
 use PHPUnit\Framework\TestCase;
@@ -47,6 +48,18 @@ class GetCollectionTest extends TestCase
     }
 
     /**
+     * @throws \ReflectionException
+     */
+    public function testGetCollectionEntity(): void
+    {
+        $reflection = new \ReflectionClass($this->astrobinWs);
+        $method = $reflection->getMethod('getCollectionEntity');
+        $method->setAccessible(true);
+        $response = $method->invoke($this->astrobinWs);
+        $this->assertEquals(ListCollection::class, $response);
+    }
+
+    /**
      * @throws WsResponseException
      * @throws \ReflectionException
      * @throws WsException
@@ -60,15 +73,26 @@ class GetCollectionTest extends TestCase
         $badResponse = $this->badAstrobinWs->getById(1);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @throws \JsonException
+     * @throws WsResponseException
+     */
+    public function testGetById(): void
+    {
+        $this->expectException(WsException::class);
+        $this->expectExceptionCode(500);
+        $this->astrobinWs->getById(null);
+
+        $response = $this->astrobinWs->getById('a');
+        $this->assertInstanceOf(AstrobinError::class, $response);
+    }
+
 //    public function testGetListCollectionByUser(): void
 //    {
 //        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
 //    }
 
-//    public function testGetById()
-//    {
-//
-//    }
 
     public function tearDown(): void
     {
