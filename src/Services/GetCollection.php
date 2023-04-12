@@ -22,7 +22,7 @@ class GetCollection extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
-    private const END_POINT = 'collection';
+    final public const END_POINT = 'collection';
 
     /**
      * @return string

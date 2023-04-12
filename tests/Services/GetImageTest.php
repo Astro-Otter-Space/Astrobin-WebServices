@@ -103,7 +103,6 @@ class GetImageTest extends TestCase
      */
     public function testGetImagesByUser(): void
     {
-
         $username = 'FalseUser';
         $badLimit = 9999999999;
 
