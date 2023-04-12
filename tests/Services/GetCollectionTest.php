@@ -43,16 +43,18 @@ class GetCollectionTest extends TestCase
         $this->assertEquals(Collection::class, $response);
     }
 
-//    public function testGetListCollectionByUser()
-//    {
-//
-//    }
-//
-//    public function testGetCollectionById()
-//    {
-//
-//    }
-//
+    public function testNullableKey(): void
+    {
+        $badResponse = $this->badAstrobinWs->getById(1);
+        $this->assertNull($badResponse);
+    }
+
+    public function testGetListCollectionByUser(): void
+    {
+        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
+    }
+
+
 //    public function testGetById()
 //    {
 //
