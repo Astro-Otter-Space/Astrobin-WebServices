@@ -210,7 +210,7 @@ class GetImageTest extends TestCase
         $dateFromStr = '2023-04-aa';
         $dateToStr = 'gfg56fdsg5';
 
-        $this->expectException(WsResponseException::class);
+        $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
 
@@ -218,11 +218,11 @@ class GetImageTest extends TestCase
          * Test format date $dateFromStr wither other format
          */
         $dateFromStr = (new \DateTime)->format('D, d M Y H:i:s');
-        $this->expectException(WsResponseException::class);
+        $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, null);
 
-        $this->expectException(WsResponseException::class);
+        $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30');
 
