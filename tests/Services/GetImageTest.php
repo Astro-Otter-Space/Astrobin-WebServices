@@ -226,6 +226,11 @@ class GetImageTest extends TestCase
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30');
 
+
+        $this->expectException(WsException::class);
+        $this->expectExceptionCode(500);
+        $response = $this->astrobinWs->getImagesByRangeDate('now', null);
+
         /**
          * Tests good date
          */
