@@ -42,7 +42,11 @@ jobs:
       env:
         ASTROBIN_API_KEY: ${{ secrets.ASTROBIN_API_KEY }}
         ASTROBIN_API_SECRET: ${{ secrets.ASTROBIN_API_SECRET }}
-      run: composer phpunit
+      run: composer phpunit-coverage
 
-#    - name: Upload coverage reports to Codecov
-#      uses: codecov/codecov-action@v3
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODE_COV_TOKEN }}
+        files: ./coverage.xml
+        verbose: true
