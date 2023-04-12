@@ -16,7 +16,6 @@ use AstrobinWs\Response\DTO\ListImages;
 use AstrobinWs\Response\EntityFactory;
 use DateTime;
 use JsonException;
-use MongoDB\Driver\Query;
 use ReflectionException;
 
 /**
