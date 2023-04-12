@@ -7,6 +7,7 @@ use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\User;
 use AstrobinWs\Services\GetUser;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class GetUserTest extends TestCase
@@ -45,15 +46,23 @@ class GetUserTest extends TestCase
         $this->assertEquals(User::class, $response);
     }
 
+    /**
+     * @throws \JsonException|WsResponseException
+     * @throws Exception
+     */
     public function testGetById(): void
     {
-        $this->expectException(WsResponseException::class);
-        $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getById(null);
-
         $imageId = 'HelloHereBadId';
         $badResponse = $this->astrobinWs->getById($imageId);
         $this->assertInstanceOf(AstrobinError::class, $badResponse);
+
+        $userId = '9999999999999999999999999';
+        $response = $this->astrobinWs->getById($userId);
+        $this->assertInstanceOf(AstrobinError::class, $response);
+
+        $this->expectException(WsResponseException::class);
+        $this->expectExceptionCode(500);
+        $response = $this->astrobinWs->getById(null);
 
         $userId = (string)random_int(1, 9999);
         $response = $this->astrobinWs->getById($userId);
