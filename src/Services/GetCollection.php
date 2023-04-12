@@ -63,10 +63,7 @@ class GetCollection extends AbstractWebService implements WsInterface
             throw new WsException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
         $collection = $this->sendRequestAndBuildResponse($id, null);
-        if (!is_null($collection)) {
-            return $this->getImagesFromResource($collection);
-        }
-        return new AstrobinError(WsException::ERR_EMPTY);
+        return $this->getImagesFromResource($collection);
     }
 
 
