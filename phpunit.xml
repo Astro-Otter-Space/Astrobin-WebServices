@@ -19,7 +19,7 @@
       <directory suffix=".php">./tests/Filters</directory>
     </testsuite>
   </testsuites>
-  <coverage includeUncoveredFiles="true"
+  <coverage includeUncoveredFiles="false"
             processUncoveredFiles="true"
             cacheDirectory=".phpunit.cache/code-coverage"
   >
