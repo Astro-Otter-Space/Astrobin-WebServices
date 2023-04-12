@@ -9,14 +9,14 @@ use PHPUnit\Framework\TestCase;
 class UserTest extends TestCase
 {
     public static array $expectedProperties = [
-        'id',
-        'username',
         'about',
         'avatar',
+        'hobbies',
+        'id',
         'image_count',
         'job',
-        'hobbies',
         'language',
+        'username',
         'website'
     ];
     protected function setUp(): void
