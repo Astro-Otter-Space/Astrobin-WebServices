@@ -95,7 +95,6 @@ class GetCollectionTest extends TestCase
 //        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
 //    }
 
-
     public function tearDown(): void
     {
         $this->astrobinWs = null;
