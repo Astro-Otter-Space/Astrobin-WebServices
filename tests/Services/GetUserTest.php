@@ -2,6 +2,7 @@
 
 namespace Services;
 
+use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
@@ -44,6 +45,13 @@ class GetUserTest extends TestCase
         $method->setAccessible(true);
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(User::class, $response);
+    }
+
+    public function testNullableKeys(): void
+    {
+        $response = $this->badAstrobinWs->getById('1');
+        $this->assertInstanceOf(AstrobinError::class, $response);
+        $this->assertEquals(WsException::KEYS_ERROR, $response->getMessage());
     }
 
     /**
