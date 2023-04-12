@@ -18,6 +18,8 @@
     <exclude>
       <directory>./docker</directory>
       <directory suffix=".php">./vendor</directory>
+      <directory suffix=".php">./src/Exceptions</directory>
+      <file>./src/test.php</file>
     </exclude>
   </coverage>
   <testsuites>
