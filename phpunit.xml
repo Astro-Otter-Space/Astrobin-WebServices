@@ -27,5 +27,8 @@
     <testsuite name="Enums Test Suite">
       <directory suffix=".php">./tests/Filters</directory>
     </testsuite>
+    <testsuite name="DTO Test Suite">
+      <directory suffix=".php">./tests/Response</directory>
+    </testsuite>
   </testsuites>
 </phpunit>
