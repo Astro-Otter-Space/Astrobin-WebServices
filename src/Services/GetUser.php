@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AstrobinWs\Services;
 
 use AstrobinWs\AbstractWebService;
@@ -9,7 +7,6 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Filters\UserFilters;
-use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\User;
 
