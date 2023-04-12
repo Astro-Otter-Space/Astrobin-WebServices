@@ -13,17 +13,12 @@ final class AstrobinError implements AstrobinResponse
     /**
      * AstrobinError constructor.
      */
-    public function __construct(public ?string $message)
+    public function __construct(private readonly ?string $message)
     {
     }
 
     public function getMessage(): ?string
     {
         return $this->message;
-    }
-
-    public function setMessage(?string $message): void
-    {
-        $this->message = $message;
     }
 }

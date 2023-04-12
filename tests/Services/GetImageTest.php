@@ -38,6 +38,7 @@ class GetImageTest extends TestCase
     {
         $response = $this->badAstrobinWs->getById('8p7u7d');
         $this->assertInstanceOf(AstrobinError::class, $response);
+        $this->assertEquals(WsException::KEYS_ERROR, $response->getMessage());
     }
 
     /**
