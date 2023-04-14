@@ -78,9 +78,6 @@ class GetCollection extends AbstractWebService implements WsInterface
             $limit = parent::LIMIT_MAX;
         }
         $params = [CollectionFilters::USER_FILTER->value => $username, QueryFilters::LIMIT->value => $limit];
-        /** @var ListCollection $astrobinListCollection */
-        $response = $this->get(null, $params);
-
-        return $this->buildResponse($response);
+        return $this->sendRequestAndBuildResponse(null, $params);
     }
 }

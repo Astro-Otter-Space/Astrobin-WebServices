@@ -126,8 +126,17 @@ class GetImage extends AbstractWebService implements WsInterface
      * @throws ReflectionException
      * @throws \Exception
      */
-    public function getImagesByRangeDate(?string $dateFromStr, ?string $dateToStr): ?AstrobinResponse
+    public function getImagesByRangeDate(
+        ?string $dateFromStr,
+        ?string $dateToStr,
+        ?int $limit
+    ): ?AstrobinResponse
     {
+        if (parent::LIMIT_MAX < $limit) {
+            return null;
+        }
+
+        $limit = $limit ?? parent::LIMIT_MAX;
         /** @var \DateTimeInterface $dateFrom */
         $dateFrom = DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateFromStr);
         if (!$dateFrom) {

@@ -33,7 +33,7 @@
     ]
   },
   "scripts": {
-    "phpunit": "vendor/bin/phpunit",
+    "phpunit": "vendor/bin/phpunit --testdox",
     "phpunit-coverage": "vendor/bin/phpunit --coverage-clover=coverage.xml"
   },
   "target-dir" : "",
