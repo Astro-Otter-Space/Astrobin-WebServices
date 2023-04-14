@@ -205,6 +205,22 @@ class GetImageTest extends TestCase
     public function testGetImagesByRangeDate(): void
     {
         /**
+         * Tests good date
+         */
+        $dateFromStr = '2023-01-01';
+        $dateToStr = '2023-06-30';
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
+        $this->assertInstanceOf(ListImages::class, $response);
+        $this->assertLessThanOrEqual(AbstractWebService::LIMIT_MAX, $response->count);
+
+        /**
+         * Test with date null
+         */
+        $dateToStr = null;
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
+        $this->assertInstanceOf(ListImages::class, $response);
+
+        /**
          * Test format date $dateFromStr
          */
         $dateFromStr = '2023-04-aa';
@@ -235,21 +251,6 @@ class GetImageTest extends TestCase
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30');
 
 
-        /**
-         * Tests good date
-         */
-        $dateFromStr = '2023-01-01';
-        $dateToStr = '2023-06-30';
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
-        $this->assertInstanceOf(ListImages::class, $response);
-        $this->assertLessThanOrEqual(AbstractWebService::LIMIT_MAX, $response->count);
-
-        /**
-         * Test with date null
-         */
-        $dateToStr = null;
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
-        $this->assertInstanceOf(ListImages::class, $response);
     }
 
     /**
