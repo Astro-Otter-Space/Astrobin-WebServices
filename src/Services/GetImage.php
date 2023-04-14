@@ -137,8 +137,8 @@ class GetImage extends AbstractWebService implements WsInterface
         $dateTo = is_null($dateToStr) ? new DateTime('now') : new DateTime($dateToStr);
 
         $params = [
-            'uploaded__gte' => urlencode($dateFrom->format('Y-m-d 00:00:00')),
-            'uploaded__lt' => urlencode($dateTo->format('Y-m-d H:i:s')),
+            'uploaded__gte' => $dateFrom->format('Y-m-d 00:00'),
+            'uploaded__lte' => $dateTo->format('Y-m-d 00:00'),
             QueryFilters::LIMIT->value => AbstractWebService::LIMIT_MAX
         ];
 
