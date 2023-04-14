@@ -19,8 +19,8 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
     public ?string $description = null;
 
     public string $user;
-    public \DateTime $date_created;
-    public \DateTime $date_updated;
+    public string|\DateTime $date_created;
+    public string|\DateTime $date_updated;
     public ?array $images;
     public ?array $listImages;
 

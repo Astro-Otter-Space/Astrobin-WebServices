@@ -8,6 +8,7 @@ use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection;
 use AstrobinWs\Response\DTO\Image;
 use AstrobinWs\Response\DTO\ListCollection;
+use AstrobinWs\Response\DTO\ListImages;
 use AstrobinWs\Services\GetCollection;
 use AstrobinWs\Services\GetImage;
 use PHPUnit\Framework\TestCase;
@@ -86,13 +87,21 @@ class GetCollectionTest extends TestCase
         $response = $this->astrobinWs->getById('a');
         $this->assertInstanceOf(AstrobinError::class, $response);
 
-        $reponse = $this->astrobinWs->getById('1');
+        $id = '25';
+        $reponse = $this->astrobinWs->getById($id);
         $this->assertInstanceOf(Collection::class, $reponse);
+        $this->assertEquals($id, $response->id);
+        $this->assertInstanceOf(ListImages::class, $response->listImages);
     }
 
+    /**
+     * @throws WsException
+     * @throws \JsonException
+     */
 //    public function testGetListCollectionByUser(): void
 //    {
-//        $nullCollection = $this->astrobinWs->getListCollectionByUser(null);
+//        $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
+//        $this->assertInstanceOf(Collection::class, $response);
 //    }
 
     public function tearDown(): void

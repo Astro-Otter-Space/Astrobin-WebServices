@@ -72,7 +72,10 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws \JsonException
      */
-    public function getListCollectionByUser(?string $username, ?int $limit): ?AstrobinResponse
+    public function getListCollectionByUser(
+        ?string $username,
+        ?int $limit
+    ): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
             $limit = parent::LIMIT_MAX;
