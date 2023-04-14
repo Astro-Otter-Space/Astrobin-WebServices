@@ -89,8 +89,11 @@ class GetTodayImageTest extends TestCase
         $this->assertInstanceOf(ListToday::class, $response);
         $this->assertCount($limit, $response->listToday);
         /** @var Today $today */
-        foreach ($response->listToday as $today) {
+        while ($response->getIterator()->valid()) {
+            $today = $response->getIterator()->current();
+            $this->assertInstanceOf(Today::class, $today);
             $this->assertContains($today->date, $listDates);
+            $response->getIterator()->next();
         }
 
         /**
