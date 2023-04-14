@@ -209,15 +209,19 @@ class GetImageTest extends TestCase
          */
         $dateFromStr = '2023-01-01';
         $dateToStr = '2023-06-30';
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr, null);
         $this->assertInstanceOf(ListImages::class, $response);
         $this->assertLessThanOrEqual(AbstractWebService::LIMIT_MAX, $response->count);
+
+        $overLimit = AbstractWebService::LIMIT_MAX+1000000;
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr, $overLimit);
+        $this->assertNull($response);
 
         /**
          * Test with date null
          */
         $dateToStr = null;
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr, null);
         $this->assertInstanceOf(ListImages::class, $response);
 
         /**
@@ -228,27 +232,27 @@ class GetImageTest extends TestCase
 
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr);
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr, null);
 
         /**
          * Test format date $dateFromStr wither other format
          */
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getImagesByRangeDate('now', null);
+        $response = $this->astrobinWs->getImagesByRangeDate('now', null, null);
 
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getImagesByRangeDate('+1 day', '2023-06-30');
+        $response = $this->astrobinWs->getImagesByRangeDate('+1 day', '2023-06-30', null);
 
         $dateFromStr = (new \DateTime)->format('d M Y H:i:s');
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, null);
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, null, null);
 
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
-        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30');
+        $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30', null);
 
 
     }
