@@ -249,9 +249,8 @@ Parameter `$limit` is mandatory and must be an integer.
 | Parameter| Description                                |
 | ------------- |--------------------------------------------|
 | `date`| Date of image (Y-m-d format)               |
-| `image`| URI of selected image                      |
+| `image`| instance of Image::class as today          |
 | `resource_uri`| URI of today image                         |
-| `listImages`| List of images (instances of Image::class) |
 
 ### User
 | Parameter     | Description |

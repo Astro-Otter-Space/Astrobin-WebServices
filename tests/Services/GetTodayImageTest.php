@@ -93,6 +93,7 @@ class GetTodayImageTest extends TestCase
             $today = $response->getIterator()->current();
             $this->assertInstanceOf(Today::class, $today);
             $this->assertContains($today->date, $listDates);
+            $this->assertInstanceOf(Image::class, $today->image);
             $response->getIterator()->next();
         }
 
@@ -116,7 +117,7 @@ class GetTodayImageTest extends TestCase
         $response = $this->astrobinWs->getTodayImage();
         $this->assertInstanceOf(Today::class, $response);
         $this->assertEquals($today->format('Y-m-d'), $response->date);
-        $this->assertInstanceOf(Image::class, $response->getIterator()->current());
+        $this->assertInstanceOf(Image::class, $response->image);
     }
 
     public function testGetById(): void
