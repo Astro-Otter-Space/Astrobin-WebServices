@@ -235,7 +235,6 @@ class GetImageTest extends TestCase
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30');
 
 
-
         /**
          * Tests good date
          */
