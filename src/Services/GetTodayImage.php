@@ -78,17 +78,17 @@ class GetTodayImage extends AbstractWebService implements WsInterface
             QueryFilters::OFFSET->value => $offset
         ];
 
-        $today = $this->sendRequestAndBuildResponse(null, $params);
+        $entity = $this->sendRequestAndBuildResponse(null, $params);
 
-        if ($today instanceof Today) {
-            $today = $this->getImagesFromResource($today);
-        } elseif ($today instanceof ListToday) {
+        if ($entity instanceof Today) {
+            $entity = $this->getImagesFromResource($entity);
+        } elseif ($entity instanceof ListToday) {
             /** @var Today $day */
-            foreach ($today->listToday as $day) {
+            foreach ($entity->listToday as $day) {
                 $this->getImagesFromResource($day);
             }
         }
 
-        return $today;
+        return $entity;
     }
 }
