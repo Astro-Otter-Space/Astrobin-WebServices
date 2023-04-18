@@ -28,16 +28,8 @@ abstract class AbstractResponse
      */
     private function fromArray(array $objArr): void
     {
-        $listNotFields = ['listImages'];
-
         $reflector = new \ReflectionClass($this);
         foreach ($reflector->getProperties() as $property) {
-            if (in_array($property->getName(), $listNotFields)) {
-                $property->setAccessible(true);
-                $property->setValue($this, null);
-                continue;
-            }
-
             if (!array_key_exists($property->getName(), $objArr)) {
                 throw new WsResponseException(
                     sprintf("Property \"%s\" doesn't exist in class %s", $property->getName(), static::class),

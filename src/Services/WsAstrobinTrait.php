@@ -7,6 +7,7 @@ use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Image;
+use AstrobinWs\Response\DTO\ListImages;
 
 /**
  * Trait WsAstrobinTrait
@@ -26,15 +27,18 @@ trait WsAstrobinTrait
             $imageId = substr((string) $entity->image, strrpos((string) $entity->image, '/') + 1);
             $image = $this->getWsImage($imageId);
             $entity->image = ($image instanceof Image) ? $image : $imageId;
-        } /*elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
+
+        } elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
+            $listImages = new ListImages();
             foreach ($entity->images as $imageUri) {
                 $imageId = substr((string) $imageUri, strrpos((string)$imageUri, '/') + 1);
-                $image = $this->getWsImage($imageId);
-                if ($image instanceof AstrobinResponse) {
-                    $entity->add($image);
+                $astrobinImage = $this->getWsImage($imageId);
+                if ($astrobinImage instanceof AstrobinResponse) {
+                    $listImages->add($astrobinImage);
                 }
             }
-        }*/
+            $entity->images = $listImages;
+        }
 
         return $entity;
     }
