@@ -28,6 +28,9 @@ class GetTodayImageTest extends TestCase
         $this->astrobinWs = new GetTodayImage($astrobinKey, $astrobinSecret);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testGetEndPoint(): void
     {
         $reflection = new \ReflectionClass($this->astrobinWs);
@@ -38,6 +41,9 @@ class GetTodayImageTest extends TestCase
     }
 
 
+    /**
+     * @throws ReflectionException
+     */
     public function testGetObjectEntity(): void
     {
         $reflection = new \ReflectionClass($this->astrobinWs);
@@ -47,6 +53,9 @@ class GetTodayImageTest extends TestCase
         $this->assertEquals(Today::class, $response);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testGetCollectionEntity(): void
     {
         $reflection = new \ReflectionClass($this->astrobinWs);
@@ -56,6 +65,12 @@ class GetTodayImageTest extends TestCase
         $this->assertEquals(ListToday::class, $response);
     }
 
+    /**
+     * @throws WsResponseException
+     * @throws ReflectionException
+     * @throws WsException
+     * @throws JsonException
+     */
     public function testNullableKeys(): void
     {
         $response = $this->badAstrobinWs->getTodayImage();
@@ -88,25 +103,26 @@ class GetTodayImageTest extends TestCase
         $response = $this->astrobinWs->getDayImage(0, $limit);
         $this->assertInstanceOf(ListToday::class, $response);
         $this->assertCount($limit, $response->listToday);
-        /** @var Today $today */
-        while ($response->getIterator()->valid()) {
-            $today = $response->getIterator()->current();
+        /** @var Today $today
+//        $listToday = $response->getIterator();
+//        while ($listToday->valid()) {
+//            $today = $listToday->current();
 //            $this->assertInstanceOf(Today::class, $today);
 //            $this->assertContains($today->date, $listDates);
 //            $this->assertInstanceOf(Image::class, $today->image);
-            $response->getIterator()->next();
-        }
+//            $listToday->next();
+//        }
 
         /**
          * Test with offset and limit null
-         */
+        */
         $response = $this->astrobinWs->getDayImage(null, null);
         $this->assertInstanceOf(Today::class, $response);
         $this->assertEquals($response->date, (new \DateTime())->format('Y-m-d'));
 
         /**
          * Test if Today is null
-         */
+        */
         $emptyResponse = $this->astrobinWs->getDayImage(-1, -5);
         $this->assertInstanceOf(AstrobinError::class, $emptyResponse);
     }

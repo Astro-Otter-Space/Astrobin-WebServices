@@ -79,6 +79,9 @@ class GetUserTest extends TestCase
         $this->assertEquals($userId, $response->id);
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function testGetByUsername(): void
     {
         /**
