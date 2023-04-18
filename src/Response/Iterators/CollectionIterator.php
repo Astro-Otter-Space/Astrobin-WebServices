@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AstrobinWs\Response\Iterators;
+
+use ReturnTypeWillChange;
 
 /**
  * Class CollectionIterator
@@ -20,23 +20,21 @@ class CollectionIterator implements \Iterator
     /**
      * @return mixed
      */
-    #[ReturnTypeWillChange] public function current(): mixed
+    #[ReturnTypeWillChange]
+    public function current(): mixed
     {
         return current($this->var);
     }
-
 
     #[ReturnTypeWillChange] public function next(): mixed
     {
         return next($this->var);
     }
 
-
     public function key(): string|int|null
     {
         return key($this->var);
     }
-
 
     /**
      * @return bool
@@ -44,7 +42,7 @@ class CollectionIterator implements \Iterator
     public function valid(): bool
     {
         $key = key($this->var);
-        return !is_null($key) && false !== $key;
+        return !is_null($key);
     }
 
     /**

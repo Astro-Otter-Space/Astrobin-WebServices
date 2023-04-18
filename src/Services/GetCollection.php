@@ -65,10 +65,10 @@ class GetCollection extends AbstractWebService implements WsInterface
         return $this->getImagesFromResource($collection);
     }
 
-
     /**
+     * @deprecated
+     * Request by "user" attribute is not allowed anymore
      * @return ListCollection|null
-     * @throws WsException
      * @throws \JsonException
      */
     public function getListCollectionByUser(

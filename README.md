@@ -191,14 +191,13 @@ List of filters that can be used in `getImageBy()` :
 
 ### GetCollection :
 
-| Function name | Parameter| Response |
-| ------------- | ------------------------------ |----------------------------- |
-| `getById()`| `$id` | `Collection` |
-| `getCollectionById()`| `$id`| `Collection` |
-| `getCollectionByUser()`|`$user`,`$limit`| `ListCollection` |
+| Function name                      | Parameter| Response |
+|------------------------------------| ------------------------------ |----------------------------- |
+| `getById()`                        | `$id` | `Collection` |
+| DEPRECATED `getCollectionByUser()` |`$user`,`$limit`| `ListCollection` |
 
 Parameter `$limit` is mandatory and must be an integer.
-`getCollectionById()` is an alias of `getById()` for retro-compatibility of version 1.0.0.
+
 ### GetUser
 
 | Function name    | Parameter   | Response |
@@ -238,7 +237,6 @@ Parameter `$limit` is mandatory and must be an integer.
 | `date_created`| Date of creation|
 | `date_updated`| Date of modification|
 | `images`| Path of WS Image|
-| `listImages`| Path of WS Image|
 
 ### ListCollection
 | Parameter| Description |
