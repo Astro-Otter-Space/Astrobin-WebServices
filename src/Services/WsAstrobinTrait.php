@@ -6,8 +6,8 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use AstrobinWs\Response\DTO\Image;
-use AstrobinWs\Response\DTO\ListImages;
+use AstrobinWs\Response\DTO\Collection\ListImages;
+use AstrobinWs\Response\DTO\Item\Image;
 
 /**
  * Trait WsAstrobinTrait

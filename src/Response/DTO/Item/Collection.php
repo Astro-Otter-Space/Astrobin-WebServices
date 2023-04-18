@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AstrobinWs\Response\DTO;
+namespace AstrobinWs\Response\DTO\Item;
 
 use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\AbstractResponse;
-use AstrobinWs\Response\Iterators\ImageIterator;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\Collection\ListImages;
 
 /**
  * Class Collection

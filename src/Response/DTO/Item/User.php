@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AstrobinWs\Response\DTO;
+namespace AstrobinWs\Response\DTO\Item;
 
 use AstrobinWs\Response\AbstractResponse;
+use AstrobinWs\Response\DTO\AstrobinResponse;
 
 /**
  * Class User

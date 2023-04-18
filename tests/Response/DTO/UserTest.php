@@ -2,7 +2,7 @@
 
 namespace Response\DTO;
 
-use AstrobinWs\Response\DTO\User;
+use AstrobinWs\Response\DTO\Item\User;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AstrobinWs\Response\DTO;
+namespace AstrobinWs\Response\DTO\Collection;
 
 use AstrobinWs\Response\AbstractResponse;
+use AstrobinWs\Response\DTO\AstrobinResponse;
+use AstrobinWs\Response\DTO\Item\Today;
 
 /**
  * Class ListToday

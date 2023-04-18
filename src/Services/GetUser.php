@@ -8,7 +8,7 @@ use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Filters\UserFilters;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use AstrobinWs\Response\DTO\User;
+use AstrobinWs\Response\DTO\Item\User;
 
 /**
  * Class GetUser

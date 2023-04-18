@@ -7,8 +7,8 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\QueryFilters;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use AstrobinWs\Response\DTO\ListToday;
-use AstrobinWs\Response\DTO\Today;
+use AstrobinWs\Response\DTO\Collection\ListToday;
+use AstrobinWs\Response\DTO\Item\Today;
 
 /**
  * Class getTodayImage
