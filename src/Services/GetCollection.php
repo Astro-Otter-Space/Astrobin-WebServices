@@ -9,10 +9,9 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Filters\CollectionFilters;
 use AstrobinWs\Filters\QueryFilters;
-use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use AstrobinWs\Response\DTO\Collection;
-use AstrobinWs\Response\DTO\ListCollection;
+use AstrobinWs\Response\DTO\Collection\ListCollection;
+use AstrobinWs\Response\DTO\Item\Collection;
 
 /**
  * Class GetCollection

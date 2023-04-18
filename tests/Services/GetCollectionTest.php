@@ -5,12 +5,10 @@ namespace Services;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
-use AstrobinWs\Response\DTO\Collection;
-use AstrobinWs\Response\DTO\Image;
-use AstrobinWs\Response\DTO\ListCollection;
-use AstrobinWs\Response\DTO\ListImages;
+use AstrobinWs\Response\DTO\Collection\ListCollection;
+use AstrobinWs\Response\DTO\Collection\ListImages;
+use AstrobinWs\Response\DTO\Item\Collection;
 use AstrobinWs\Services\GetCollection;
-use AstrobinWs\Services\GetImage;
 use PHPUnit\Framework\TestCase;
 
 class GetCollectionTest extends TestCase

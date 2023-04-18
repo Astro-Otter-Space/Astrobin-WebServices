@@ -2,7 +2,7 @@
 
 namespace Response\DTO;
 
-use AstrobinWs\Response\DTO\Image;
+use AstrobinWs\Response\DTO\Item\Image;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 

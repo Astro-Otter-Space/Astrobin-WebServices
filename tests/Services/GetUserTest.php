@@ -6,7 +6,7 @@ use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use AstrobinWs\Response\DTO\User;
+use AstrobinWs\Response\DTO\Item\User;
 use AstrobinWs\Services\GetUser;
 use Exception;
 use PHPUnit\Framework\TestCase;
