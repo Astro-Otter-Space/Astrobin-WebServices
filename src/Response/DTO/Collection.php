@@ -12,7 +12,7 @@ use AstrobinWs\Response\Iterators\ImageIterator;
  * Class Collection
  * @package Astrobin\Response
  */
-final class Collection extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
+final class Collection extends AbstractResponse implements AstrobinResponse
 {
     public int $id;
     public string $name;
@@ -21,19 +21,7 @@ final class Collection extends AbstractResponse implements \IteratorAggregate, A
     public string $user;
     public string|\DateTime $date_created;
     public string|\DateTime $date_updated;
-    public ?array $images;
-    public ?array $listImages;
-
-    public function getIterator(): ImageIterator
-    {
-        return new ImageIterator($this->listImages);
-    }
-
-
-    public function add(Image $image): void
-    {
-        $this->listImages[] = $image;
-    }
+    public ListImages|array|null $images;
 
     public function setDateCreated(string $dateCreated): self
     {
