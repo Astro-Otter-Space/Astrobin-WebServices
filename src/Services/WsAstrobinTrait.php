@@ -25,16 +25,16 @@ trait WsAstrobinTrait
         if (property_exists($entity, 'image')) {
             $imageId = substr((string) $entity->image, strrpos((string) $entity->image, '/') + 1);
             $image = $this->getWsImage($imageId);
-            $entity->image = ($image instanceof Image) ? $image : $entity->image;
-        } elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
-            /*foreach ($entity->images as $imageUri) {
+            $entity->image = ($image instanceof Image) ? $image : $imageId;
+        } /*elseif (property_exists($entity, 'images') && 0 < count($entity->images)) {
+            foreach ($entity->images as $imageUri) {
                 $imageId = substr((string) $imageUri, strrpos((string)$imageUri, '/') + 1);
                 $image = $this->getWsImage($imageId);
                 if ($image instanceof AstrobinResponse) {
                     $entity->add($image);
                 }
-            }*/
-        }
+            }
+        }*/
 
         return $entity;
     }

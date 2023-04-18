@@ -79,13 +79,14 @@ class GetTodayImage extends AbstractWebService implements WsInterface
         ];
 
         $entity = $this->sendRequestAndBuildResponse(null, $params);
-
         if ($entity instanceof Today) {
             $entity = $this->getImagesFromResource($entity);
         } elseif ($entity instanceof ListToday) {
-            /** @var Today $day */
-            foreach ($entity->listToday as $day) {
-                $this->getImagesFromResource($day);
+            $listToDay = $entity->getIterator();
+            while ($listToDay->valid()) {
+                $current = $listToDay->current();
+                $this->getImagesFromResource($current);
+                $listToDay->next();
             }
         }
 

@@ -129,7 +129,7 @@ class GetImageTest extends TestCase
         $response = $this->astrobinWs->getImagesByUser($username, $limit);
         $this->assertLessThanOrEqual($limit, $response->count);
         $respIterator = $response->getIterator();
-        while($respIterator->valid()) {
+        while ($respIterator->valid()) {
             $response = $respIterator->current();
             $this->assertInstanceOf(Image::class, $response);
             $this->assertStringContainsString($username, $response->user);
@@ -253,8 +253,6 @@ class GetImageTest extends TestCase
         $this->expectException(WsException::class);
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, '2023-06-30', null);
-
-
     }
 
     /**
