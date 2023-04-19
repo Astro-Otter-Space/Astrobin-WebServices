@@ -1,24 +1,27 @@
 <?php
 
-namespace Response\DTO;
+namespace Response\DTO\Item;
 
-use AstrobinWs\Response\DTO\Item\User;
+use AstrobinWs\Response\DTO\Item\Image;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+class ImageTest extends TestCase
 {
     public static array $expectedProperties = [
-        'about',
-        'avatar',
-        'hobbies',
-        'id',
-        'image_count',
-        'job',
-        'language',
-        'username',
-        'website'
+        'description',
+        'subjects',
+        'title',
+        'uploaded',
+        'url_gallery',
+        'url_hd',
+        'url_histogram',
+        'url_regular',
+        'url_skyplot',
+        'url_thumb',
+        'user'
     ];
+
     protected function setUp(): void
     {
         BypassFinals::enable();
@@ -26,9 +29,10 @@ class UserTest extends TestCase
 
     public function testPropertiesExist(): void
     {
-        $reflexion = new \ReflectionClass((new User()));
+        $reflexion = new \ReflectionClass((new Image()));
         $props = array_map(static fn(\ReflectionProperty $prop) => $prop->getName(), $reflexion->getProperties());
         sort($props);
         $this->assertEquals(self::$expectedProperties, $props);
     }
 }
+
