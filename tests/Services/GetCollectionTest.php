@@ -98,9 +98,13 @@ class GetCollectionTest extends TestCase
      */
     public function testGetListCollectionByUser(): void
     {
+        $limitTooHigh = 999999;
+        $response = $this->astrobinWs->getListCollectionByUser('siovene', $limitTooHigh);
+        $this->assertNull($response);
+
         $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
         $this->assertInstanceOf(AstrobinError::class, $response);
-        
+
     }
 
     public function tearDown(): void
