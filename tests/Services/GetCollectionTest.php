@@ -96,11 +96,12 @@ class GetCollectionTest extends TestCase
      * @throws WsException
      * @throws \JsonException
      */
-//    public function testGetListCollectionByUser(): void
-//    {
-//        $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
-//        $this->assertInstanceOf(Collection::class, $response);
-//    }
+    public function testGetListCollectionByUser(): void
+    {
+        $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
+        $this->assertInstanceOf(AstrobinError::class, $response);
+        
+    }
 
     public function tearDown(): void
     {
