@@ -77,7 +77,7 @@ class GetCollection extends AbstractWebService implements WsInterface
     ): ?AstrobinResponse
     {
         if (parent::LIMIT_MAX < $limit) {
-            $limit = parent::LIMIT_MAX;
+            return null;
         }
         $params = [CollectionFilters::USER_FILTER->value => $username, QueryFilters::LIMIT->value => $limit];
         return $this->sendRequestAndBuildResponse(null, $params);
