@@ -24,6 +24,8 @@ final class Image extends AbstractResponse implements AstrobinResponse
     public ?string $user = null;
     public ?string $url_histogram = null;
     public ?string $url_skyplot = null;
+    public ?int $views = 0;
+    public ?int $likes = 0;
 
     public function getUploaded(): \DateTime
     {

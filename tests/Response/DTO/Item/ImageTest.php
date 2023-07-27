@@ -19,7 +19,9 @@ class ImageTest extends TestCase
         'url_regular',
         'url_skyplot',
         'url_thumb',
-        'user'
+        'user',
+        'views',
+        'likes'
     ];
 
     protected function setUp(): void
