@@ -31,7 +31,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.5.0
+Version 2.5.1
 
 ## Requirements
 * PHP 8.1 min or superior (oldest versions are no longer supported)
@@ -209,17 +209,19 @@ Parameter `$limit` is mandatory and must be an integer.
 ## Responses
 
 ### Image
-| Parameter| Description |
-| ------------- | ------------------------------ |
-| `title`| Title of image|
-| `subjects`| Keywords|
-| `description`| Description|
-| `url_gallery`| URL of image for gallery|
-| `url_thumb`| URL of image , thumb size|
-| `url_regular`| URL of image|
-| `user`| Username|
-| `url_histogram` | URL to histogram |
-| `url_skyplot` | URL to skyplot |
+| Parameter       | Description               |
+|-----------------|---------------------------|
+| `title`         | Title of image            |
+| `subjects`      | Keywords                  |
+| `description`   | Description               |
+| `url_gallery`   | URL of image for gallery  |
+| `url_thumb`     | URL of image , thumb size |
+| `url_regular`   | URL of image              |
+| `user`          | Username                  |
+| `url_histogram` | URL to histogram          |
+| `url_skyplot`   | URL to skyplot            |
+| `views`         | Count of views            |
+| `likes`         | Count of likes |
 
 ### ListImage
 | Parameter| Description |
@@ -313,3 +315,6 @@ Stéphane Méaudre  - <balistik.fonfon@gmail.com> - 2023
 
 ## Licence
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+## Other versions
+* [VueJs version - In progress](https://github.com/HamHamFonFon/Astrobin-WebServices-VueJs)

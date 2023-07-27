@@ -98,6 +98,8 @@ class GetImageTest extends TestCase
         $this->assertNotEmpty($response->url_hd);
         $this->assertNotEmpty($response->url_regular);
         $this->assertNotEmpty($response->url_thumb);
+        $this->assertIsInt($response->views);
+        $this->assertIsInt($response->likes);
     }
 
     /**
