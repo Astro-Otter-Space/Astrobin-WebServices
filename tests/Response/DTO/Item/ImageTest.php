@@ -10,6 +10,7 @@ class ImageTest extends TestCase
 {
     public static array $expectedProperties = [
         'description',
+        'likes',
         'subjects',
         'title',
         'uploaded',
@@ -20,8 +21,7 @@ class ImageTest extends TestCase
         'url_skyplot',
         'url_thumb',
         'user',
-        'views',
-        'likes'
+        'views'
     ];
 
     protected function setUp(): void
