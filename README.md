@@ -31,7 +31,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.5.1
+Version 2.5.2
 
 ## Requirements
 * PHP 8.1 min or superior (oldest versions are no longer supported)
@@ -220,8 +220,10 @@ Parameter `$limit` is mandatory and must be an integer.
 | `user`          | Username                  |
 | `url_histogram` | URL to histogram          |
 | `url_skyplot`   | URL to skyplot            |
+ | `url_solution` |                            | 
+| `url_advanced_skyplot_small`   | URL to advanced skyplot   |
 | `views`         | Count of views            |
-| `likes`         | Count of likes |
+| `likes`         | Count of likes            |
 
 ### ListImage
 | Parameter| Description |

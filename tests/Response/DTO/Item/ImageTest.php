@@ -19,6 +19,8 @@ class ImageTest extends TestCase
         'url_histogram',
         'url_regular',
         'url_skyplot',
+        'url_advanced_skyplot_small',
+        'url_solution',
         'url_thumb',
         'user',
         'views'
