@@ -121,10 +121,12 @@ class GetImage extends AbstractWebService implements WsInterface
 
     /**
      * Get image filtered by range date
+     * @param string|null $dateFromStr
+     * @param string|null $dateToStr
+     * @param int|null $limit
+     * @return AstrobinResponse|null
+     * @throws JsonException
      * @throws WsException
-     * @throws WsResponseException
-     * @throws ReflectionException
-     * @throws \Exception
      */
     public function getImagesByRangeDate(
         ?string $dateFromStr,

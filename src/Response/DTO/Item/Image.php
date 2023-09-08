@@ -31,6 +31,9 @@ final class Image extends AbstractResponse implements AstrobinResponse
 
     public function getUploaded(): \DateTime
     {
+        if (is_null($this->uploaded)) {
+            return new \DateTime('now');
+        }
         return \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
     }
 }
