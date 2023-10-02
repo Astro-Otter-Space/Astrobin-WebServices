@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+  backupGlobals="false"
+  backupStaticProperties="false"
+  bootstrap="tests/bootstrap.php"
+  cacheDirectory=".phpunit.cache"
+  cacheResultFile=".phpunit.cache/test-results"
+  colors="true"
+  processIsolation="false"
+  stopOnFailure="false"
+>
+  <coverage cacheDirectory=".phpunit.cache/code-coverage">
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <exclude>
+      <directory>./docker</directory>
+      <directory suffix=".php">./vendor</directory>
+      <directory suffix=".php">./src/Exceptions</directory>
+      <file>./src/test.php</file>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="Astrobin WS Test Suite">
+      <directory suffix=".php">./tests/Services</directory>
+    </testsuite>
+    <testsuite name="Enums Test Suite">
+      <directory suffix=".php">./tests/Filters</directory>
+    </testsuite>
+    <testsuite name="DTO Test Suite">
+      <directory suffix=".php">./tests/Response</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
