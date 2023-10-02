@@ -29,8 +29,12 @@ final class Image extends AbstractResponse implements AstrobinResponse
     public ?int $views = 0;
     public ?int $likes = 0;
 
-    public function getUploaded(): \DateTime
+    public function getUploaded(): ?\DateTime
     {
+        if (is_null($this->uploaded)) {
+            return null;
+        }
+
         try {
             return \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded);
         } catch (\Exception) {
