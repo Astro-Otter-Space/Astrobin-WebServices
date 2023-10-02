@@ -22,7 +22,7 @@ final class Collection extends AbstractResponse implements AstrobinResponse
     public string $user;
     public string|\DateTime $date_created;
     public string|\DateTime $date_updated;
-    public ListImages|array|null $images;
+    public ListImages|array|null $images = null;
 
     public function setDateCreated(string $dateCreated): self
     {
