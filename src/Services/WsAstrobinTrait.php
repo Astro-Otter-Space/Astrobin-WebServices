@@ -55,9 +55,6 @@ trait WsAstrobinTrait
     }
 
     /**
-     * @param string|null $id
-     * @param array|null $params
-     * @return AstrobinResponse|null
      * @throws \JsonException
      */
     protected function sendRequestAndBuildResponse(?string $id, ?array $params): ?AstrobinResponse

@@ -18,23 +18,20 @@ include __DIR__ . './../src/Services/GetUser.php';
 # Response
 include __DIR__ . './../src/Response/DTO/AstrobinResponse.php';
 include __DIR__ . './../src/Response/AbstractResponse.php';
-include __DIR__ . './../src/Response/DTO/ListImages.php';
-include __DIR__ . './../src/Response/DTO/Image.php';
-include __DIR__ . './../src/Response/DTO/User.php';
-
-echo '<pre>';
+include __DIR__ . './../src/Response/DTO/Collection/ListImages.php';
+include __DIR__ . './../src/Response/DTO/Collection/ListCollection.php';
+include __DIR__ . './../src/Response/DTO/Collection/ListToday.php';
+include __DIR__ . './../src/Response/DTO/Item/Image.php';
+include __DIR__ . './../src/Response/DTO/Item/User.php';
+include __DIR__ . './../src/Response/DTO/Item/Collection.php';
 
 $astrobinApiKey = getenv('ASTROBIN_API_KEY');
 $astrobinApiSecret = getenv('ASTROBIN_API_SECRET');
 
 $astrobinWs = new \AstrobinWs\Services\GetCollection($astrobinApiKey, $astrobinApiSecret);
-$response = $astrobinWs->getById('2');
+try {
+    $response = $astrobinWs->getListCollectionByUser('siovene', 1);
+    var_dump($response);
+} catch (\AstrobinWs\Exceptions\WsException|JsonException) {
+}
 
-var_dump($response);
-//var_dump($response->listToday);
-//while($response->getIterator()->valid()) {
-//    /** @var Today $today */
-//    $today = $response->getIterator()->current();
-//    var_dump($today->date);
-//    $response->getIterator()->next();
-//}
