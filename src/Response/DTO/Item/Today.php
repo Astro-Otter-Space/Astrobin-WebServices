@@ -17,7 +17,7 @@ final class Today extends AbstractResponse implements AstrobinResponse
     /**
      * Path of image, not Image instance
      */
-    public string $image;
+    public string|Image|null $image = null;
     public string $resource_uri;
 
 }
