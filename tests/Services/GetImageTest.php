@@ -100,7 +100,12 @@ class GetImageTest extends TestCase
         $this->assertNotEmpty($response->url_thumb);
         $this->assertIsInt($response->views);
         $this->assertIsInt($response->likes);
-        $this->assertInstanceOf(\DateTime::class, $response->getUploaded());
+        if (is_null($response->uploaded)) {
+            $this->assertNull($response->getUploaded());
+        } else {
+            $this->assertInstanceOf(\DateTime::class, $response->getUploaded());
+        }
+
     }
 
     /**

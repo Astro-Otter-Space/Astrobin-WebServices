@@ -16,7 +16,7 @@ final class Image extends AbstractResponse implements AstrobinResponse
     public ?string $title = null;
     public ?array $subjects;
     public ?string $description = null;
-    public ?string $uploaded = null;
+    public string|null $uploaded = null;
     public ?string $url_gallery = null;
     public ?string $url_thumb = null;
     public ?string $url_regular = null;
