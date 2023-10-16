@@ -15,6 +15,7 @@ use AstrobinWs\Response\DTO\Item\Today;
 class ListToday extends AbstractResponse implements \IteratorAggregate, AstrobinResponse
 {
     public array $listToday;
+
     public int $count = 0;
 
     /**

@@ -23,6 +23,9 @@ class GetImage extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
+    /**
+     * @var string
+     */
     final public const END_POINT = 'image';
 
     protected function getEndPoint(): string

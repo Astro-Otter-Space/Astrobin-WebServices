@@ -18,6 +18,9 @@ class GetUser extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
+    /**
+     * @var string
+     */
     final public const END_POINT = 'userprofile';
 
     /**

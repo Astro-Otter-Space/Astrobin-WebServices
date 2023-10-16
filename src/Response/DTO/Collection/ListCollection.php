@@ -17,7 +17,7 @@ final class ListCollection extends AbstractResponse implements \IteratorAggregat
     public array $listCollection;
 
     /**
-     * @return CollectionIterator|\Traversable
+     * @return CollectionIterator
      */
     public function getIterator(): CollectionIterator
     {

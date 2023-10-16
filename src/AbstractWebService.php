@@ -22,7 +22,14 @@ use stdClass;
  */
 abstract class AbstractWebService
 {
+    /**
+     * @var int
+     */
     final public const LIMIT_MAX = 20;
+
+    /**
+     * @var int
+     */
     final public const TIMEOUT = 30;
 
     protected int $timeout = self::TIMEOUT;
@@ -130,7 +137,8 @@ abstract class AbstractWebService
             $options['body'] = $body;
         }
 
-        $guzzleResponse = $msgErr = null;
+        $guzzleResponse = null;
+        $msgErr = null;
         try {
             $guzzleResponse = $this->client->request($method, $endPoint, $options);
         } catch (GuzzleException $guzzleException) {
@@ -143,7 +151,6 @@ abstract class AbstractWebService
 
         throw new WsException($msgErr, 500, null);
     }
-
 
     /**
      * Check response and jsondecode object

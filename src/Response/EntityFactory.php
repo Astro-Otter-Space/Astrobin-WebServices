@@ -9,6 +9,7 @@ final class EntityFactory
     private readonly mixed $rawResponse;
 
     private ?string $entity = null;
+
     private ?string $collectionEntity = null;
 
     /**

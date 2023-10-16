@@ -21,6 +21,9 @@ class GetCollection extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
+    /**
+     * @var string
+     */
     final public const END_POINT = 'collection';
 
     /**
@@ -61,6 +64,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         if (is_null($id)) {
             throw new WsException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
+
         $collection = $this->sendRequestAndBuildResponse($id, null);
         return $this->getImagesFromResource($collection);
     }
@@ -79,6 +83,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
+
         $params = [CollectionFilters::USER_FILTER->value => $username, QueryFilters::LIMIT->value => $limit];
         return $this->sendRequestAndBuildResponse(null, $params);
     }

@@ -16,12 +16,18 @@ use AstrobinWs\Response\DTO\Collection\ListImages;
 final class Collection extends AbstractResponse implements AstrobinResponse
 {
     public int $id;
+
     public string $name;
+
     public ?string $description = null;
 
+
     public string $user;
+
     public string|\DateTime $date_created;
+
     public string|\DateTime $date_updated;
+
     public ListImages|array|null $images = null;
 
     public function setDateCreated(string $dateCreated): self
