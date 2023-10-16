@@ -39,9 +39,6 @@ abstract class AbstractWebService
         'Content-Type' => GuzzleSingleton::APPLICATION_JSON
     ];
 
-    /**
-     * @var Client
-     */
     private Client $client;
 
     /**
@@ -181,17 +178,20 @@ abstract class AbstractWebService
             throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
         }
 
-        if (
-            property_exists($jsonContent, "objects")
-            && property_exists($jsonContent, "meta")
-            && 0 === $jsonContent->meta->total_count
-        ) {
-            throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
+        if (!property_exists($jsonContent, "objects")) {
+            return $contents;
         }
 
-        return $contents;
-    }
+        if (!property_exists($jsonContent, "meta")) {
+            return $contents;
+        }
 
+        if (0 !== $jsonContent->meta->total_count) {
+            return $contents;
+        }
+
+        throw new WsResponseException(WsException::RESP_EMPTY, 500, null);
+    }
 
     /**
      * @throws JsonException

@@ -128,6 +128,7 @@ class GetImage extends AbstractWebService implements WsInterface
      * Get image filtered by range date
      * @throws JsonException
      * @throws WsException
+     * @throws \Exception
      */
     public function getImagesByRangeDate(
         ?string $dateFromStr,
@@ -167,7 +168,7 @@ class GetImage extends AbstractWebService implements WsInterface
             return null;
         }
 
-        $params = array_filter($filters, static fn($key) => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
+        $params = array_filter($filters, static fn($key): bool => in_array($key, array_column(ImageFilters::cases(), 'value'), true), ARRAY_FILTER_USE_KEY);
         $params = [...$params, QueryFilters::LIMIT->value => $limit];
 
         return $this->sendRequestAndBuildResponse(null, $params);

@@ -26,25 +26,16 @@ class GetCollection extends AbstractWebService implements WsInterface
      */
     final public const END_POINT = 'collection';
 
-    /**
-     * @return string
-     */
     protected function getEndPoint(): string
     {
         return self::END_POINT;
     }
 
-    /**
-     * @return string
-     */
     protected function getObjectEntity(): string
     {
         return Collection::class;
     }
 
-    /**
-     * @return string
-     */
     protected function getCollectionEntity(): string
     {
         return ListCollection::class;
@@ -52,8 +43,6 @@ class GetCollection extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param string|null $id
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException

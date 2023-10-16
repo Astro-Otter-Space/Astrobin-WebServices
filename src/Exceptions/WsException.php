@@ -64,9 +64,6 @@ class WsException extends \Exception implements \Stringable
         parent::__construct(...func_get_args());
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return self::class . sprintf('[%d]: %s%s', $this->getCode(), $this->getMessage(), PHP_EOL);
