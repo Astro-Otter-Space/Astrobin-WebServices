@@ -14,6 +14,7 @@ class ImageTest extends TestCase
         'subjects',
         'title',
         'uploaded',
+        'url_advanced_skyplot',
         'url_advanced_skyplot_small',
         'url_gallery',
         'url_hd',
@@ -21,6 +22,7 @@ class ImageTest extends TestCase
         'url_regular',
         'url_skyplot',
         'url_solution',
+        'url_advanced_solution',
         'url_thumb',
         'user',
         'views'
