@@ -30,6 +30,7 @@ final class Image extends AbstractResponse implements AstrobinResponse
     public ?string $url_hd = null;
 
     public ?string $url_solution = null;
+    public ?string $url_advanced_solution = null;
 
     public ?string $user = null;
 
@@ -37,6 +38,7 @@ final class Image extends AbstractResponse implements AstrobinResponse
 
     public ?string $url_skyplot = null;
 
+    public ?string $url_advanced_skyplot = null;
     public ?string $url_advanced_skyplot_small = null;
 
     public ?int $views = 0;
