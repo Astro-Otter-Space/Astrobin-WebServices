@@ -10,10 +10,13 @@ use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Collection;
 use AstrobinWs\Response\DTO\Item\Image;
 use AstrobinWs\Services\GetCollection;
+use AstrobinWs\Services\WsAstrobinTrait;
 use PHPUnit\Framework\TestCase;
 
 class GetCollectionTest extends TestCase
 {
+    use WsAstrobinTrait;
+
     public ?GetCollection $astrobinWs = null;
 
     public ?GetCollection $badAstrobinWs = null;
@@ -97,6 +100,7 @@ class GetCollectionTest extends TestCase
         foreach ($response->images as $image) {
             $this->assertInstanceOf(Image::class, $image);
         }
+        $this->assertIsInt($response->images->count);
     }
 
     /**
@@ -111,7 +115,35 @@ class GetCollectionTest extends TestCase
 
         $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
         $this->assertInstanceOf(AstrobinError::class, $response);
+    }
 
+    /**
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
+     */
+    public function testAddImagesInCollection(): void
+    {
+        $collection = new Collection();
+        $collection->images = [
+            "/api/v1/image/131428",
+            "/api/v1/image/108615",
+            "/api/v1/image/64901",
+            "/api/v1/image/63984",
+            "/api/v1/image/51197",
+            "/api/v1/image/50888",
+            "/api/v1/image/48807",
+            "/api/v1/image/48433",
+            "/api/v1/image/46870",
+            "/api/v1/image/28489",
+        ];
+        $nbItems = count($collection->images);
+
+        $collection = $this->getImagesFromResource($collection);
+        $this->assertCount($nbItems, $collection->images->count);
+        foreach ($collection->images as $image) {
+            $this->assertInstanceOf(Image::class, $image);
+        }
     }
 
     protected function tearDown(): void
