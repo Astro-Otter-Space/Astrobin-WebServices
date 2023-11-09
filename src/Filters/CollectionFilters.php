@@ -12,5 +12,5 @@ enum CollectionFilters: string
 {
     use EnumToArray;
 
-    case USER_FILTER = 'username';
+    case USER_FILTER = 'user';
 }
