@@ -102,6 +102,7 @@ class GetCollectionTest extends TestCase
     }
 
     /**
+     * NB : filter on field "user" is not longer supported
      * @throws \JsonException
      */
     public function testGetListCollectionByUser(): void
@@ -111,7 +112,7 @@ class GetCollectionTest extends TestCase
         $this->assertNull($response);
 
         $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
-        $this->assertInstanceOf(AstrobinError::class, $response);
+        $this->assertInstanceOf(ListCollection::class, $response);
     }
 
     /**

@@ -304,6 +304,9 @@ class GetImageTest extends TestCase
         $this->assertInstanceOf(Image::class, $goodResponse);
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function testGetImageBy(): void
     {
         $response = $this->astrobinWs->getImageBy([], 9999);
