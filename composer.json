@@ -2,6 +2,7 @@
   "name" : "hamhamfonfon/astrobin-ws",
   "license": "MIT",
   "description" : "Astrobin WebServices for PHP projects",
+  "version": "2.6.1",
   "type" : "library",
   "authors" : [{
     "name" : "Stéphane Méaudre",
