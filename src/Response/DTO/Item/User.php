@@ -30,5 +30,4 @@ final class User extends AbstractResponse implements AstrobinResponse
     public ?string $language = null;
 
     public ?string $website = null;
-
 }

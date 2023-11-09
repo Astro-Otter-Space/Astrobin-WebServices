@@ -29,4 +29,21 @@ class CollectionTest extends TestCase
         $collection->setDateCreated('2022-09-22');
         $this->assertInstanceOf(\DateTime::class, $collection->date_created);
     }
+
+    public function testDateUpdatedProperty(): void
+    {
+        $collection = new Collection();
+
+        $collection->setDateUpdated(null);
+        $this->assertNull($collection->date_updated);
+
+        $collection->setDateUpdated('aaaa-bb-ccccc');
+        $this->assertNull($collection->date_updated);
+
+        $collection->setDateUpdated('2022-09-22T11:20:22.584072');
+        $this->assertInstanceOf(\DateTime::class, $collection->date_updated);
+
+        $collection->setDateUpdated('2022-09-22');
+        $this->assertInstanceOf(\DateTime::class, $collection->date_updated);
+    }
 }
