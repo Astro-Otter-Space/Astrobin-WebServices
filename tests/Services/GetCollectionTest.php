@@ -12,6 +12,7 @@ use AstrobinWs\Response\DTO\Item\Image;
 use AstrobinWs\Services\GetCollection;
 use AstrobinWs\Services\WsAstrobinTrait;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use ReflectionMethod;
 
 class GetCollectionTest extends TestCase
@@ -122,8 +123,10 @@ class GetCollectionTest extends TestCase
     public function testAddImagesInCollection(): void
     {
         $collection = $this->astrobinWs->getById('25');
-        $method = new ReflectionMethod("GetCollection", "getImagesFromResource");
-        $method->setAccessible(true);
+        $reflectionClass = new ReflectionClass($collection::class);
+        $reflectionMethod = $reflectionClass->getMethod('getImagesFromResource');
+        $reflectionMethod->setAccessible(true);
+
         // Override
         $collection->images = [
             "/api/v1/image/131428",
@@ -139,7 +142,7 @@ class GetCollectionTest extends TestCase
         ];
         $nbItems = count($collection->images);
 
-        $collection = $method->invoke($collection); // $this->astrobinWs->getImagesFromResource($collection);
+        $collection = $reflectionMethod->invoke($collection); // $this->astrobinWs->getImagesFromResource($collection);
         $this->assertCount($nbItems, $collection->images->count);
         foreach ($collection->images as $image) {
             $this->assertInstanceOf(Image::class, $image);
