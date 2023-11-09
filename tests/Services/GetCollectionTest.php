@@ -9,6 +9,7 @@ use AstrobinWs\Response\DTO\Collection\ListCollection;
 use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Collection;
 use AstrobinWs\Response\DTO\Item\Image;
+use AstrobinWs\Response\Iterators\CollectionIterator;
 use AstrobinWs\Services\GetCollection;
 use AstrobinWs\Services\WsAstrobinTrait;
 use PHPUnit\Framework\TestCase;
@@ -113,6 +114,9 @@ class GetCollectionTest extends TestCase
 
         $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
         $this->assertInstanceOf(ListCollection::class, $response);
+        $this->assertIsIterable($response->listCollection);
+        $this->assertInstanceOf(CollectionIterator::class, $response->getIterator());
+
     }
 
     /**
