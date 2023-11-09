@@ -32,13 +32,13 @@ final class Collection extends AbstractResponse implements AstrobinResponse
 
     public function setDateCreated(?string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateCreated) ?: null;
+        $this->date_created = ((is_null($dateCreated)) ? null : \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateCreated)) ?: null;
         return $this;
     }
 
     public function setDateUpdated(?string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateUpdated) ?: null;
+        $this->date_updated = ((is_null($dateUpdated)) ? null : \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateUpdated)) ?: null;
         return $this;
     }
 }
