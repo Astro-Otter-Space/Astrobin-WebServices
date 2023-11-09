@@ -86,7 +86,7 @@ class GetImageTest extends TestCase
          */
         $imageId = '';
         $emptyResponse = $this->astrobinWs->getById($imageId);
-
+        $this->assertInstanceOf(AstrobinResponse::class, $emptyResponse, WsException::ERR_EMPTY);
         /**
          * Test with bad id
          */
