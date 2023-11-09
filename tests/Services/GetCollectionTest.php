@@ -8,6 +8,7 @@ use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection\ListCollection;
 use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Collection;
+use AstrobinWs\Response\DTO\Item\Image;
 use AstrobinWs\Services\GetCollection;
 use PHPUnit\Framework\TestCase;
 
@@ -93,6 +94,9 @@ class GetCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $reponse);
         $this->assertEquals($id, $response->id);
         $this->assertInstanceOf(ListImages::class, $response->images);
+        foreach ($response->images as $image) {
+            $this->assertInstanceOf(Image::class, $image);
+        }
     }
 
     /**
