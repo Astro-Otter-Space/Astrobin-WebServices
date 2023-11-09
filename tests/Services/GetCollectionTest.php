@@ -17,7 +17,7 @@ class GetCollectionTest extends TestCase
 
     public ?GetCollection $badAstrobinWs = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->badAstrobinWs = new GetCollection(null, null);
         $astrobinKey = getenv('ASTROBIN_API_KEY');
@@ -33,6 +33,7 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getEndPoint');
         $method->setAccessible(true);
+
         $endPoint = $method->invoke($this->astrobinWs);
         $this->assertEquals(GetCollection::END_POINT, $endPoint);
     }
@@ -42,6 +43,7 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getObjectEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(Collection::class, $response);
     }
@@ -54,6 +56,7 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getCollectionEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(ListCollection::class, $response);
     }
@@ -107,7 +110,7 @@ class GetCollectionTest extends TestCase
 
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->astrobinWs = null;
         $this->badAstrobinWs = null;

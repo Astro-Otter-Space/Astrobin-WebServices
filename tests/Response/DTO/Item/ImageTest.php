@@ -36,7 +36,7 @@ class ImageTest extends TestCase
     public function testPropertiesExist(): void
     {
         $reflexion = new \ReflectionClass((new Image()));
-        $props = array_map(static fn(\ReflectionProperty $prop) => $prop->getName(), $reflexion->getProperties());
+        $props = array_map(static fn(\ReflectionProperty $prop): string => $prop->getName(), $reflexion->getProperties());
         sort($props);
         $this->assertEquals(self::$expectedProperties, $props);
     }

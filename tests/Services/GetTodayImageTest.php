@@ -18,9 +18,10 @@ class GetTodayImageTest extends TestCase
 {
 
     public ?GetTodayImage $astrobinWs = null;
+
     public ?GetTodayImage $badAstrobinWs = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->badAstrobinWs = new GetTodayImage(null, null);
         $astrobinKey = getenv('ASTROBIN_API_KEY');
@@ -36,6 +37,7 @@ class GetTodayImageTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getEndPoint');
         $method->setAccessible(true);
+
         $endPoint = $method->invoke($this->astrobinWs);
         $this->assertEquals(GetTodayImage::END_POINT, $endPoint);
     }
@@ -49,6 +51,7 @@ class GetTodayImageTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getObjectEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(Today::class, $response);
     }
@@ -61,6 +64,7 @@ class GetTodayImageTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getCollectionEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(ListToday::class, $response);
     }
@@ -94,11 +98,10 @@ class GetTodayImageTest extends TestCase
         $now = new \DateTime('now');
         $startDay = clone $now;
         $startDay = $startDay->sub(New \DateInterval(sprintf('P%sD', $limit-1)));
+
         $interval = new \DateInterval('P1D');
 
-        $listDates = array_map(static function(\DateTime $date) {
-            return $date->format('Y-m-d');
-        }, iterator_to_array((new \DatePeriod($startDay, $interval, $limit-1))->getIterator()));
+        $listDates = array_map(static fn(\DateTime $date): string => $date->format('Y-m-d'), iterator_to_array((new \DatePeriod($startDay, $interval, $limit-1))->getIterator()));
 
         $response = $this->astrobinWs->getDayImage(0, $limit);
         $this->assertInstanceOf(ListToday::class, $response);

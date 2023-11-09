@@ -16,12 +16,13 @@ class GetImageTest extends TestCase
 {
 
     public ?GetImage $astrobinWs = null;
+
     public ?GetImage $badAstrobinWs = null;
 
     /**
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->badAstrobinWs = new GetImage(null, null);
         $astrobinKey = getenv('ASTROBIN_API_KEY');
@@ -42,7 +43,6 @@ class GetImageTest extends TestCase
     }
 
     /**
-     * @return void
      * @throws \ReflectionException
      */
     public function testGetEndPoint(): void
@@ -50,12 +50,12 @@ class GetImageTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getEndPoint');
         $method->setAccessible(true);
+
         $endPoint = $method->invoke($this->astrobinWs);
         $this->assertEquals(GetImage::END_POINT, $endPoint);
     }
 
     /**
-     * @return void
      * @throws \ReflectionException
      */
     public function testGetObjectEntity(): void
@@ -63,6 +63,7 @@ class GetImageTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getObjectEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(Image::class, $response);
     }
@@ -79,6 +80,12 @@ class GetImageTest extends TestCase
         $this->expectException(WsResponseException::class);
         $this->expectExceptionCode(500);
         $response = $this->astrobinWs->getById(null);
+
+        /**
+         * Test empty id and response empty
+         */
+        $imageId = '';
+        $emptyResponse = $this->astrobinWs->getById($imageId);
 
         /**
          * Test with bad id
@@ -113,7 +120,7 @@ class GetImageTest extends TestCase
     public function testGetImagesByUser(): void
     {
         $username = 'FalseUser';
-        $badLimit = 9999999999;
+        $badLimit = 9_999_999_999;
 
         /**
          * Tests limits
@@ -151,7 +158,7 @@ class GetImageTest extends TestCase
          * test bad limit
          */
         $description = "Andromeda galaxy";
-        $badLimit = 9999999;
+        $badLimit = 9_999_999;
         $badLimitResponse = $this->astrobinWs->getImagesByDescription($description, $badLimit);
         $this->assertNull($badLimitResponse);
 
@@ -178,7 +185,7 @@ class GetImageTest extends TestCase
         /**
          * Bad limit
          */
-        $badLimite = 9999999999;
+        $badLimite = 9_999_999_999;
         $subject = 'm42';
         $nullResponse = $this->astrobinWs->getImagesByTitle($subject, $badLimite);
         $this->assertNull($nullResponse);
@@ -202,7 +209,7 @@ class GetImageTest extends TestCase
 
         $subject = 'medusa';
         $response = $this->astrobinWs->getImagesByTitle($subject, 1);
-        $this->assertStringContainsString($subject, strtolower($response->title));
+        $this->assertStringContainsString($subject, strtolower((string) $response->title));
     }
 
     /**
@@ -221,7 +228,7 @@ class GetImageTest extends TestCase
         $this->assertInstanceOf(ListImages::class, $response);
         $this->assertLessThanOrEqual(AbstractWebService::LIMIT_MAX, $response->count);
 
-        $overLimit = AbstractWebService::LIMIT_MAX+1000000;
+        $overLimit = AbstractWebService::LIMIT_MAX+1_000_000;
         $response = $this->astrobinWs->getImagesByRangeDate($dateFromStr, $dateToStr, $overLimit);
         $this->assertNull($response);
 
@@ -271,7 +278,7 @@ class GetImageTest extends TestCase
         /**
          * Test limit too big
          */
-        $badLimite = 9999999999;
+        $badLimite = 9_999_999_999;
         $subject = 'm42';
         $nullResponse = $this->astrobinWs->getImagesBySubject($subject, $badLimite);
         $this->assertNull($nullResponse);
@@ -302,7 +309,7 @@ class GetImageTest extends TestCase
         $this->assertCount(5, $response);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->astrobinWs = null;
         $this->badAstrobinWs = null;
