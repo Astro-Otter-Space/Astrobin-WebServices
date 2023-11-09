@@ -19,7 +19,6 @@ trait WsAstrobinTrait
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     protected function getImagesFromResource(AstrobinResponse $entity): ?AstrobinResponse
     {
@@ -48,7 +47,6 @@ trait WsAstrobinTrait
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     private function getWsImage(string $imageId): ?AstrobinResponse
     {

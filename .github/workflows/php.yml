@@ -37,6 +37,8 @@ jobs:
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: RectorPHP Refactoring
+      run: vendor/bin/rector process src
 
     - name: Run test suite
       env:
