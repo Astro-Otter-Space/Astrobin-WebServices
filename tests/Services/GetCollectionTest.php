@@ -123,7 +123,7 @@ class GetCollectionTest extends TestCase
     public function testAddImagesInCollection(): void
     {
         $collection = $this->astrobinWs->getById('25');
-        $reflectionClass = new ReflectionClass($collection::class);
+        $reflectionClass = new ReflectionClass(GetCollection::class);
         $reflectionMethod = $reflectionClass->getMethod('getImagesFromResource');
         $reflectionMethod->setAccessible(true);
 
@@ -142,7 +142,7 @@ class GetCollectionTest extends TestCase
         ];
         $nbItems = count($collection->images);
 
-        $collection = $reflectionMethod->invoke($collection); // $this->astrobinWs->getImagesFromResource($collection);
+        $collection = $reflectionMethod->invoke($this->astrobinWs, $collection); // $this->astrobinWs->getImagesFromResource($collection);
         $this->assertCount($nbItems, $collection->images->count);
         foreach ($collection->images as $image) {
             $this->assertInstanceOf(Image::class, $image);
