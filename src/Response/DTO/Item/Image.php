@@ -53,6 +53,7 @@ final class Image extends AbstractResponse implements AstrobinResponse
         if (!is_string($this->uploaded)) {
             return null;
         }
+
         return \DateTime::createFromFormat('Y-m-d\T H:i:s.u', $this->uploaded) ?: null;
     }
 }

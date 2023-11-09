@@ -103,7 +103,6 @@ class GetCollectionTest extends TestCase
     }
 
     /**
-     * NB : filter on field "user" is not longer supported
      * @throws \JsonException
      */
     public function testGetListCollectionByUser(): void

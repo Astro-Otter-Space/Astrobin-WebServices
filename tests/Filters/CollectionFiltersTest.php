@@ -16,13 +16,13 @@ class CollectionFiltersTest extends TestCase
         $randomString = bin2hex(random_bytes(10));
         $enumValues = CollectionFilters::toArray();
         $this->assertNotContains($randomString, $enumValues);
-        $this->assertNotContains('user', $enumValues);
+        $this->assertNotContains('username', $enumValues);
         $this->assertNotContains('users', $enumValues);
         $this->assertNotContains('u', $enumValues);
     }
 
     public function testEnumValues(): void
     {
-        $this->assertEquals('username', CollectionFilters::USER_FILTER->value);
+        $this->assertEquals('user', CollectionFilters::USER_FILTER->value);
     }
 }
