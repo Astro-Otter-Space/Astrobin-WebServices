@@ -46,7 +46,6 @@ class GetCollection extends AbstractWebService implements WsInterface
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getById(?string $id): ?AstrobinResponse
     {

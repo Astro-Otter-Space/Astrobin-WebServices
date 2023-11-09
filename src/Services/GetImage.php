@@ -12,7 +12,6 @@ use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Image;
 use DateTime;
 use JsonException;
-use ReflectionException;
 
 /**
  * Class GetImage
