@@ -87,6 +87,7 @@ class GetImageTest extends TestCase
         $imageId = '';
         $emptyResponse = $this->astrobinWs->getById($imageId);
         $this->assertInstanceOf(AstrobinResponse::class, $emptyResponse, WsException::ERR_EMPTY);
+
         /**
          * Test with bad id
          */
@@ -152,6 +153,9 @@ class GetImageTest extends TestCase
         }
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function testGetImagesByDescription(): void
     {
         /**
@@ -202,7 +206,6 @@ class GetImageTest extends TestCase
         /**
          * Test good parameters
          */
-        $subject = 'm51';
         $response = $this->astrobinWs->getImagesByTitle($subject, 1);
         $this->assertInstanceOf(Image::class, $response);
         $this->assertStringContainsString($subject, strtolower($response->title));
@@ -213,9 +216,9 @@ class GetImageTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws WsResponseException
      * @throws WsException
+     * @throws \JsonException
      */
     public function testGetImagesByRangeDate(): void
     {

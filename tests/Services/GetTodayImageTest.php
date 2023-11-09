@@ -106,6 +106,8 @@ class GetTodayImageTest extends TestCase
         $response = $this->astrobinWs->getDayImage(0, $limit);
         $this->assertInstanceOf(ListToday::class, $response);
         $this->assertCount($limit, $response->listToday);
+
+
         /** @var Today $today
 //        $listToday = $response->getIterator();
 //        while ($listToday->valid()) {
