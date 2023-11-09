@@ -58,7 +58,6 @@ class GetCollection extends AbstractWebService implements WsInterface
     }
 
     /**
-     * @deprecated
      * Request by "user" attribute is not allowed anymore
      * @return ListCollection|null
      * @throws \JsonException

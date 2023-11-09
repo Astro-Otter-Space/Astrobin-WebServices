@@ -117,6 +117,7 @@ class GetImageTest extends TestCase
     }
 
     /**
+     * @throws \JsonException
      */
     public function testGetImagesByUser(): void
     {

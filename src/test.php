@@ -30,8 +30,9 @@ $astrobinApiSecret = getenv('ASTROBIN_API_SECRET');
 
 $astrobinWs = new \AstrobinWs\Services\GetCollection($astrobinApiKey, $astrobinApiSecret);
 try {
-    $response = $astrobinWs->getListCollectionByUser('siovene', 1);
-    var_dump($response);
+    $response = $astrobinWs->getById('25');
+
+    var_dump($response->images->count);
 } catch (\AstrobinWs\Exceptions\WsException|JsonException) {
 }
 
