@@ -40,5 +40,12 @@ class ImageTest extends TestCase
         sort($props);
         $this->assertEquals(self::$expectedProperties, $props);
     }
+
+    public function testUploadedProperty(): void
+    {
+        $image = new Image();
+        $image->uploaded = '2022-09-22T11:20:22.584072';
+        $this->assertInstanceOf(\DateTime::class, $image->getUploaded());
+    }
 }
 
