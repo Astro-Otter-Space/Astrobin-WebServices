@@ -67,7 +67,6 @@ class GetCollectionTest extends TestCase
 
     /**
      * @throws WsResponseException
-     * @throws \ReflectionException
      * @throws WsException
      * @throws \JsonException
      */
@@ -79,7 +78,6 @@ class GetCollectionTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \JsonException
      * @throws WsResponseException
      */
@@ -104,7 +102,6 @@ class GetCollectionTest extends TestCase
     }
 
     /**
-     * @throws WsException
      * @throws \JsonException
      */
     public function testGetListCollectionByUser(): void
@@ -124,7 +121,8 @@ class GetCollectionTest extends TestCase
      */
     public function testAddImagesInCollection(): void
     {
-        $collection = new Collection();
+        $collection = $this->astrobinWs->getById('25');
+        // Override
         $collection->images = [
             "/api/v1/image/131428",
             "/api/v1/image/108615",
