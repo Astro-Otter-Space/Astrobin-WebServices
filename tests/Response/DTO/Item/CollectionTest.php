@@ -41,7 +41,7 @@ class CollectionTest extends TestCase
         $this->assertNull($collection->date_updated);
 
         $collection->setDateUpdated('2022-09-22T11:20:22.584072');
-        $this->assertNull(\DateTime::class);
+        $this->assertNull($collection->date_updated);
 
         $collection->setDateUpdated('2022-09-22');
         $this->assertInstanceOf(\DateTime::class, $collection->date_updated);
