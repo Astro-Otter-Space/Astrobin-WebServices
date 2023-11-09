@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class GetCollectionTest extends TestCase
 {
-    use WsAstrobinTrait;
-
     public ?GetCollection $astrobinWs = null;
 
     public ?GetCollection $badAstrobinWs = null;
@@ -137,7 +135,7 @@ class GetCollectionTest extends TestCase
         ];
         $nbItems = count($collection->images);
 
-        $collection = $this->getImagesFromResource($collection);
+        $collection = $this->astrobinWs->getImagesFromResource($collection);
         $this->assertCount($nbItems, $collection->images->count);
         foreach ($collection->images as $image) {
             $this->assertInstanceOf(Image::class, $image);
