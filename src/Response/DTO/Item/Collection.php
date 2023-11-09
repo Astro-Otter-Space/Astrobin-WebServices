@@ -24,21 +24,21 @@ final class Collection extends AbstractResponse implements AstrobinResponse
 
     public string $user;
 
-    public string|\DateTime $date_created;
+    public string|null|\DateTime $date_created = null;
 
-    public string|\DateTime $date_updated;
+    public string|null|\DateTime $date_updated = null;
 
     public ListImages|array|null $images = null;
 
-    public function setDateCreated(string $dateCreated): self
+    public function setDateCreated(?string $dateCreated): self
     {
-        $this->date_created = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateCreated);
+        $this->date_created = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateCreated) ?: null;
         return $this;
     }
 
-    public function setDateUpdated(string $dateUpdated): self
+    public function setDateUpdated(?string $dateUpdated): self
     {
-        $this->date_updated = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateUpdated);
+        $this->date_updated = \DateTime::createFromFormat(QueryFilters::DATE_FORMAT->value, $dateUpdated) ?: null;
         return $this;
     }
 }
