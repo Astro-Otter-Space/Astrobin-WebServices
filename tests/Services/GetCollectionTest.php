@@ -143,7 +143,7 @@ class GetCollectionTest extends TestCase
         $nbItems = count($collection->images);
 
         $collection = $reflectionMethod->invoke($this->astrobinWs, $collection); // $this->astrobinWs->getImagesFromResource($collection);
-        $this->assertCount($nbItems, $collection->images->count);
+        $this->assertCount($nbItems, $collection->images);
         foreach ($collection->images as $image) {
             $this->assertInstanceOf(Image::class, $image);
         }
