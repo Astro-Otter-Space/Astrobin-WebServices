@@ -2,7 +2,7 @@
 
 namespace Response\DTO\Item;
 
-use Collection;
+use AstrobinWs\Response\DTO\Item\Collection;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 
@@ -15,9 +15,9 @@ class CollectionTest extends TestCase
 
     public function testDateCreatedProperty(): void
     {
-        $collection = new \AstrobinWs\Response\DTO\Item\Collection();
+        $collection = new Collection();
 
-        $collection->setDateUpdated(null);
+        $collection->setDateCreated(null);
         $this->assertNull($collection->date_created);
 
         $collection->setDateCreated('aaaa-bb-ccccc');
