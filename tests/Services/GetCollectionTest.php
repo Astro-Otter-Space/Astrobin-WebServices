@@ -8,8 +8,13 @@ use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Collection\ListCollection;
 use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Collection;
+use AstrobinWs\Response\DTO\Item\Image;
+use AstrobinWs\Response\Iterators\CollectionIterator;
 use AstrobinWs\Services\GetCollection;
+use AstrobinWs\Services\WsAstrobinTrait;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 
 class GetCollectionTest extends TestCase
 {
@@ -17,7 +22,7 @@ class GetCollectionTest extends TestCase
 
     public ?GetCollection $badAstrobinWs = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->badAstrobinWs = new GetCollection(null, null);
         $astrobinKey = getenv('ASTROBIN_API_KEY');
@@ -33,6 +38,7 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getEndPoint');
         $method->setAccessible(true);
+
         $endPoint = $method->invoke($this->astrobinWs);
         $this->assertEquals(GetCollection::END_POINT, $endPoint);
     }
@@ -42,6 +48,7 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getObjectEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(Collection::class, $response);
     }
@@ -54,13 +61,13 @@ class GetCollectionTest extends TestCase
         $reflection = new \ReflectionClass($this->astrobinWs);
         $method = $reflection->getMethod('getCollectionEntity');
         $method->setAccessible(true);
+
         $response = $method->invoke($this->astrobinWs);
         $this->assertEquals(ListCollection::class, $response);
     }
 
     /**
      * @throws WsResponseException
-     * @throws \ReflectionException
      * @throws WsException
      * @throws \JsonException
      */
@@ -72,7 +79,6 @@ class GetCollectionTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \JsonException
      * @throws WsResponseException
      */
@@ -90,10 +96,14 @@ class GetCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $reponse);
         $this->assertEquals($id, $response->id);
         $this->assertInstanceOf(ListImages::class, $response->images);
+        foreach ($response->images as $image) {
+            $this->assertInstanceOf(Image::class, $image);
+        }
+        $this->assertIsInt($response->images->count);
     }
 
     /**
-     * @throws WsException
+     * NB : filter on field "user" is not longer supported
      * @throws \JsonException
      */
     public function testGetListCollectionByUser(): void
@@ -103,11 +113,49 @@ class GetCollectionTest extends TestCase
         $this->assertNull($response);
 
         $response = $this->astrobinWs->getListCollectionByUser('siovene', 2);
-        $this->assertInstanceOf(AstrobinError::class, $response);
+        $this->assertInstanceOf(ListCollection::class, $response);
+        $this->assertIsIterable($response->listCollection);
+        $this->assertInstanceOf(CollectionIterator::class, $response->getIterator());
 
     }
 
-    public function tearDown(): void
+    /**
+     * @throws WsException
+     * @throws WsResponseException
+     * @throws \JsonException
+     * @throws \ReflectionException
+     */
+    public function testAddImagesInCollection(): void
+    {
+        $collection = $this->astrobinWs->getById('25');
+        $reflectionClass = new ReflectionClass(GetCollection::class);
+        $reflectionMethod = $reflectionClass->getMethod('getImagesFromResource');
+        $reflectionMethod->setAccessible(true);
+
+        // Override
+        $collection->images = [
+            "/api/v1/image/131428",
+            "/api/v1/image/108615",
+            "/api/v1/image/64901",
+            "/api/v1/image/63984",
+            "/api/v1/image/51197",
+            "/api/v1/image/50888",
+            "/api/v1/image/48807",
+            "/api/v1/image/48433",
+            "/api/v1/image/46870",
+            "/api/v1/image/28489",
+        ];
+        $nbItems = count($collection->images);
+
+        $collection = $reflectionMethod->invoke($this->astrobinWs, $collection); // $this->astrobinWs->getImagesFromResource($collection);
+        $this->assertCount($nbItems, $collection->images);
+        foreach ($collection->images as $image) {
+            $this->assertInstanceOf(Image::class, $image);
+        }
+    }
+
+
+    protected function tearDown(): void
     {
         $this->astrobinWs = null;
         $this->badAstrobinWs = null;

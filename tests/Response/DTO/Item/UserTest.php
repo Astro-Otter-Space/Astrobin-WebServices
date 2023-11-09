@@ -19,6 +19,7 @@ class UserTest extends TestCase
         'username',
         'website'
     ];
+
     protected function setUp(): void
     {
         BypassFinals::enable();
@@ -27,7 +28,7 @@ class UserTest extends TestCase
     public function testPropertiesExist(): void
     {
         $reflexion = new \ReflectionClass((new User()));
-        $props = array_map(static fn(\ReflectionProperty $prop) => $prop->getName(), $reflexion->getProperties());
+        $props = array_map(static fn(\ReflectionProperty $prop): string => $prop->getName(), $reflexion->getProperties());
         sort($props);
         $this->assertEquals(self::$expectedProperties, $props);
     }

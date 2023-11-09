@@ -19,7 +19,6 @@ trait WsAstrobinTrait
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     protected function getImagesFromResource(AstrobinResponse $entity): ?AstrobinResponse
     {
@@ -37,6 +36,7 @@ trait WsAstrobinTrait
                     $listImages->add($astrobinImage);
                 }
             }
+
             $entity->images = $listImages;
         }
 
@@ -47,7 +47,6 @@ trait WsAstrobinTrait
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     private function getWsImage(string $imageId): ?AstrobinResponse
     {
@@ -64,6 +63,7 @@ trait WsAstrobinTrait
             if (is_null($response)) {
                 return new AstrobinError(WsException::ERR_EMPTY);
             }
+
             $AstrobinResponse = $this->buildResponse($response);
         } catch (WsException | JsonException $e) {
             $AstrobinResponse = new AstrobinError($e->getMessage());

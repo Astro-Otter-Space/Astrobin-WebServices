@@ -15,6 +15,7 @@ use AstrobinWs\Response\Iterators\ImageIterator;
 final class ListImages implements \IteratorAggregate, AstrobinResponse
 {
     public array $listImages = [];
+
     public int $count = 0;
 
     public function getIterator(): ImageIterator

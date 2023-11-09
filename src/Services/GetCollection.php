@@ -21,27 +21,21 @@ class GetCollection extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
+    /**
+     * @var string
+     */
     final public const END_POINT = 'collection';
 
-    /**
-     * @return string
-     */
     protected function getEndPoint(): string
     {
         return self::END_POINT;
     }
 
-    /**
-     * @return string
-     */
     protected function getObjectEntity(): string
     {
         return Collection::class;
     }
 
-    /**
-     * @return string
-     */
     protected function getCollectionEntity(): string
     {
         return ListCollection::class;
@@ -49,24 +43,21 @@ class GetCollection extends AbstractWebService implements WsInterface
 
 
     /**
-     * @param string|null $id
-     * @return AstrobinResponse|null
      * @throws WsException
      * @throws WsResponseException
      * @throws \JsonException
-     * @throws \ReflectionException
      */
     public function getById(?string $id): ?AstrobinResponse
     {
         if (is_null($id)) {
             throw new WsException(sprintf(WsException::EMPTY_ID, $id), 500, null);
         }
+
         $collection = $this->sendRequestAndBuildResponse($id, null);
         return $this->getImagesFromResource($collection);
     }
 
     /**
-     * @deprecated
      * Request by "user" attribute is not allowed anymore
      * @return ListCollection|null
      * @throws \JsonException
@@ -79,6 +70,7 @@ class GetCollection extends AbstractWebService implements WsInterface
         if (parent::LIMIT_MAX < $limit) {
             return null;
         }
+
         $params = [CollectionFilters::USER_FILTER->value => $username, QueryFilters::LIMIT->value => $limit];
         return $this->sendRequestAndBuildResponse(null, $params);
     }

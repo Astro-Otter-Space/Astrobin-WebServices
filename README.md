@@ -31,10 +31,10 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.5.2
+Version 2.6.0
 
 ## Requirements
-* PHP 8.1 min or superior (oldest versions are no longer supported)
+* PHP 8.2 min or superior (oldest versions are no longer supported)
 * API Key and API Secret from [Astrobin](https://www.astrobin.com/api/request-key/)
 
 ## Introduction
@@ -53,17 +53,20 @@ You can install this package in 2 different ways.
 Update to the newest version :
 > `composer update hamhamfonfon/astrobin-ws`
 
-* If you just want to make some issues, make some simple tests etc, juste clone the repository
-
-> `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
 If you're using old PHP versions:
+- PHP 8.1
+> `composer require hamhamfonfon/astrobin-ws:2.5`
 - PHP 7.4 | 8.0
 > `composer require hamhamfonfon/astrobin-ws:2.4`
 - PHP 7.3
 > `composer require hamhamfonfon/astrobin-ws:2.3`
 
-Caution, these versions are not maintained anymore. Only 2.5.* will be maintained and will have new features.
+Caution, these versions are not maintained anymore. Only 2.6.* will be maintained and will have new features.
+
+* If you just want to make some issues, make some simple tests etc, juste clone the repository
+
+> `git clone git@github.com:HamHamFonFon/Astrobin-Webservices.git`
 
 ### Usage
 

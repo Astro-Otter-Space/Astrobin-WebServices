@@ -18,6 +18,9 @@ class GetUser extends AbstractWebService implements WsInterface
 {
     use WsAstrobinTrait;
 
+    /**
+     * @var string
+     */
     final public const END_POINT = 'userprofile';
 
     /**
@@ -64,7 +67,11 @@ class GetUser extends AbstractWebService implements WsInterface
      */
     public function getByUsername(string $username, int $limit): ?AstrobinResponse
     {
-        if (empty($username) || (parent::LIMIT_MAX < $limit)) {
+        if (empty($username)) {
+            return null;
+        }
+
+        if (parent::LIMIT_MAX < $limit) {
             return null;
         }
 
