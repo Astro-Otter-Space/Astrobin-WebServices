@@ -31,7 +31,7 @@
  * [Authors](#authors)
  * [Licence](#licence)
 
-Version 2.6.1
+Version 2.6.2
 
 ## Requirements
 * PHP 8.2 min or superior (oldest versions are no longer supported)
