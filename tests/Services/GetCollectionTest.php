@@ -5,6 +5,7 @@ namespace Services;
 use AstrobinWs\Exceptions\WsException;
 use AstrobinWs\Exceptions\WsResponseException;
 use AstrobinWs\Response\DTO\AstrobinError;
+use AstrobinWs\Response\DTO\AstrobinResponse;
 use AstrobinWs\Response\DTO\Collection\ListCollection;
 use AstrobinWs\Response\DTO\Collection\ListImages;
 use AstrobinWs\Response\DTO\Item\Collection;
@@ -149,7 +150,7 @@ class GetCollectionTest extends TestCase
         $collection = $reflectionMethod->invoke($this->astrobinWs, $collection); // $this->astrobinWs->getImagesFromResource($collection);
         $this->assertCount($nbItems, $collection->images);
         foreach ($collection->images as $image) {
-            $this->assertInstanceOf(Image::class, $image);
+            $this->assertInstanceOf(AstrobinResponse::class, $image);
         }
     }
 
